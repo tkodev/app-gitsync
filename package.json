@@ -1,0 +1,44 @@
+{
+  "name": "tmpl-gitrepo",
+  "version": "1.0.0",
+  "description": "Git Repo Template",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "babel-node index.js",
+    "dev": "clear; nodemon --exec babel-node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/htkoca/tmpl-gitrepo.git"
+  },
+  "keywords": [
+    "Git",
+    "Repo",
+    "Template"
+  ],
+  "gallery": [
+    "test.png"
+  ],
+  "author": "Tony Ko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/htkoca/tmpl-gitrepo/issues"
+  },
+  "homepage": "https://github.com/htkoca/tmpl-gitrepo#readme",
+  "devDependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/node": "^7.6.3",
+    "@babel/preset-env": "^7.6.3",
+    "babel-loader": "^8.0.6",
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "nodemon": "^1.19.4"
+  }
+}
