@@ -1,17 +1,9 @@
 {
   "name": "tmpl-gitrepo",
+  "author": "Tony Ko",
   "version": "1.0.0",
+  "license": "ISC",
   "description": "Git Repo Template",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "babel-node index.js",
-    "dev": "clear; nodemon --exec babel-node index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/htkoca/tmpl-gitrepo.git"
-  },
   "keywords": [
     "Git",
     "Repo",
@@ -20,17 +12,26 @@
   "gallery": [
     "test.png"
   ],
-  "author": "Tony Ko",
-  "license": "ISC",
+  "homepage": "https://github.com/htkoca/tmpl-gitrepo#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/htkoca/tmpl-gitrepo.git"
+  },
   "bugs": {
     "url": "https://github.com/htkoca/tmpl-gitrepo/issues"
   },
-  "homepage": "https://github.com/htkoca/tmpl-gitrepo#readme",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf ./dist && babel ./src --out-dir ./dist",
+    "start": "node ./dist/index.js",
+    "dev": "clear; nodemon --exec babel-node ./src/index.js"
+  },
   "devDependencies": {
+    "@babel/cli": "^7.7.0",
     "@babel/core": "^7.6.4",
     "@babel/node": "^7.6.3",
     "@babel/preset-env": "^7.6.3",
-    "babel-loader": "^8.0.6",
     "eslint": "^6.1.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.5.0",
@@ -39,6 +40,15 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^1.7.0",
-    "nodemon": "^1.19.4"
+    "nodemon": "^1.19.4",
+    "prettier": "^1.18.2"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "dotenv": "^8.2.0",
+    "fast-glob": "^3.1.0",
+    "lodash": "^4.17.15",
+    "nodegit": "^0.26.2",
+    "normalize-path": "^3.0.0"
   }
 }

@@ -2,19 +2,23 @@
 // Init
 // ****************************************************************************************************
 
+// dependencies
+import dotenv from 'dotenv';
+
 // local dependencies
-import load from './actions/load';
-import list from './actions/list';
+import Local from '../services/local';
 
 // init instances
-console.log('start app');
+const config = dotenv.config();
 
 // ****************************************************************************************************
 // Main
 // ****************************************************************************************************
 
-(async () => {
-  let services = {};
-  services = await load();
-  services = await list(services);
-})();
+export default async function load() {
+  return {
+    local: new Local({
+      reposPath: process.env.REPOS_PATH
+    })
+  };
+}
