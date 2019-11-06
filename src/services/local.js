@@ -9,7 +9,7 @@ import normalize from 'normalize-path';
 import git from 'nodegit';
 
 // local dependencies
-import { asyncForEach, asyncMap, asyncReduce } from '../modules/async';
+import { asyncForEach, asyncMap, asyncReduce } from '../libraries/async';
 
 // ****************************************************************************************************
 // Main
@@ -29,7 +29,6 @@ export default class Service {
     });
     this.repos = this.repos.map((repoPath) => path.dirname(repoPath));
     this.repos = await asyncMap(this.repos, async (repoPath) => {
-      console.log(`processing ${repoPath}`);
       const repo = await git.Repository.open(repoPath);
       const remotes = await repo.getRemotes().then((remotesArr) => {
         // prettier-ignore
