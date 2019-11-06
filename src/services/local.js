@@ -17,12 +17,12 @@ import { asyncForEach, asyncMap, asyncReduce } from '../libraries/async';
 
 export default class Service {
   constructor(options) {
-    this.reposPath = options.reposPath;
+    this.localPath = options.localPath;
     this.repos = [];
   }
   async list() {
     this.repos = await glob('**/.git', {
-      cwd: normalize(this.reposPath),
+      cwd: normalize(this.localPath),
       ignore: ['**/{.git,node_modules}/**/*'],
       onlyDirectories: true,
       absolute: true
