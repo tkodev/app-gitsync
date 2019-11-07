@@ -3,7 +3,7 @@
 // ****************************************************************************************************
 
 // local dependencies
-import load from './actions/load';
+import init from './actions/init';
 import list from './actions/list';
 
 // init instances
@@ -15,6 +15,6 @@ console.log('start app');
 
 (async () => {
   let services = {};
-  services = await load();
+  services = await init(services);
   services = await list(services);
 })();
