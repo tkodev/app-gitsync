@@ -3,13 +3,25 @@
 // ****************************************************************************************************
 
 // local dependencies
-import App from './controllers/App';
 
 // ****************************************************************************************************
 // Main
 // ****************************************************************************************************
 
-(async () => {
-  const app = new App();
-  await app.start();
-})();
+export default class Repo {
+  constructor() {
+    console.log(this);
+  }
+  create() {
+    console.log(this);
+  }
+  read() {
+    console.log(this);
+  }
+  update() {
+    console.log(this);
+  }
+  delete() {
+    console.log(this);
+  }
+}

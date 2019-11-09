@@ -3,19 +3,18 @@
 // ****************************************************************************************************
 
 // local dependencies
-import Local from '../services/local';
-import Github from '../services/github';
-
-// init instances
-const config = require('../../.env.json');
+import Repos from '../models/Repos';
 
 // ****************************************************************************************************
 // Main
 // ****************************************************************************************************
 
-export default async function load(services) {
-  return Object.assign(services, {
-    local: new Local(config.local),
-    github: new Github(config.github)
-  });
+export default class Sync {
+  constructor() {
+    this.localRepos = new Repos();
+    this.githubRepos = new Repos();
+  }
+  async start() {
+    console.log(this);
+  }
 }

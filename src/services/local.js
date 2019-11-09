@@ -9,23 +9,22 @@ import normalize from 'normalize-path';
 import git from 'nodegit';
 
 // local dependencies
-import { asyncMap } from '../libraries/async';
+import { asyncMap } from '../../local_modules/async';
 
 // ****************************************************************************************************
 // Functions
 // ****************************************************************************************************
 
-async function getRepos(directory) {
+async function retrieveRepos(directory) {
   const repoPaths = await glob('**/.git', {
     cwd: normalize(directory),
     ignore: ['**/{.git,node_modules}/**/*'],
     onlyDirectories: true,
     absolute: true
   });
-  const rslt = await asyncMap(repoPaths, async (repoPath) => {
+  return asyncMap(repoPaths, async (repoPath) => {
     return git.Repository.open(path.dirname(repoPath));
   });
-  return rslt;
 }
 
 async function getRemotes(repo) {
@@ -44,31 +43,35 @@ async function getStatus(repo) {
   });
 }
 
+async function compileRepos(repos) {
+  return asyncMap(repos, async (repo) => {
+    return {
+      name: path.basename(repo.workdir()),
+      path: repo.workdir(),
+      license: '',
+      description: '',
+      keywords: [],
+      homepage: '',
+      remotes: await getRemotes(repo),
+      status: await getStatus(repo)
+    };
+  });
+}
+
 // ****************************************************************************************************
 // Main
 // ****************************************************************************************************
 
-export default class Service {
-  constructor(options) {
-    console.log('[local] init');
-    this.directory = options.directory;
+export default class Github {
+  constructor(srcDir) {
+    this.srcDir = srcDir;
   }
-  async list() {
-    console.log('[local] list');
-    const repos = await getRepos(this.directory);
-    const rslt = await asyncMap(repos, async (repo) => {
-      return {
-        name: path.basename(repo.workdir()),
-        path: repo.workdir(),
-        license: '',
-        description: '',
-        keywords: [],
-        homepage: '',
-        remotes: await getRemotes(repo),
-        status: await getStatus(repo)
-      };
-    });
-    this.repos = rslt;
-    return this.repos;
+  async getRepos() {
+    const repos = await retrieveRepos(this.srcDir);
+    const rslt = await compileRepos(repos);
+    return rslt;
+  }
+  async setRepos() {
+    console.log(this);
   }
 }
