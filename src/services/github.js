@@ -3,56 +3,59 @@
 // ****************************************************************************************************
 
 // dependencies
-import { Graphql } from '@octokit/graphql';
-import { Rest } from '@octokit/rest';
-import humanize from 'humanize-graphql-response';
+import { graphql as QL } from '@octokit/graphql';
+import Rest from '@octokit/rest';
+import path from 'path';
 
 // local dependencies
-import { asyncMap } from '../../local_modules/async';
+import { asyncMap } from '../../local_modules/htko';
 
 // ****************************************************************************************************
 // Functions
 // ****************************************************************************************************
 
-async function retrieveRepos(gqlAuth) {
-  const repos = await gqlAuth(`
-    { 
+async function readRepos(octoQL) {
+  return octoQL(`
+    {
       viewer {
-        repositories(first: 10) {
-          edges {
-            node {
-              name
-              licenseInfo { name }
-              description
-              repositoryTopics (first: 10) { edges { node { topic { name } } } }
-              homepageUrl
-              url
-            }
+        repositories(first: 50) {
+          nodes {
+            path: url
+            name
+            license: licenseInfo { name }
+            description
+            keywords: repositoryTopics(first: 10) { nodes { topic { name } } }
+            homepage: homepageUrl
+            hash: defaultBranchRef { target { ... on Commit { history(first: 1) { nodes { id } } } } }
+            json: object(expression: "master:package.json") { ... on Blob { text } }
           }
         }
       }
     }
-  `);
-  return humanize(repos.viewer).repositories.map((repo) => {
-    // eslint-disable-next-line no-param-reassign
-    repo.repositoryTopics = repo.repositoryTopics.map((topicObj) => topicObj.topic.name);
-    return repo;
+  `).then((repos) => repos.viewer.repositories.nodes);
+}
+
+async function readJsons(repos) {
+  return asyncMap(repos, async (repo) => {
+    return repo.json && repo.json.text ? JSON.parse(repo.json.text) : {};
   });
 }
 
-async function compileRepos(repos) {
-  return asyncMap(repos, async (repo) => {
+async function requestRepos(octoQL) {
+  const repos = await readRepos(octoQL);
+  const jsons = await readJsons(repos);
+  return asyncMap(repos, async (repo, idx) => {
     return {
+      path: repo.path,
       name: repo.name,
-      path: repo.url,
-      license: repo.licenseInfo || '',
-      description: repo.description,
-      keywords: repo.repositoryTopics,
-      homepage: repo.homepageUrl,
-      remotes: {
-        origin: `${repo.url}.git`
-      },
-      status: 0
+      license: repo.license && repo.license.name ? repo.license.name : '',
+      description: repo.description || '',
+      keywords: repo.keywords.nodes.map((topicObj) => topicObj.topic.name),
+      homepage: repo.homepage || '',
+      remotes: { origin: `${repo.path}.git` },
+      status: 0,
+      hash: repo.hash.target.history.nodes[0].id,
+      json: jsons[idx]
     };
   });
 }
@@ -61,9 +64,9 @@ async function compileRepos(repos) {
 // Main
 // ****************************************************************************************************
 
-export default class Github {
+export default class GithubService {
   constructor(token) {
-    this.octoQL = Graphql.defaults({
+    this.octoQL = QL.defaults({
       headers: {
         authorization: token
       }
@@ -73,11 +76,7 @@ export default class Github {
     });
   }
   async getRepos() {
-    const repos = await retrieveRepos(this.octoQL);
-    const rslt = await compileRepos(repos);
-    return rslt;
-  }
-  async setRepos() {
-    console.log(this);
+    const repos = await requestRepos(this.octoQL);
+    return repos;
   }
 }

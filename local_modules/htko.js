@@ -36,3 +36,14 @@ export const asyncReduceRight = async function asyncReduceRight(array, callback,
   }
   return rslt;
 };
+
+export const deepClone = function deepClone(obj) {
+  return JSON.parse(JSON.stringify(obj));
+};
+
+export const arrayToObject = function arrayToObject(arr, key) {
+  return arr.reduce((obj, item) => {
+    obj[item[key]] = item;
+    return obj;
+  }, {});
+};

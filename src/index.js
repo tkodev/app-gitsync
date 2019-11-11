@@ -3,13 +3,13 @@
 // ****************************************************************************************************
 
 // local dependencies
-import App from './controllers/App';
+import AppController from './controllers/App';
 
 // ****************************************************************************************************
 // Main
 // ****************************************************************************************************
 
 (async () => {
-  const app = new App();
-  await app.start();
+  const appController = new AppController();
+  await appController.start();
 })();

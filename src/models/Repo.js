@@ -8,9 +8,9 @@
 // Main
 // ****************************************************************************************************
 
-export default class Repo {
-  constructor() {
-    console.log(this);
+export default class RepoModel {
+  constructor(repo) {
+    this.name = repo.name || '';
   }
 }
 

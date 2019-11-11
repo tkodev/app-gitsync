@@ -1,0 +1,1897 @@
+{
+  "data": {
+    "viewer": {
+      "repositories": {
+        "nodes": [
+          {
+            "object": null,
+            "name": "maker-proton-switch",
+            "licenseInfo": null,
+            "description": "💡Smart WIFI light switch, temp sensor, garage opener, IR Blaster, AIO device. Built with Particle Photon (cloud arduino).",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "https://www.youtube.com/watch?v=7FFnYyeRKBw",
+            "url": "https://github.com/htkoca/maker-proton-switch",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0NTU5NjY2NTA6YjYxODRiYzZkY2U0MDZlN2EwZGI4ZDA4YWQ5NjM3OTJlMjI5OGQ4Zg=="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "docs-lua-lang",
+            "licenseInfo": null,
+            "description": "📓 Docs & notes on my self learning journey in the lua language.",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/docs-lua-lang",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0NzM2NzIyOTQ6OWI0NTE3OWU1ZTRhZTk5YjMzOGVmMzUwYTYyZTlmNGNjMWUzNzI2OQ=="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "utils-toolkit",
+            "licenseInfo": null,
+            "description": "💻 A collection of bash and docker compose scripts.",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/utils-toolkit",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0NzM2Nzk2NTM6NTVlMWQ0OGNmYzEyZDNhNmE3Njk4Y2VhY2IyYjBmMzJiYzcwZDJhMg=="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "utils-legacy",
+            "licenseInfo": null,
+            "description": "🛠️ Collection of scripts for several esoteric languages.",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/utils-legacy",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0NzM2ODA4MDg6ZmY4ZmU5MGVhMjAzNjA0OTg2MGUyODA2ZTQwNzgyMzllN2Y2OWZhNg=="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "site-htko",
+            "licenseInfo": null,
+            "description": "⚡ Codebase for personal portfolio homepage at htko.ca",
+            "repositoryTopics": {
+              "nodes": [
+                {
+                  "topic": {
+                    "name": "vue"
+                  }
+                },
+                {
+                  "topic": {
+                    "name": "webpack"
+                  }
+                },
+                {
+                  "topic": {
+                    "name": "sass"
+                  }
+                },
+                {
+                  "topic": {
+                    "name": "bootstrap"
+                  }
+                },
+                {
+                  "topic": {
+                    "name": "portfolio"
+                  }
+                },
+                {
+                  "topic": {
+                    "name": "dev"
+                  }
+                }
+              ]
+            },
+            "homepageUrl": "http://www.htko.ca/",
+            "url": "https://github.com/htkoca/site-htko",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0NzM2ODI1OTY6ZTBmY2Q3YjQ2NjVkODM2NGZmZjVkNmM4ZmIyY2I5NjA1MGU3NjgxYw=="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "fcc-local-weather",
+            "licenseInfo": null,
+            "description": "Free Code Camp Project - Weather Widget",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "https://htkoca.github.io/fcc-local-weather-widget/release/",
+            "url": "https://github.com/htkoca/fcc-local-weather",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0Nzc0Mzk1NzY6ZWM3M2YwM2Q5YjVlNGFkM2ExZmQxOWI4OTBlZjQyYjRkZWIyOWUwNg=="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "fcc-quote-machine",
+            "licenseInfo": null,
+            "description": "FreeCodeCamp - Front End Libraries Projects - Build a Random Quote Machine",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "https://htkoca.github.io/fcc-quote-machine/sources/public/",
+            "url": "https://github.com/htkoca/fcc-quote-machine",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0Nzc0Mzk3MDM6Y2Y0OWFhZDQwNDg2ZDYwM2RiMmQyNmE5OGI3ZjA5ZTgzZTkzZTdiMQ=="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "fcc-tribute-page",
+            "licenseInfo": null,
+            "description": "FreeCodeCamp - Responsive Web Design Projects - Build a Tribute Page",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "https://htkoca.github.io/fcc-tribute-page/sources/",
+            "url": "https://github.com/htkoca/fcc-tribute-page",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0Nzc0Mzk3NTU6NjQzNzkzOTVkMjUxYTM4NTdhOTQ0MGVlMGI3Nzg5ZDI0M2EzZjU0Nw=="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "fcc-twitch-viewer",
+            "licenseInfo": null,
+            "description": "🔎 Free Code Camp Project - Twitch Channels Widget",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "https://htkoca.github.io/fcc-twitch-channels-widget/release/",
+            "url": "https://github.com/htkoca/fcc-twitch-viewer",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0Nzc0Mzk3ODI6MjhlZWQwZWYxNDBlOTM4MGQxODc0MzI2YTU5NDAwOWIxMzViZjkyOA=="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "fcc-wikipedia-viewer",
+            "licenseInfo": null,
+            "description": "Free Code Camp Project - Wikipedia Viewer Widget",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "https://htkoca.github.io/fcc-wikipedia-viewer-widget/release/",
+            "url": "https://github.com/htkoca/fcc-wikipedia-viewer",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0Nzc0Mzk4MDM6YmJjYmMwMGYwNmRmZGUzMTA5Y2IyM2RlMTUzMDY2MWJkYzlkMGY4YQ=="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": {
+              "text": "{\n  \"name\": \"font-awesome-pro\",\n  \"description\": \"The iconic font and CSS framework\",\n  \"version\": \"5.11.2\",\n  \"private\": true,\n  \"keywords\": [\"font\", \"awesome\", \"fontawesome\", \"icon\", \"bootstrap\"],\n  \"homepage\": \"https://fontawesome.com/\",\n  \"bugs\": {\n    \"url\" : \"http://github.com/FortAwesome/Font-Awesome-Pro/issues\"\n  },\n  \"author\": {\n    \"name\": \"Dave Gandy\",\n    \"email\": \"dave@fontawesome.io\",\n    \"web\": \"http://twitter.com/davegandy\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/FortAwesome/Font-Awesome-Pro.git\"\n  },\n  \"contributors\": [\n    {\n      \"name\": \"Brian Talbot\",\n      \"web\": \"http://twitter.com/talbs\"\n    },\n    {\n      \"name\": \"Travis Chase\",\n      \"web\": \"http://twitter.com/supercodepoet\"\n    },\n    {\n      \"name\": \"Rob Madole\",\n      \"web\": \"http://twitter.com/robmadole\"\n    },\n    {\n      \"name\": \"Geremia Taglialatela\",\n      \"web\": \"http://twitter.com/gtagliala\"\n    },\n    {\n      \"name\": \"Mike Wilkerson\",\n      \"web\": \"http://twitter.com/mw77\"\n    }\n  ],\n  \"license\": \"Font Awesome 5 Pro Commercial License\",\n  \"dependencies\": {\n  }\n}\n"
+            },
+            "name": "Font-Awesome-Pro",
+            "licenseInfo": null,
+            "description": "The internet's most popular icon has been redesigned and built from scratch.",
+            "repositoryTopics": {
+              "nodes": [
+                {
+                  "topic": {
+                    "name": "icons"
+                  }
+                },
+                {
+                  "topic": {
+                    "name": "icon-font"
+                  }
+                },
+                {
+                  "topic": {
+                    "name": "svg-icons"
+                  }
+                }
+              ]
+            },
+            "homepageUrl": "http://fontawesome.com/",
+            "url": "https://github.com/FortAwesome/Font-Awesome-Pro",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0Nzk1NzEzMDM6YjBjN2RmNTMzN2RlOWYxYjgzZTgzNDM4OTMzMmQ0ZjFhZGMwNWUzOQ=="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "fcc-calculator",
+            "licenseInfo": null,
+            "description": "FreeCodeCamp - Front End Libraries Projects - Build a JavaScript Calculator",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "https://htkoca.github.io/fcc-calculator/sources/public/",
+            "url": "https://github.com/htkoca/fcc-calculator",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0ODA2MDk1MTQ6OGIzZmMwZGYwZjQyYmJjNjNjZjNiMzZjMjBlZWM0ZDIzN2E5NjcyMQ=="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "fcc-pomodoro-clock",
+            "licenseInfo": null,
+            "description": "FreeCodeCamp - Front End Libraries Projects - Build a Pomodoro Clock",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "https://htkoca.github.io/fcc-pomodoro-clock/sources/public/",
+            "url": "https://github.com/htkoca/fcc-pomodoro-clock",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0ODA2MDk5NTU6ODc0YThjZjY1NzM5YzJjY2ZjYTE2MmJmOThlMDlmNDViN2VkYmYyMA=="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "fcc-tic-tac-toe",
+            "licenseInfo": null,
+            "description": "🎮 Free Code Camp Project - Tic Tac Toe Widget",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "https://htkoca.github.io/fcc-tic-tac-toe-widget/release/",
+            "url": "https://github.com/htkoca/fcc-tic-tac-toe",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0ODA2MTAwMDA6YzAxZTM5NDlhNDllNzg1OWFjYzlhN2UwODQ1Y2RkYzgzMDIxMmEwMw=="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "fcc-simon-game",
+            "licenseInfo": null,
+            "description": "🎲 Free Code Camp Project - Simon Game Widget",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "https://htkoca.github.io/fcc-simon-game-widget/release/",
+            "url": "https://github.com/htkoca/fcc-simon-game",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0ODA2MTAwMzY6NTVkZjhhNGJhN2ZmOTBhNDU5MWE1MTk2YTFiYWJkZWI1Y2M5MWRiMg=="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "app-infolio",
+            "licenseInfo": null,
+            "description": "🗃 Portfolio management app built with Electron & Vue",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/app-infolio",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0ODg0NDY2NjU6ZWU0OTliZDk4MWU1ODEyZTRlMzQzNDMyNjczZTdmYzMyN2M5ZTM2MA=="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": {
+              "text": "{\n  \"name\": \"koa-ractive\",\n  \"version\": \"1.0.0\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/heinzeya/koa-ractive.git\"\n  },\n  \"dependencies\": {\n    \"ractive\": \"^0.9.0\"\n  }\n}\n"
+            },
+            "name": "bf-koa-ractive",
+            "licenseInfo": null,
+            "description": "Ractive components render in server site (koa)",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/bf-koa-ractive",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTAzMTczMzA1OjU4YjA3N2E0MTA1NDI3ZGM1M2Q5ZjA4Yzg0ZWJkZWNkMjNjMjhkZjA="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": {
+              "text": "{\n  \"name\": \"facetor\",\n  \"version\": \"2.0.9\",\n  \"description\": \"NPM module to filter a list of objects by its fields. Useful for e-commerce style catalog pages.\",\n  \"main\": \"index.js\",\n  \"scripts\": {\n    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\",\n    \"example\": \"node node-example.js\",\n    \"watch\": \"nodemon node-example.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/htkoca/lib-facetor.git\"\n  },\n  \"keywords\": [\n    \"facet\",\n    \"search\",\n    \"filter\",\n    \"catalog\",\n    \"results\",\n    \"items\",\n    \"listing\"\n  ],\n  \"author\": \"Tony Ko\",\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/htkoca/lib-facetor/issues\"\n  },\n  \"homepage\": \"https://github.com/htkoca/lib-facetor#readme\",\n  \"dependencies\": {\n    \"big-integer\": \"^1.6.26\"\n  },\n  \"devDependencies\": {\n    \"nodemon\": \"^1.18.7\"\n  }\n}\n"
+            },
+            "name": "lib-facetor",
+            "licenseInfo": {
+              "name": "MIT License"
+            },
+            "description": "🔍 Facetor - a NPM module to filter a list of objects by its fields. Useful for e-commerce style catalog pages.",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/lib-facetor",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTIyNTY5NzExOjIzNzg1ODk1Y2E5ZDE0YmNjOWQ5YWRhM2RlMDE3ZDk3OWViZTExZjk="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "utils-hackintosh",
+            "licenseInfo": null,
+            "description": "🖥 Hackintosh Clover Bootloader Files for ASUS Z97i Plus, Intel 4690k, GTX 1080",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/utils-hackintosh",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTQzODE3MTQ4OjE4MTBiYzNmMzUxNDc2OWFiYTgwYWUyYzEzYjBjZmZhZGE2MTJlMzk="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "site-tna",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/site-tna",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTQ2OTExMzYwOjAzYmQ4ZDM0MmQyOGY2MThmYTFjMzJhZmQyZDMxNWIzYTFkZDVlZWQ="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "site-kid",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/site-kid",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTQ2OTExMzg0OjM1ZDEwNWU0YTJhMDM4NTY1YzU3OTg2YTMyM2YxZDE2NzhkNjgxZTY="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "bf-assets",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/bf-assets",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTU0MjQ2NzU3OjcxNDVlMTAxNmY1MjkxZGU1ZTBmMTEzNzA1ZTdiNmEwNzY3NDYzNDk="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "gfx-abc-cakes",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/gfx-abc-cakes",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTU0MjU4MjU4OmRjM2FjZDJkMDUxNWU5M2EzYjM0ZjdhMWY5MWM4MGNhMDgyNjFkMGE="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "gfx-hybrid-theme",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/gfx-hybrid-theme",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTU0MjU4NDEzOjJiMmQ0NzM0ZTBhYWM5ZjRlYzc4MzQ4ZTEyZDFhNWNiMTdkNzJjMWQ="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "gfx-naha-sushi",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/gfx-naha-sushi",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTU0MjU4NDUyOmI5OTAyYjJlYmNiZTVlZGIyNTk5OTMzOGU4NTBhMGViZDc1YjcyMjI="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "gfx-pixel-infinity",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/gfx-pixel-infinity",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTU0MjU4NDc3Ojk0ZWJmZWQ2NGIwNzgwZDhiMWY2ZmNmMGQ4NTA1NDNmN2JmNjExMGU="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "id-1900s-queen-st-modernization",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/id-1900s-queen-st-modernization",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTU0MjU4NDkxOmMyMDhhZDIwYjBlMGFjY2MzY2Q1ZjUzZTllMzg1NGEyYzkzNjgyNTY="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "id-alexandra-park-revitalization",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/id-alexandra-park-revitalization",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTU0MjU4NTEyOjM3NWI0ZTYwZGFiMTUxYmY4NGNlMGZlZWZlMDkwMDI3NDEzZGUzNzQ="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "id-art-gallery-of-ontario-staircase",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/id-art-gallery-of-ontario-staircase",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTU0MjU4NTUwOjc0NDEzMmNhOGYwNzc1YWVmYTU4N2UwN2U2ZGYyMGUxMmM0NDdjMzY="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "id-casa-das-canoas-scale-model",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/id-casa-das-canoas-scale-model",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTU0MjU4NTY1OjI3NTU5MmY1MTZmMjY1NzkwNzQzY2MwZTJkMDg3MDRmOGE1Yjg2NjA="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "id-mocca-courtyard-module-rev-1",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/id-mocca-courtyard-module-rev-1",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTU0MjU4NTgxOjQ3NTQ3NmVkMTU0NTMxYTE2ZTljYTM3NzAwNzNkZWIyOWEwOWQwZTg="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "id-mocca-courtyard-module-rev-2",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/id-mocca-courtyard-module-rev-2",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTU0MjU4NTk0OjI0MjIyN2YwZDk2YTllNjU5YWY2NDAwY2JmNDFmOTgyNDEyNjY0OGM="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "id-mood-light-modulator",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/id-mood-light-modulator",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTU0MjU4NjM3Ojc0ODY4OTM1Mzk2MGZkYzI0MjI3ZDdmOWQ2MDc5YmEwNDY5MzJmNjk="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "id-sculpture-gallery",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/id-sculpture-gallery",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTU0MjU4NjczOjZjNjMyMzI5ZmQyMWUwOTU2N2I3MjM1NjMxMTM1MTYwYjM1ZGUyYzA="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": {
+              "text": "{\n  \"name\": \"gulp-json-tasks\",\n  \"version\": \"4.1.4\",\n  \"description\": \"A NPM module to create Gulp 4.x tasks via JSON config\",\n  \"main\": \"index.js\",\n  \"scripts\": {\n    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\",\n    \"build\": \"gulp build\",\n    \"watch\": \"gulp watch\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/htkoca/lib-gulp-json-tasks.git\"\n  },\n  \"keywords\": [\n    \"gulp\",\n    \"sass\",\n    \"scss\",\n    \"css\",\n    \"js\",\n    \"concat\",\n    \"uglify\",\n    \"compress\",\n    \"task\",\n    \"browsersync\",\n    \"bash\",\n    \"webpack\",\n    \"bundle\"\n  ],\n  \"author\": \"Tony Ko\",\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/htkoca/lib-gulp-json-tasks/issues\"\n  },\n  \"homepage\": \"https://github.com/htkoca/lib-gulp-json-tasks#readme\",\n  \"dependencies\": {\n    \"autoprefixer\": \"^9.3.1\",\n    \"browser-sync\": \"^2.26.3\",\n    \"del\": \"^3.0.0\",\n    \"gulp\": \"^4.0.0\",\n    \"gulp-concat\": \"^2.6.1\",\n    \"gulp-filter\": \"^5.1.0\",\n    \"gulp-imagemin\": \"^5.0.3\",\n    \"gulp-noop\": \"^1.0.0\",\n    \"gulp-plumber\": \"^1.2.1\",\n    \"gulp-postcss\": \"^8.0.0\",\n    \"gulp-sass\": \"^4.0.2\",\n    \"gulp-sourcemaps\": \"^2.6.4\",\n    \"gulp-uglify\": \"^3.0.1\",\n    \"instance-control\": \"^1.0.8\",\n    \"webpack\": \"^4.29.3\"\n  },\n  \"devDependencies\": {}\n}\n"
+            },
+            "name": "lib-gulp-json-tasks",
+            "licenseInfo": {
+              "name": "MIT License"
+            },
+            "description": "🔍 Gulp Task Wrapper - A NPM module to help build Gulp (v4.x.x) tasks using simple JSON config.",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/lib-gulp-json-tasks",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTYwMTE0MjAyOjg3M2I4ZjI4MmE0ZWUyODNmNWNjOTVmNDZkYmRiMmRiZGY1MDZkYmI="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": {
+              "text": "{\n  \"name\": \"instance-control\",\n  \"version\": \"1.0.8\",\n  \"description\": \"A NPM module to wrap around node's child process spawn functions.\",\n  \"main\": \"index.js\",\n  \"scripts\": {\n    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\",\n    \"example\": \"node example.js\",\n    \"watch\": \"nodemon example.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/htkoca/lib-instance-control.git\"\n  },\n  \"keywords\": [\n    \"node\",\n    \"process\",\n    \"gulp\",\n    \"child\",\n    \"cli\",\n    \"bash\",\n    \"command\",\n    \"line\"\n  ],\n  \"author\": \"Tony Ko\",\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/htkoca/lib-instance-control/issues\"\n  },\n  \"homepage\": \"https://github.com/htkoca/lib-instance-control#readme\",\n  \"dependencies\": {},\n  \"devDependencies\": {\n    \"nodemon\": \"^1.18.7\"\n  }\n}\n"
+            },
+            "name": "lib-instance-control",
+            "licenseInfo": {
+              "name": "MIT License"
+            },
+            "description": "🔌 Instance Control - A NPM module to wrap around node's child process spawn functions.",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/lib-instance-control",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTYwNDAxNjUzOjg3YjEyZTkxMmM2YzdkNTM3ZDhjZjhhMzA0MjA5M2U3ZDZkZTlmYzA="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "maker-laser-badge",
+            "licenseInfo": null,
+            "description": "Ylab Laser Cutting Class Materials",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/maker-laser-badge",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTY4MjUzNzMyOjU3MTlmOGE2NGRiMjIyOGEzZmQ2YWZhMjUzNTg3YWI2YzdkMjFmOTI="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": {
+              "text": "{\n  \"name\": \"babyjogger\",\n  \"version\": \"1.0.0\",\n  \"description\": \"\",\n  \"main\": \"./app.js\",\n  \"dependencies\": {\n    \"big-integer\": \"^1.6.23\",\n    \"koa\": \"^2.2.0\",\n    \"koa-bodyparser\": \"^4.2.0\",\n    \"koa-errors\": \"^1.0.1\",\n    \"koa-hbs\": \"^1.0.0-alpha.1\",\n    \"koa-ractive\": \"https://github.com/dirksen/koa-ractive\",\n    \"koa-router\": \"^7.0.1\",\n    \"koa2-mysql-wrapper\": \"^2.0.1\",\n    \"koa2-request\": \"^1.0.1\",\n    \"koa2-static-files\": \"^1.0.4\",\n    \"mkdirp\": \"^0.5.1\",\n    \"request\": \"^2.81.0\",\n    \"sqlstring\": \"^2.2.0\",\n    \"squel\": \"^5.9.1\"\n  },\n  \"devDependencies\": {\n    \"browser-sync\": \"^2.18.12\",\n    \"gulp\": \"github:gulpjs/gulp#4.0\",\n    \"gulp-nodemon\": \"^2.2.1\",\n    \"gulp-notify\": \"^3.0.0\",\n    \"gulp-plumber\": \"^1.1.0\",\n    \"gulp-rename\": \"^1.2.2\",\n    \"gulp-sass\": \"^3.1.0\",\n    \"gulp-sourcemaps\": \"^2.6.0\",\n    \"should\": \"^11.2.1\",\n    \"verb\": \"^0.8.10\"\n  },\n  \"scripts\": {\n    \"test\": \"mocha\",\n    \"start\": \"node app.js\",\n    \"build\": \"gulp build\",\n    \"dev\": \"gulp dev\",\n    \"watch\": \"gulp watch\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+ssh://git@bitbucket.org/brandfiremarketinggroup/eos.git\"\n  },\n  \"author\": \"\",\n  \"license\": \"ISC\",\n  \"homepage\": \"https://bitbucket.org/brandfiremarketinggroup/eos#readme\"\n}\n"
+            },
+            "name": "bf-babyjogger",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/bf-babyjogger",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTcyMTU0MDc5OmVlMjVlMzE3NmI1OGViMmU3Yjg4ZWMyMzk5Y2UzMWQwZTgyNDljYWQ="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": {
+              "text": "{\n  \"name\": \"byth7040\",\n  \"description\": \"Bring Your Toyota Home 2018\",\n  \"homepage\": \"https://bitbucket.org/brandfiremarketinggroup/byth7040#readme\",\n  \"version\": \"1.0.0\",\n  \"license\": \"ISC\",\n  \"author\": \"\",\n  \"main\": \"app.js\",\n  \"scripts\": {\n    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\",\n    \"watch\": \"gulp watch\",\n    \"build\": \"gulp build\",\n    \"build:live\": \"gulp build --live\",\n    \"start\": \"node app.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+ssh://git@bitbucket.org/brandfiremarketinggroup/byth7040git\"\n  },\n  \"dependencies\": {\n    \"csv-stringify\": \"^3.1.1\",\n    \"json2csv\": \"^4.3.1\",\n    \"koa\": \"^2.5.0\",\n    \"koa-basic-auth\": \"^2.0.0\",\n    \"koa-bodyparser\": \"^4.2.0\",\n    \"koa-json\": \"^2.0.2\",\n    \"koa-pug\": \"^3.0.0-2\",\n    \"koa-router\": \"^7.4.0\",\n    \"koa-sslify\": \"^2.1.2\",\n    \"koa2-mysql-wrapper\": \"git+https://github.com/dirksen/koa2-mysql-wrapper.git\",\n    \"koa2-static-files\": \"^1.0.4\",\n    \"moment\": \"^2.21.0\",\n    \"moment-timezone\": \"^0.5.14\",\n    \"qs\": \"^6.5.2\",\n    \"request\": \"^2.87.0\",\n    \"request-promise-native\": \"^1.0.5\"\n  },\n  \"devDependencies\": {\n    \"autoprefixer\": \"^8.1.0\",\n    \"browser-sync\": \"^2.26.3\",\n    \"colors\": \"^1.1.2\",\n    \"del\": \"^3.0.0\",\n    \"gulp\": \"github:gulpjs/gulp#4.0\",\n    \"gulp-changed\": \"^3.2.0\",\n    \"gulp-concat\": \"^2.6.1\",\n    \"gulp-imagemin\": \"^5.0.3\",\n    \"gulp-noop\": \"^1.0.0\",\n    \"gulp-plumber\": \"^1.2.0\",\n    \"gulp-postcss\": \"^7.0.1\",\n    \"gulp-rename\": \"^1.2.2\",\n    \"gulp-sass\": \"^3.1.0\",\n    \"gulp-sourcemaps\": \"^2.6.4\",\n    \"gulp-uglify\": \"^3.0.0\",\n    \"main-bower-files\": \"^2.13.1\",\n    \"node-cleanup\": \"^2.1.2\",\n    \"node-notifier\": \"^5.2.1\",\n    \"strip-ansi\": \"^4.0.0\",\n    \"underscore\": \"^1.8.3\",\n    \"yargs\": \"^11.0.0\"\n  }\n}\n"
+            },
+            "name": "bf-byth7040",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/bf-byth7040",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTcyMTU0MDg1OjZjZmJmNTc3YmJiYzc4NjQ1MmExN2EyNTMyNDM4OWVhMjVmMzZlMjY="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "bf-candry.svn",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/bf-candry.svn",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTcyMTU0MDg4OjYxNTBlZmQwYWU2NmEyYWFlY2E5YTg3YjU3ODk4ZDI0MTUzNTE5NGE="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": {
+              "text": "{\n  \"name\": \"cardinal-foodservice\",\n  \"version\": \"0.0.0\",\n  \"private\": true,\n  \"scripts\": {\n    \"start\": \"nodemon ./bin/www --ignore admin/config/ --ignore sessions/\"\n  },\n  \"dependencies\": {\n    \"autoprefixer-core\": \"^5.2.1\",\n    \"body-parser\": \"~1.12.0\",\n    \"cookie-parser\": \"~1.3.4\",\n    \"debug\": \"~2.1.1\",\n    \"express\": \"~4.12.2\",\n    \"express-admin\": \"^1.2.6\",\n    \"express-promise\": \"^0.4.0\",\n    \"express-session\": \"^1.11.3\",\n    \"html-entities\": \"^1.2.0\",\n    \"jade\": \"~1.9.2\",\n    \"less-middleware\": \"^2.0.1\",\n    \"moment\": \"^2.10.6\",\n    \"morgan\": \"~1.5.1\",\n    \"mysql2\": \"^0.15.8\",\n    \"node-geocoder\": \"^3.15.2\",\n    \"postcss\": \"^4.1.16\",\n    \"q\": \"^1.4.1\",\n    \"qs\": \"^5.1.0\",\n    \"serve-favicon\": \"~2.2.0\",\n    \"session-file-store\": \"0.0.20\",\n    \"sitemap\": \"^1.4.1\",\n    \"underscore\": \"^1.8.3\",\n    \"underscore.string\": \"^3.1.1\",\n    \"wpautop\": \"^0.1.1\"\n  }\n}\n"
+            },
+            "name": "bf-cardinal-foodservice",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/bf-cardinal-foodservice",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTcyMTU0MDkwOjAzNDU5ZTExNmQzMDJkMjNiMDRlYjRjZjUwOTg2Y2Q1N2RlMmFkMzU="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "bf-cardinal-meats",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/bf-cardinal-meats",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTcyMTU0MDk2OmNiNDcyM2FhMDQxN2UyYmNmZmUxNmU3Y2E0YzQ0Y2JmY2YxOTRmYjM="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "bf-ccpa",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/bf-ccpa",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTcyMTU0MTAxOmFjYzA0NDI1YjA4NzA1MWVmNzFkNzllOTc2NjkzZjYzYTg0NDBiMjQ="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": {
+              "text": "{\n  \"name\": \"cdmi5024\",\n  \"version\": \"1.0.0\",\n  \"description\": \"\",\n  \"main\": \"index.php\",\n  \"scripts\": {\n    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\",\n    \"build\": \"gulp build\",\n    \"watch\": \"gulp watch\"\n  },\n  \"author\": \"\",\n  \"license\": \"ISC\",\n  \"devDependencies\": {\n    \"browser-sync\": \"^2.18.13\",\n    \"gulp\": \"^3.9.1\",\n    \"gulp-autoprefixer\": \"^4.0.0\",\n    \"gulp-plumber\": \"^1.1.0\",\n    \"gulp-sass\": \"^3.1.0\",\n    \"gulp-sourcemaps\": \"^2.6.0\"\n  }\n}\n"
+            },
+            "name": "bf-cdmi5024",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/bf-cdmi5024",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTcyMTU0MTA3OmI3ZjljNjAwNmUzZGNkNzhjYTA4Y2RhMDU4YzEwNzVkNzk1ZTQ0YTQ="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "bf-cdmi5061",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/bf-cdmi5061",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTcyMTU0MTE0OjJkOTk1Y2VkZTc0MWM1ZmZjZTUxNThmMzdiNjZlOGM1OGJiZmY2ODE="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "bf-covr-shopify",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/bf-covr-shopify",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTcyMTU0MTE5OjdhM2RlYTBkMzEwZTZhOWVlNWRmMDRhNjAyZDc0OTdhZDUyYTdjODA="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "bf-covr",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/bf-covr",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTcyMTU0MTIxOjdjNjIxMGMzNTgwMjJjOWVlYTlkY2ZhYTliNGNjM2RjOTAxMzRjM2I="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": {
+              "text": "{\n  \"name\": \"eos\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Lightweight CMS-like interface to update text content\",\n  \"main\": \"app.js\",\n  \"scripts\": {\n    \"test\": \"mocha test.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+ssh://git@bitbucket.org/brandfiremarketinggroup/eos.git\"\n  },\n  \"author\": \"\",\n  \"license\": \"ISC\",\n  \"homepage\": \"https://bitbucket.org/brandfiremarketinggroup/eos#readme\",\n  \"dependencies\": {\n    \"htmlparser2\": \"^3.9.2\",\n    \"koa\": \"^2.3.0\",\n    \"koa-bodyparser\": \"^4.2.0\",\n    \"koa-convert\": \"^1.2\",\n    \"koa-generic-session\": \"^1.6\",\n    \"koa-passport\": \"^2.0\",\n    \"koa-router\": \"^7.2.1\",\n    \"koa-static-server\": \"^1.3.2\",\n    \"lowdb\": \"^1.0.0\",\n    \"mkdirp\": \"^0.5.1\",\n    \"passport-local\": \"^1.0.0\",\n    \"posthtml\": \"^0.9.2\",\n    \"rimraf\": \"^2.6.2\"\n  },\n  \"devDependencies\": {\n    \"koa-mount\": \"^3.0.0\",\n    \"mocha\": \"^3.4.2\",\n    \"should\": \"^11.2.1\",\n    \"supertest\": \"^3.0.0\",\n    \"verb\": \"^0.8.10\"\n  }\n}\n"
+            },
+            "name": "bf-eos",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/bf-eos",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTcyMTU0MTI0OjExM2JlYjE2NDhhM2IxNTNmZjkzZGU2MmMyODVlYmQ3OGE5MmZmYjQ="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": {
+              "text": "{\n  \"dependencies\": {\n    \"next\": \"^7.0.2\",\n    \"react\": \"^16.6.1\",\n    \"react-dom\": \"^16.6.1\"\n  },\n  \"scripts\": {\n    \"dev\": \"next\",\n    \"build\": \"next build\",\n    \"start\": \"next start -p 3333\"\n  }\n}\n"
+            },
+            "name": "bf-firestarter",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/bf-firestarter",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTcyMTU0MTI5OjcxYjJhZTRkNWY0NGZmZThkYjFiN2MyODYzMGMxNmQwYjNlNDRjMDQ="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": {
+              "text": "{\n  \"name\": \"weiser\",\n  \"description\": \"Weiser\",\n  \"homepage\": \"https://bitbucket.org/brandfiremarketinggroup/locksmart\",\n  \"version\": \"1.0.0\",\n  \"license\": \"ISC\",\n  \"author\": \"\",\n  \"main\": \"app.js\",\n  \"scripts\": {\n    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\",\n    \"watch\": \"gulp watch\",\n    \"build\": \"gulp build\",\n    \"export\": \"gulp export\",\n    \"start\": \"node app.js\",\n    \"launch\": \"gulp launch\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+ssh://git@bitbucket.org/brandfiremarketinggroup/locksmart.git\"\n  },\n  \"dependencies\": {\n    \"koa\": \"^2.6.1\",\n    \"koa-bodyparser\": \"^4.2.1\",\n    \"koa-json\": \"^2.0.2\",\n    \"koa-pug\": \"^3.0.0-2\",\n    \"koa-router\": \"^7.4.0\",\n    \"koa-static\": \"^5.0.0\",\n    \"underscore\": \"^1.9.1\",\n    \"uuid\": \"^3.3.2\"\n  },\n  \"devDependencies\": {\n    \"autoprefixer\": \"^9.3.1\",\n    \"big-integer\": \"^1.6.36\",\n    \"browser-sync\": \"^2.26.3\",\n    \"csv-parse\": \"^3.1.3\",\n    \"del\": \"^3.0.0\",\n    \"elasticlunr\": \"^0.9.5\",\n    \"gulp\": \"^4.0.0\",\n    \"gulp-changed\": \"^3.2.0\",\n    \"gulp-concat\": \"^2.6.1\",\n    \"gulp-filter\": \"^5.1.0\",\n    \"gulp-imagemin\": \"^4.1.0\",\n    \"gulp-plumber\": \"^1.2.0\",\n    \"gulp-postcss\": \"^8.0.0\",\n    \"gulp-sass\": \"^4.0.2\",\n    \"gulp-sourcemaps\": \"^2.6.4\",\n    \"gulp-uglify\": \"^3.0.1\",\n    \"main-bower-files\": \"^2.13.1\",\n    \"make-dir\": \"^1.3.0\",\n    \"node-cleanup\": \"^2.1.2\",\n    \"shuffle-array\": \"^1.0.1\",\n    \"sync-request\": \"^6.0.0\"\n  }\n}\n"
+            },
+            "name": "bf-locksmart",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/bf-locksmart",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTcyMTU0MTMzOjdhM2YyZjk4OGQzZDc4OTJlYzQ3YWY5NzVmY2ZlY2Y2MjQyNWJlZDc="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": {
+              "text": "{\n  \"name\": \"madreport\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Reporting system for MADE8\",\n  \"main\": \"app.js\",\n  \"dependencies\": {\n    \"basic-auth\": \"^2.0.0\",\n    \"hash-auth-token\": \"0.0.7\",\n    \"koa\": \"^2.3.0\",\n    \"koa-body\": \"^2.5.0\",\n    \"koa-pug\": \"^3.0.0-2\",\n    \"koa-router\": \"^7.2.1\",\n    \"koa-static\": \"^4.0.1\",\n    \"koa-xml-body\": \"^2.0.0\",\n    \"koa2-mysql-wrapper\": \"^2.0.1\",\n    \"mysql2\": \"^1.4.2\",\n    \"nodemailer\": \"^4.6.8\",\n    \"why-is-node-running\": \"^2.0.2\"\n  },\n  \"devDependencies\": {\n    \"browser-sync\": \"^2.18.12\",\n    \"chai\": \"^4.1.2\",\n    \"gulp\": \"github:gulpjs/gulp#4.0\",\n    \"gulp-nodemon\": \"^2.2.1\",\n    \"gulp-notify\": \"^3.0.0\",\n    \"gulp-plumber\": \"^1.1.0\",\n    \"gulp-rename\": \"^1.2.2\",\n    \"gulp-sass\": \"^3.2.1\",\n    \"gulp-sourcemaps\": \"^2.6.0\",\n    \"mocha\": \"^3.4.2\",\n    \"should\": \"^11.2.1\",\n    \"supertest\": \"^3.0.0\",\n    \"verb\": \"^0.8.10\"\n  },\n  \"scripts\": {\n    \"test\": \"mocha test\",\n    \"start\": \"node app.js\",\n    \"build\": \"gulp build\",\n    \"dev\": \"gulp dev\",\n    \"watch\": \"gulp watch\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+ssh://git@bitbucket.org/brandfiremarketinggroup/madreport.git\"\n  },\n  \"author\": \"\",\n  \"license\": \"ISC\",\n  \"homepage\": \"https://bitbucket.org/brandfiremarketinggroup/madreport#readme\"\n}\n"
+            },
+            "name": "bf-madreport",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/bf-madreport",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTcyMTU0MTM5OmIxNDhjZWJhYjA1Y2VlMzFjOWJlYWNkYzI3ZGY5MzJhYWE2NDcxZDc="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": {
+              "text": "{\n  \"name\": \"make-a-date-toyota\",\n  \"version\": \"0.0.0\",\n  \"private\": true,\n  \"scripts\": {\n    \"start\": \"node ./bin/www\",\n    \"watch\": \"nodemon ./bin/www -e js,jade,html,css,less,json,png,jpg,pdf,sql\",\n    \"build\": \"npx lessc -x public/css/styles.less > public/css/styles.css\",\n    \"deploy\": \"ssh brandfire@34.194.109.226 'cd www/made8 && git pull && npm i && npm run build && sudo pkill node'\"\n  },\n  \"dependencies\": {\n    \"basic-auth\": \"^1.0.3\",\n    \"body-parser\": \"~1.12.0\",\n    \"chance\": \"^1.0.2\",\n    \"cookie-parser\": \"~1.3.4\",\n    \"curl\": \"^0.1.4\",\n    \"debug\": \"~2.1.1\",\n    \"express\": \"~4.12.2\",\n    \"firebase-token-generator\": \"^2.0.0\",\n    \"hash-auth-token\": \"0.0.7\",\n    \"jade\": \"~1.9.2\",\n    \"less\": \"^3.0.4\",\n    \"less-middleware\": \"^0.1.15\",\n    \"moment\": \"^2.21.0\",\n    \"morgan\": \"~1.5.1\",\n    \"multer\": \"^1.1.0\",\n    \"mysql2\": \"^0.15.8\",\n    \"needle\": \"^0.9.2\",\n    \"nodemailer\": \"^4.6.2\",\n    \"npm\": \"^6.1.0\",\n    \"q\": \"^1.4.1\",\n    \"random-id\": \"0.0.2\",\n    \"request\": \"^2.60.0\",\n    \"serve-favicon\": \"~2.2.0\",\n    \"split\": \"^1.0.0\",\n    \"underscore\": \"^1.8.3\",\n    \"xlsx\": \"^0.8.0\"\n  },\n  \"devDependencies\": {\n    \"bower\": \"^1.8.4\"\n  }\n}\n"
+            },
+            "name": "bf-make-a-date-toyota",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/bf-make-a-date-toyota",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTcyMTU0MTQ2OjFkMTcwNmZjMmMzMjkzZmU2NWI1NzdlNTc3MjAwN2NhNmIxZDc4YjA="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": {
+              "text": "{\n  \"name\": \"Monogram.ca\",\n  \"description\": \"Monogram.ca\",\n  \"version\": \"1.0.0\",\n  \"main\": \"./app.js\",\n  \"dependencies\": {\n    \"elasticlunr\": \"^0.9.5\",\n    \"cheerio\": \"^1.0.0-rc.2\",\n    \"fs-extra\": \"^4.0.1\",\n    \"koa\": \"^2.2.0\",\n    \"koa-bodyparser\": \"^4.2.0\",\n    \"koa-mount\": \"^3.0.0\",\n    \"koa-router\": \"^7.0.1\",\n    \"koa-static-server\": \"^1.3.2\",\n    \"mkdirp\": \"^0.5.1\",\n    \"nodemon\": \"^1.12.1\",\n    \"query-string\": \"^5.0.0\",\n    \"underscore\": \"^1.8.3\"\n  },\n  \"scripts\": {\n    \"setup\": \"npm install && cd node_modules_custom/eos && npm install && cd ../koa-ractive && npm install && cd ../../scripts/update-data && npm install && cd ../index-catalogs && npm install && cd ../translate-data && npm install && cd ../index-search && npm install\",\n    \"start\": \"node app.js\",\n    \"watch\": \"gulp watch\",\n    \"build\": \"gulp build --production\",\n    \"scripts\": \"cd scripts/update-data && node app.js && cd ../index-catalogs && node app.js && cd ../translate-data && node app.js && cd ../index-search && node app.js\"\n  },\n  \"author\": \"brandfiremarketinggroup\",\n  \"license\": \"ISC\",\n  \"homepage\": \"https://bitbucket.org/brandfiremarketinggroup/monogram#readme\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+ssh://git@bitbucket.org/brandfiremarketinggroup/monogram.git\"\n  },\n  \"devDependencies\": {\n    \"autoprefixer\": \"^7.1.3\",\n    \"browser-sync\": \"^2.18.12\",\n    \"colors\": \"^1.1.2\",\n    \"del\": \"^3.0.0\",\n    \"fs-extra\": \"^4.0.2\",\n    \"gulp\": \"github:gulpjs/gulp#4.0\",\n    \"gulp-concat\": \"^2.6.1\",\n    \"gulp-imagemin\": \"^3.3.0\",\n    \"gulp-nodemon\": \"^2.2.1\",\n    \"gulp-notify\": \"^3.0.0\",\n    \"gulp-plumber\": \"^1.1.0\",\n    \"gulp-postcss\": \"^7.0.0\",\n    \"gulp-rename\": \"^1.2.2\",\n    \"gulp-sass\": \"^3.1.0\",\n    \"gulp-shell\": \"^0.6.3\",\n    \"gulp-sourcemaps\": \"^2.6.1\",\n    \"gulp-uglify\": \"^3.0.0\",\n    \"koa-errors\": \"^1.0.1\",\n    \"node-cleanup\": \"^2.1.2\",\n    \"node-notifier\": \"^5.1.2\",\n    \"strip-ansi\": \"^4.0.0\"\n  },\n  \"browserslist\": [\n    \"> 3%\",\n    \"last 2 versions\"\n  ]\n}\n"
+            },
+            "name": "bf-monogram",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/bf-monogram",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTcyMTU0MTQ4OjU3OTYxMmZkZjE4N2JjYWU4MjI1NmZhNjc4ZGNhMWU2ZTk3ZTA2YmI="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": {
+              "text": "{\n  \"name\": \"toff-7028\",\n  \"description\": \"Toffifee Contest\",\n  \"homepage\": \"https://bitbucket.org/brandfiremarketinggroup/toff-7026#readme\",\n  \"version\": \"1.0.0\",\n  \"license\": \"ISC\",\n  \"author\": \"Tony Ko\",\n  \"main\": \"app.js\",\n  \"scripts\": {\n    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\",\n    \"watch\": \"gulp watch\",\n    \"build\": \"gulp build\",\n    \"build:live\": \"gulp build --live\",\n    \"start\": \"node app.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+ssh://git@bitbucket.org/brandfiremarketinggroup/toff-7026.git\"\n  },\n  \"dependencies\": {\n    \"csv-stringify\": \"^3.1.1\",\n    \"koa\": \"^2.5.0\",\n    \"koa-basic-auth\": \"^2.0.0\",\n    \"koa-bodyparser\": \"^4.2.0\",\n    \"koa-json\": \"^2.0.2\",\n    \"koa-pug\": \"^3.0.0-2\",\n    \"koa-router\": \"^7.4.0\",\n    \"koa2-mysql-wrapper\": \"^2.0.1\",\n    \"koa2-request\": \"^1.0.4\",\n    \"koa2-static-files\": \"^1.0.4\",\n    \"moment\": \"^2.21.0\",\n    \"underscore\": \"^1.8.3\",\n    \"colors\": \"^1.1.2\",\n    \"moment-timezone\": \"^0.5.14\"\n  },\n  \"devDependencies\": {\n    \"autoprefixer\": \"^8.1.0\",\n    \"browser-sync\": \"^2.26.3\",\n    \"del\": \"^3.0.0\",\n    \"gulp\": \"^4.0.0\",\n    \"gulp-changed\": \"^3.2.0\",\n    \"gulp-concat\": \"^2.6.1\",\n    \"gulp-imagemin\": \"^5.0.3\",\n    \"gulp-noop\": \"^1.0.0\",\n    \"gulp-plumber\": \"^1.2.0\",\n    \"gulp-postcss\": \"^7.0.1\",\n    \"gulp-rename\": \"^1.2.2\",\n    \"gulp-sass\": \"^3.1.0\",\n    \"gulp-sourcemaps\": \"^2.6.4\",\n    \"gulp-uglify\": \"^3.0.0\",\n    \"main-bower-files\": \"^2.13.1\",\n    \"node-cleanup\": \"^2.1.2\",\n    \"node-notifier\": \"^5.2.1\",\n    \"strip-ansi\": \"^4.0.0\",\n    \"yargs\": \"^11.0.0\"\n  }\n}\n"
+            },
+            "name": "bf-toff7026",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/bf-toff7026",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTcyMTU0MTUyOjFiZDA1MjA2MmNjYWVjZDNjYTBkZjg3MGNmZjI3YzNjYTI3YTFlMzY="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": {
+              "text": "{\n  \"name\": \"unlocktowin2018\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Unlock to Win 2018\",\n  \"main\": \"app.js\",\n  \"scripts\": {\n    \"start\": \"node app.js\",\n    \"watch\": \"nodemon app.js\",\n    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\"\n  },\n  \"dependencies\": {\n    \"await-fs\": \"^1.0.0\",\n    \"expr-eval\": \"^1.2.2\",\n    \"json2csv\": \"^4.1.6\",\n    \"koa\": \"^2.5.1\",\n    \"koa-basic-auth\": \"^3.0.0\",\n    \"koa-bodyparser\": \"^4.2.1\",\n    \"koa-mount\": \"^3.0.0\",\n    \"koa-router\": \"^7.4.0\",\n    \"koa-static\": \"^5.0.0\",\n    \"koa-views\": \"^6.1.4\",\n    \"koa2-mysql-wrapper\": \"^2.0.1\",\n    \"moment-timezone\": \"^0.5.23\",\n    \"underscore\": \"^1.9.1\",\n    \"underscore.string\": \"^3.3.4\"\n  },\n  \"devDependencies\": {\n    \"gulp\": \"^3.9.1\",\n    \"gulp-autoprefixer\": \"^3.1.1\",\n    \"gulp-bower\": \"0.0.14\",\n    \"gulp-concat\": \"^2.6.1\",\n    \"gulp-concat-css\": \"^3.1.0\",\n    \"gulp-debug\": \"^4.0.0\",\n    \"gulp-filter\": \"^5.1.0\",\n    \"gulp-main-bower-files\": \"^1.6.3\",\n    \"gulp-sass\": \"^3.1.0\",\n    \"nodemon\": \"^1.18.7\"\n  }\n}\n"
+            },
+            "name": "bf-toff7036",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/bf-toff7036",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTcyMTU0MTU0OmE2ZDMzZjA4ZmIzNjAyNThlNzFmMWI5YTE4MzdkMjQ2NjdiNTZhN2I="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "pm-technical-interview",
+            "licenseInfo": null,
+            "description": "👨‍💻 Plastic Mobile Technical Test - Video & API Demo",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "https://htkoca.github.io/pm-technical-interview/",
+            "url": "https://github.com/htkoca/pm-technical-interview",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTcyMTk3NjI0OjdjOWE2Nzg5MjY4YTY2YjJiNjcwYWJkODUwY2JhMDg4YmU2YzIyOGQ="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "site-real-vision",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "https://htkoca.github.io/site-real-vision/",
+            "url": "https://github.com/htkoca/site-real-vision",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTcyMjcyNTIxOjY3Y2M2ODIyYTQ2MjI4YjZjOTRmZjJjMTc2YzI1NTcwNzJlMGVkMDU="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": {
+              "text": "{\n  \"name\": \"winser\",\n  \"version\": \"1.0.3\",\n  \"description\": \"Run a node.js application as a window service using nssm.\",\n  \"keywords\": [\n    \"windows\",\n    \"services\",\n    \"service\",\n    \"daemon\"\n  ],\n  \"homepage\": \"http://jfromaniello.github.com/winser\",\n  \"author\": {\n    \"name\": \"Jose Fernando Romaniello\",\n    \"email\": \"jfromaniello@gmail.com\",\n    \"url\": \"http://joseoncode.com/\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git://github.com/jfromaniello/winser.git\"\n  },\n  \"private\": false,\n  \"dependencies\": {\n    \"async\": \"0.9.0\",\n    \"stdio\": \"0.2.2\"\n  },\n  \"bin\": {\n    \"winser\": \"./bin/winser\"\n  },\n  \"engines\": {\n    \"node\": \">=0.6.13\"\n  }\n}\n"
+            },
+            "name": "utils-winser",
+            "licenseInfo": null,
+            "description": "Run a node.js application as a window service using nssm.",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/utils-winser",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTczMDQ3NTc0OmNhNjg2Mjc2MDIwYTk5OGRjZGZiNmM0NGIwNzI2ZTg3YzE1NjU1MzQ="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "fcc-survey-form",
+            "licenseInfo": null,
+            "description": "FreeCodeCamp - Responsive Web Design Projects - Build a Survey Form",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "https://htkoca.github.io/fcc-survey-form/sources/",
+            "url": "https://github.com/htkoca/fcc-survey-form",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTc4MzQzNDQyOjAxMmRhOThmMjQxNDk3ZDMwYTBjNjczNTMzMzM3NDY1OGM2Yjc2NmM="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "fcc-product-page",
+            "licenseInfo": null,
+            "description": "FreeCodeCamp - Responsive Web Design Projects - Build a Product Landing Page",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "https://htkoca.github.io/fcc-product-page/sources/",
+            "url": "https://github.com/htkoca/fcc-product-page",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTc4MzQ0NDIxOjY2NWIyNjQwM2M0YTc0ZmY0YjNiNmI2NTkyMTZjYWQ4MzE4ODdkM2I="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "fcc-docs-page",
+            "licenseInfo": null,
+            "description": "FreeCodeCamp - Responsive Web Design Projects - Build a Technical Documentation Page",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "https://htkoca.github.io/fcc-docs-page/sources/",
+            "url": "https://github.com/htkoca/fcc-docs-page",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTc4MzQ0NjY2Ojg0ZDg2YzY5Mzc3MTIyNjA3MzM0YTAwODgwNDg1NWFhMzcxZDNiYTg="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "docs-code-journal",
+            "licenseInfo": null,
+            "description": "📓 Docs & notes on my self learning journey in javascript software engineering.",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/docs-code-journal",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTc4OTc3MjIzOjI5NGU2MDczYjQxZmM3OGQ2YTU5MjVkZDhiZjZlYmI4NmJhZjY2NWY="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "docs-design-journal",
+            "licenseInfo": null,
+            "description": "📓 Docs & notes on my self learning journey in 3D design, DIY and maker movement.",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/docs-design-journal",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTc5MDExMTYxOjJmYWFiZjdjYmM3YWY4YTVjNzVkOTBlNDM1NDY4MzkwZmE1M2U2M2U="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "docs-personal",
+            "licenseInfo": null,
+            "description": "📓 Docs & notes on my journey through life...",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/docs-personal",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTc5MDEzNTA5OjMwMTI2NTA0ZjQ4YTc1M2M4MWFiOTU1MDZkMTIwMmYzNTliODlhNDA="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "bf-com7028",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/bf-com7028",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTgzMTA4MTIzOjllZTJlZjU4OWMxMTlmZDRhMjZlOWQyODE0MzZmYjdlZWU2YWM1ZDA="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "jh-votebot",
+            "licenseInfo": null,
+            "description": "Voter for billboards music awards",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/jh-votebot",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTgzOTczMDM0OmQzY2YxZjYyOGNlY2FjMGM0ZmUwODRlZjE1NTFmNTRjM2FiNzJlZDY="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": {
+              "text": "{\n  \"name\": \"mongo-express-react\",\n  \"version\": \"1.0.0\",\n  \"description\": \"A full stack application with React and MongoDB (Easily deployed)\",\n  \"main\": \"index.js\",\n  \"scripts\": {\n    \"build\": \"webpack -p\",\n    \"deploy\": \"npm run build && git commit -a -m deployment && git push heroku master\",\n    \"dev\": \"webpack-dev-server --open --host 0.0.0.0 --port 8080\",\n    \"server\": \"cross-env NODE_ENV=production babel-node src/server\",\n    \"server-dev\": \"nodemon src/server --exec babel-node src/server\",\n    \"start-dev\": \"concurrently \\\"npm run server-dev\\\" \\\"npm run dev\\\"\",\n    \"server-spec\": \"babel-node src/server/server.spec\",\n    \"start\": \"npm run server\"\n  },\n  \"keywords\": [\n    \"react\",\n    \"redux\",\n    \"express\",\n    \"mongo\"\n  ],\n  \"author\": \"Daniel 'The Code Whisperer' Stern\",\n  \"license\": \"ISC\",\n  \"dependencies\": {\n    \"@babel/plugin-proposal-class-properties\": \"^7.4.0\",\n    \"axios\": \"^0.18.0\",\n    \"body-parser\": \"^1.18.3\",\n    \"bootstrap\": \"^4.1.3\",\n    \"cors\": \"^2.8.4\",\n    \"css-loader\": \"^2.1.1\",\n    \"express\": \"^4.16.3\",\n    \"file-loader\": \"^3.0.1\",\n    \"history\": \"^4.7.2\",\n    \"md5\": \"^2.2.1\",\n    \"mongodb\": \"^3.1.8\",\n    \"node-sass\": \"^4.11.0\",\n    \"react\": \"^16.4.2\",\n    \"react-dom\": \"^16.5.0\",\n    \"react-redux\": \"^5.0.7\",\n    \"react-router\": \"^4.3.1\",\n    \"react-router-dom\": \"^4.3.1\",\n    \"redux\": \"^4.0.0\",\n    \"redux-logger\": \"^3.0.6\",\n    \"redux-saga\": \"^0.16.2\",\n    \"sass-loader\": \"^7.1.0\",\n    \"url-loader\": \"^1.1.2\",\n    \"uuid\": \"^3.3.2\",\n    \"webpack\": \"^4.17.2\"\n  },\n  \"engines\": {\n    \"node\": \"9.2.0\"\n  },\n  \"devDependencies\": {\n    \"@babel/core\": \"^7.0.0\",\n    \"@babel/node\": \"^7.0.0\",\n    \"@babel/preset-env\": \"^7.0.0\",\n    \"@babel/preset-react\": \"^7.0.0\",\n    \"@babel/register\": \"^7.0.0\",\n    \"babel-loader\": \"^8.0.2\",\n    \"concurrently\": \"^4.0.1\",\n    \"cross-env\": \"^5.2.0\",\n    \"highground\": \"^1.0.3-beta\",\n    \"jest\": \"^23.6.0\",\n    \"mongodb\": \"^3.1.10\",\n    \"nodemon\": \"^1.18.4\",\n    \"style-loader\": \"^0.23.0\",\n    \"webpack-cli\": \"^3.1.2\",\n    \"webpack-dev-server\": \"^3.1.7\"\n  }\n}\n"
+            },
+            "name": "dojo-react-todo",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/dojo-react-todo",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTg0MTU0MTA0OjkzZmViODc4MDgwMTVlYTQ3NWVjYzllOGI3MmRmZGU2OTQ0M2NkZWY="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": {
+              "text": "{\n  \"name\": \"fcc-readme-gen\",\n  \"version\": \"1.0.2\",\n  \"description\": \"\",\n  \"main\": \"index.js\",\n  \"scripts\": {\n    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\",\n    \"start\": \"./bin/fcc-readme-gen https://raw.githubusercontent.com/freeCodeCamp/freeCodeCamp/master/curriculum/challenges/english/03-front-end-libraries/front-end-libraries-projects/build-a-random-quote-machine.english.md\"\n  },\n  \"bin\": {\n    \"fcc-readme-gen\": \"./bin/fcc-readme-gen\"\n  },\n  \"keywords\": [],\n  \"author\": \"\",\n  \"license\": \"ISC\",\n  \"dependencies\": {\n    \"change-case\": \"^3.1.0\",\n    \"gray-matter\": \"^4.0.2\",\n    \"node-fetch\": \"^2.5.0\",\n    \"turndown\": \"^5.0.3\"\n  }\n}\n"
+            },
+            "name": "fcc-readme-gen",
+            "licenseInfo": null,
+            "description": "FreeCodeCamp - Helper Projects - Challenge README Generator",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/fcc-readme-gen",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTg1ODg0NzI1OjMyYTVkOWFlZTFhZGFkYzcyYzgzNGNhYmY1YTJmMTAxZWMzMDVmNTM="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "fcc-markdown-preview",
+            "licenseInfo": null,
+            "description": "FreeCodeCamp - Front End Libraries Projects - Build a Markdown Previewer",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "https://htkoca.github.io/fcc-markdown-preview/sources/public/",
+            "url": "https://github.com/htkoca/fcc-markdown-preview",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTg1OTA2NjIyOjA5MGYwYmMzZjUyMTcyZGRlMTcyMjhlZmM3Yjg0OGY0Y2IzY2JiODk="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "fcc-drum-machine",
+            "licenseInfo": null,
+            "description": "FreeCodeCamp - Front End Libraries Projects - Build a Drum Machine",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "https://htkoca.github.io/fcc-drum-machine/sources/public/",
+            "url": "https://github.com/htkoca/fcc-drum-machine",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTg1OTA2NzE3OmIwNTljOGUwMDViZTU1NDIzNjFiNGUwMGNkMGQ2NjgwNGNhYjUzNjM="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": {
+              "text": "{\n  \"name\": \"07-developer-event-notes\",\n  \"version\": \"1.0.0\",\n  \"description\": \"\",\n  \"main\": \"index.js\",\n  \"scripts\": {\n    \"start\": \"webpack-dev-server --open\",\n    \"dev\": \"nodemon --watch webpack.config.babel.js --exec \\\"webpack-dev-server --open\\\"\"\n  },\n  \"keywords\": [],\n  \"author\": \"\",\n  \"license\": \"ISC\",\n  \"devDependencies\": {\n    \"@babel/core\": \"^7.4.4\",\n    \"@babel/preset-env\": \"^7.4.4\",\n    \"@babel/preset-react\": \"^7.0.0\",\n    \"@babel/register\": \"^7.4.4\",\n    \"babel-loader\": \"^8.0.5\",\n    \"css-loader\": \"^2.1.1\",\n    \"node-sass\": \"^4.12.0\",\n    \"nodemon\": \"^1.19.0\",\n    \"sass-loader\": \"^7.1.0\",\n    \"style-loader\": \"^0.23.1\",\n    \"webpack\": \"^4.31.0\",\n    \"webpack-cli\": \"^3.3.2\",\n    \"webpack-dev-server\": \"^3.3.1\"\n  },\n  \"dependencies\": {\n    \"bootstrap\": \"^4.3.1\",\n    \"react\": \"^16.8.6\",\n    \"react-dom\": \"^16.8.6\",\n    \"react-router-dom\": \"^5.0.0\"\n  }\n}\n"
+            },
+            "name": "devhub-react-app",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/devhub-react-app",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MTg2MTQxODYyOmFmMzhkODFlM2E1ZDMzYThlMjA3YzRhNGI0YmU3YmZlNTc2Yjg0YTU="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": {
+              "text": "{\n  \"name\": \"oxfordhackapi\",\n  \"version\": \"0.1.0\",\n  \"description\": \"api\",\n  \"main\": \"app.js\",\n  \"scripts\": {\n    \"start\": \"node app.js\",\n    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/vamsikt/oxfordhackapi2019.git\"\n  },\n  \"author\": \"\",\n  \"license\": \"ISC\",\n  \"bugs\": {\n    \"url\": \"https://github.com/vamsikt/oxfordhackapi2019/issues\"\n  },\n  \"homepage\": \"https://github.com/vamsikt/oxfordhackapi2019#readme\",\n  \"dependencies\": {\n    \"body-parser\": \"^1.19.0\",\n    \"csvtojson\": \"^2.0.10\",\n    \"express\": \"^4.17.1\",\n    \"moment\": \"^2.24.0\",\n    \"moment-timezone\": \"^0.5.26\",\n    \"ngrok\": \"^3.2.5\",\n    \"nodeman\": \"^1.1.2\",\n    \"nodemon\": \"^1.19.2\",\n    \"pdfmake\": \"^0.1.59\",\n    \"request\": \"^2.88.0\"\n  }\n}\n"
+            },
+            "name": "oxfordhackapi2019",
+            "licenseInfo": null,
+            "description": "Oxford hacks 2019",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/vamsikt/oxfordhackapi2019",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MjA4NDU1OTI1OmUxYTNkNWE4MDk3OGI2ZGI3NmQ0MzFhOWMzMTAwM2IxOTk4N2VjZmY="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "ca-app",
+            "licenseInfo": null,
+            "description": "Cost Analysis App for Oxford Global Hackathon 2019 (Toronto)",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/ca-app",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MjA4NDU3MTA2OjhlZTQ4ODE2ZTc3OTYzZGQwMzVlMzk5OTg2Mzg4OTAzN2VlZjU2MjI="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": {
+              "text": "{\n  \"name\": \"oxfordhackapi\",\n  \"version\": \"0.1.0\",\n  \"description\": \"api\",\n  \"main\": \"app.js\",\n  \"scripts\": {\n    \"start\": \"node app.js\",\n    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/vamsikt/oxfordhackapi2019.git\"\n  },\n  \"author\": \"\",\n  \"license\": \"ISC\",\n  \"bugs\": {\n    \"url\": \"https://github.com/vamsikt/oxfordhackapi2019/issues\"\n  },\n  \"homepage\": \"https://github.com/vamsikt/oxfordhackapi2019#readme\",\n  \"dependencies\": {\n    \"body-parser\": \"^1.19.0\",\n    \"csvtojson\": \"^2.0.10\",\n    \"express\": \"^4.17.1\",\n    \"moment\": \"^2.24.0\",\n    \"moment-timezone\": \"^0.5.26\",\n    \"ngrok\": \"^3.2.5\",\n    \"nodeman\": \"^1.1.2\",\n    \"nodemon\": \"^1.19.2\",\n    \"pdfmake\": \"^0.1.59\",\n    \"request\": \"^2.88.0\"\n  }\n}\n"
+            },
+            "name": "ca-app-api",
+            "licenseInfo": null,
+            "description": "Oxford hacks 2019",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/ca-app-api",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MjA5NTgzNzcxOmUxYTNkNWE4MDk3OGI2ZGI3NmQ0MzFhOWMzMTAwM2IxOTk4N2VjZmY="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "utils-pimodules",
+            "licenseInfo": {
+              "name": "GNU General Public License v3.0"
+            },
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/utils-pimodules",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MjE2Nzc4NTIxOjVjZWE2ODY2Y2Q2OTA5YjBlNmFjNTc0ODc3MjYzYTZhYTliMDI3Y2M="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "api-portfolio",
+            "licenseInfo": null,
+            "description": "API that serves github sourced portfolio data",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/api-portfolio",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MjE4MjI2NDI3OmRiMjJkZWU4ZGNhZjMxNTlhMGZhMGI5ZGUxODRhNmM4NzdhY2I4N2M="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": {
+              "text": "{\n  \"name\": \"tmpl-gitrepo\",\n  \"version\": \"1.0.0\",\n  \"description\": \"Git Repo Template\",\n  \"main\": \"index.js\",\n  \"scripts\": {\n    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\",\n    \"start\": \"babel-node index.js\",\n    \"dev\": \"clear; nodemon --exec babel-node index.js\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/htkoca/tmpl-gitrepo.git\"\n  },\n  \"keywords\": [\n    \"Git\",\n    \"Repo\",\n    \"Template\"\n  ],\n  \"gallery\": [\n    \"test.png\"\n  ],\n  \"author\": \"Tony Ko\",\n  \"license\": \"ISC\",\n  \"bugs\": {\n    \"url\": \"https://github.com/htkoca/tmpl-gitrepo/issues\"\n  },\n  \"homepage\": \"https://github.com/htkoca/tmpl-gitrepo#readme\",\n  \"devDependencies\": {\n    \"@babel/core\": \"^7.6.4\",\n    \"@babel/node\": \"^7.6.3\",\n    \"@babel/preset-env\": \"^7.6.3\",\n    \"babel-loader\": \"^8.0.6\",\n    \"eslint\": \"^6.1.0\",\n    \"eslint-config-airbnb\": \"^18.0.1\",\n    \"eslint-config-prettier\": \"^6.5.0\",\n    \"eslint-plugin-import\": \"^2.18.2\",\n    \"eslint-plugin-jsx-a11y\": \"^6.2.3\",\n    \"eslint-plugin-prettier\": \"^3.1.1\",\n    \"eslint-plugin-react\": \"^7.16.0\",\n    \"eslint-plugin-react-hooks\": \"^1.7.0\",\n    \"nodemon\": \"^1.19.4\"\n  }\n}\n"
+            },
+            "name": "tmpl-gitrepo",
+            "licenseInfo": null,
+            "description": "Git Repo Template",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": "",
+            "url": "https://github.com/htkoca/tmpl-gitrepo",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MjE4MjI2NTc3OjJiYTcwMDBmYjU2OWUzNzY0N2YzNGNkMGIxOTk2ZmU4Nzc2Y2I2MmE="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "utils-bookmarks",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/utils-bookmarks",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MjE4NzA5ODIzOjQzZmRhMDUxMzJhNGQxOThhMTI0YWFhZmE5ODEwYThlODc1MzZkODk="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": {
+              "text": "{\n  \"name\": \"tmpl-gitrepo\",\n  \"author\": \"Tony Ko\",\n  \"version\": \"1.0.0\",\n  \"license\": \"ISC\",\n  \"description\": \"Git Repo Template\",\n  \"keywords\": [\n    \"Git\",\n    \"Repo\",\n    \"Template\"\n  ],\n  \"gallery\": [\n    \"test.png\"\n  ],\n  \"homepage\": \"https://github.com/htkoca/tmpl-gitrepo#readme\",\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/htkoca/tmpl-gitrepo.git\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/htkoca/tmpl-gitrepo/issues\"\n  },\n  \"main\": \"dist/index.js\",\n  \"scripts\": {\n    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\",\n    \"build\": \"rm -rf ./dist && babel ./src --out-dir ./dist\",\n    \"start\": \"node ./dist/index.js\",\n    \"dev\": \"clear; nodemon --exec babel-node ./src/index.js\"\n  },\n  \"devDependencies\": {\n    \"@babel/cli\": \"^7.7.0\",\n    \"@babel/core\": \"^7.6.4\",\n    \"@babel/node\": \"^7.6.3\",\n    \"@babel/preset-env\": \"^7.6.3\",\n    \"eslint\": \"^6.1.0\",\n    \"eslint-config-airbnb\": \"^18.0.1\",\n    \"eslint-config-prettier\": \"^6.5.0\",\n    \"eslint-plugin-import\": \"^2.18.2\",\n    \"eslint-plugin-jsx-a11y\": \"^6.2.3\",\n    \"eslint-plugin-prettier\": \"^3.1.1\",\n    \"eslint-plugin-react\": \"^7.16.0\",\n    \"eslint-plugin-react-hooks\": \"^1.7.0\",\n    \"nodemon\": \"^1.19.4\",\n    \"prettier\": \"^1.18.2\"\n  },\n  \"dependencies\": {\n    \"@octokit/graphql\": \"^4.3.1\",\n    \"@octokit/rest\": \"^16.34.1\",\n    \"axios\": \"^0.19.0\",\n    \"fast-glob\": \"^3.1.0\",\n    \"humanize-graphql-response\": \"^1.0.0\",\n    \"nodegit\": \"^0.26.2\",\n    \"normalize-path\": \"^3.0.0\"\n  }\n}\n"
+            },
+            "name": "app-gitsync",
+            "licenseInfo": null,
+            "description": "CLI application to batch sync local git repos with cloud git providers",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/app-gitsync",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MjE5MzcwNDcxOjIwNDFiNzZlZmY5MDAxMmI3MGUwZWU3NWFlNGI3MjllZmI0NDUwOTc="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "gfx-early-graphical-design",
+            "licenseInfo": null,
+            "description": null,
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/gfx-early-graphical-design",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MjE5OTU3MTg4OjVkYjg4ODk3YmYyYTA4NmJmMzYyNjMyZGJiZjdjNzhjZjA3ZjY5Mjk="
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          {
+            "object": null,
+            "name": "lib-htkoca",
+            "licenseInfo": null,
+            "description": "Common function library - Including Async / Await supporting loop methods",
+            "repositoryTopics": {
+              "nodes": []
+            },
+            "homepageUrl": null,
+            "url": "https://github.com/htkoca/lib-htkoca",
+            "defaultBranchRef": {
+              "target": {
+                "history": {
+                  "nodes": [
+                    {
+                      "id": "MDY6Q29tbWl0MjE5OTg3MjkzOjI2N2ZiNzFkMTExN2ZiZWE2ZjIzZmZjNDliNWUzMDJhM2ZmNjNlMDc="
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

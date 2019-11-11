@@ -9,51 +9,46 @@ import normalize from 'normalize-path';
 import git from 'nodegit';
 
 // local dependencies
-import { asyncMap } from '../../local_modules/async';
+import { asyncMap } from '../../local_modules/htko';
 
 // ****************************************************************************************************
 // Functions
 // ****************************************************************************************************
 
-async function retrieveRepos(directory) {
-  const repoPaths = await glob('**/.git', {
-    cwd: normalize(directory),
+async function readRepos(srcDir) {
+  return glob('**/.git', {
+    cwd: normalize(srcDir),
     ignore: ['**/{.git,node_modules}/**/*'],
     onlyDirectories: true,
     absolute: true
-  });
-  return asyncMap(repoPaths, async (repoPath) => {
-    return git.Repository.open(path.dirname(repoPath));
-  });
-}
-
-async function getRemotes(repo) {
-  return repo.getRemotes().then((remotesArr) => {
-    return remotesArr.reduce((obj, remote) => {
-      // eslint-disable-next-line no-param-reassign
-      obj[remote.name()] = remote.url();
-      return obj;
-    }, {});
+  }).then((reposPaths) => {
+    return asyncMap(reposPaths, async (repoPath) => {
+      return git.Repository.open(path.dirname(repoPath));
+    });
   });
 }
 
-async function getStatus(repo) {
-  return repo.getStatus().then((statusArr) => {
-    return statusArr.length;
-  });
-}
-
-async function compileRepos(repos) {
+async function readJsons(repos) {
   return asyncMap(repos, async (repo) => {
+    return path.join(repo.workdir(), 'package.json');
+  });
+}
+
+async function requestRepos(srcDir) {
+  const repos = await readRepos(srcDir);
+  const jsons = await readJsons(repos);
+  return asyncMap(repos, async (repo, idx) => {
     return {
-      name: path.basename(repo.workdir()),
       path: repo.workdir(),
+      name: '',
       license: '',
       description: '',
-      keywords: [],
+      keywords: '',
       homepage: '',
-      remotes: await getRemotes(repo),
-      status: await getStatus(repo)
+      remotes: '',
+      status: '',
+      hash: '',
+      json: ''
     };
   });
 }
@@ -62,16 +57,12 @@ async function compileRepos(repos) {
 // Main
 // ****************************************************************************************************
 
-export default class Github {
+export default class LocalService {
   constructor(srcDir) {
     this.srcDir = srcDir;
   }
   async getRepos() {
-    const repos = await retrieveRepos(this.srcDir);
-    const rslt = await compileRepos(repos);
-    return rslt;
-  }
-  async setRepos() {
-    console.log(this);
+    const repos = await requestRepos(this.srcDir);
+    return repos;
   }
 }
