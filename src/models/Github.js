@@ -17,8 +17,8 @@ import { asyncMap } from '../../local_modules/htko';
 async function readGithub(octoQL) {
   return octoQL(`
     {
-      viewer {
-        repositories(first: 50) {
+      user: viewer {
+        repositories(affiliations: [OWNER], first: 100) {
           nodes {
             url
             name
@@ -27,14 +27,16 @@ async function readGithub(octoQL) {
         }
       }
     }
-  `).then((repos) => repos.viewer.repositories.nodes);
+  `).then((repos) => repos.user.repositories.nodes);
 }
 
 async function readRepoObj(repoObj) {
   const repoPath = repoObj.url;
-  const packageObj = repoObj.package.text ? JSON.parse(repoObj.package.text) : {};
+  const repoName = repoObj.name;
+  const packageObj = repoObj.package && repoObj.package.text ? JSON.parse(repoObj.package.text) : {};
   const aliases = uniq(compact([repoObj.name, packageObj.name]));
   return {
+    name: repoName,
     path: repoPath,
     package: packageObj,
     aliases
@@ -66,10 +68,12 @@ export default class GithubService {
   }
   async load() {
     const repoObjs = await readGithub(this.octoQL);
-    this.repos = await readRepos(this.settings, repoObjs);
-    return this.repos;
+    this.repos = await readRepos(repoObjs);
   }
-  async create(localRepos) {
+  async create(repo) {
+    // test
+  }
+  async delete(repo) {
     // test
   }
   read() {

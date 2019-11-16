@@ -3,6 +3,7 @@
 // ****************************************************************************************************
 
 // dependencies
+import inquirer from 'inquirer';
 
 // local dependencies
 
@@ -16,12 +17,24 @@
 
 export default class CliView {
   load() {
-    console.log('load app');
+    console.log('[cli]', 'starting');
   }
   unload() {
-    console.log('unload app');
+    console.log('[cli]', 'exiting');
   }
   log(...messages) {
     console.log(...messages);
+  }
+  async ask(prefix, message, choices) {
+    return inquirer
+      .prompt({
+        type: 'rawlist',
+        name: 'answer',
+        message,
+        prefix,
+        choices: [...choices.map((choice) => ({ name: choice, value: choice[0] })), new inquirer.Separator(), { name: 'skip', value: 's' }],
+        default: 's'
+      })
+      .then((response) => response.answer);
   }
 }

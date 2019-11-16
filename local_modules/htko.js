@@ -8,10 +8,10 @@
 // dependencies
 
 // ****************************************************************************************************
-// Main
+// Parallel Methods
 // ****************************************************************************************************
 
-export const asyncMap = async function asyncMap(array, callback) {
+export const asyncMapP = async function asyncMap(array, callback) {
   const rslt = [];
   for (let index = 0; index < array.length; index += 1) {
     rslt[index] = callback(array[index], index, array);
@@ -19,19 +19,31 @@ export const asyncMap = async function asyncMap(array, callback) {
   return Promise.all(rslt);
 };
 
-export const asyncForEach = async function asyncForEach(array, callback) {
-  await asyncMap(array, callback);
+export const asyncForEachP = async function asyncForEach(array, callback) {
+  await asyncMapP(array, callback);
 };
 
-export const asyncMapS = async function asyncMapS(array, callback) {
+// ****************************************************************************************************
+// Sequential Methods
+// ****************************************************************************************************
+
+export const asyncMap = async function asyncMapS(array, callback) {
   const rslt = [];
   for (let index = 0; index < array.length; index += 1) {
     rslt[index] = await callback(array[index], index, array);
   }
+  return rslt;
 };
 
-export const asyncForEachS = async function asyncForEachS(array, callback) {
-  await asyncMapS(array, callback);
+export const asyncForEach = async function asyncForEachS(array, callback) {
+  await asyncMap(array, callback);
+};
+
+export const asyncFilter = async function asyncFilter(array, callback) {
+  const rslt = await asyncMap(array, callback);
+  return array.filter((val, index) => {
+    return !!rslt[index];
+  });
 };
 
 export const asyncReduce = async function asyncReduce(array, callback, initialValue) {
@@ -49,6 +61,9 @@ export const asyncReduceRight = async function asyncReduceRight(array, callback,
   }
   return rslt;
 };
+
+
+
 
 export const posixPath = function pathPosix(path, stripTrailing){
   if (typeof path !== 'string') {

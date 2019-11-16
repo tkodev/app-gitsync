@@ -9,7 +9,7 @@ import git from 'simple-git/promise';
 import { uniq, compact } from 'lodash';
 
 // local dependencies
-import { asyncMapS, asyncMap, posixPath } from '../../local_modules/htko';
+import { asyncMapP, asyncMap, posixPath } from '../../local_modules/htko';
 
 // ****************************************************************************************************
 // Functions
@@ -28,12 +28,13 @@ async function readLocal(srcDir) {
     ignore: ['**/{.git,node_modules}/**/*'],
     onlyDirectories: true,
     absolute: true
-  }).then((repoPaths) => asyncMap(repoPaths, (repoPath) => git(path.dirname(repoPath, '.git')).silent(true)));
+  }).then((repoPaths) => asyncMapP(repoPaths, (repoPath) => git(path.dirname(repoPath, '.git')).silent(true)));
 }
 
-async function readRepoObj(repoObj, idx) {
+async function readRepoObj(repoObj) {
   // await repoObj.fetch();
   const repoPath = await repoObj.revparse(['--absolute-git-dir']).then((data) => path.dirname(data));
+  const repoName = path.basename(repoPath);
   const packageObj = await getRepoFile(repoObj, 'package.json', true);
   const readmeStr = await getRepoFile(repoObj, 'README.md');
   const status = await repoObj.status();
@@ -41,6 +42,7 @@ async function readRepoObj(repoObj, idx) {
   const remoteNames = remotes.map((data) => (data.refs.fetch.includes('github') ? path.basename(data.refs.fetch, '.git') : null));
   const aliases = uniq(compact([path.basename(repoPath), packageObj.name, ...remoteNames]));
   return {
+    name: repoName,
     path: repoPath,
     package: packageObj,
     readme: readmeStr,
@@ -51,7 +53,9 @@ async function readRepoObj(repoObj, idx) {
 }
 
 async function readRepos(repoObjs) {
-  return asyncMap(repoObjs, readRepoObj);
+  return asyncMap(repoObjs, (repoObj) => {
+    return readRepoObj(repoObj);
+  });
 }
 
 async function cloneRepos(cloneUrls, settings) {
@@ -73,11 +77,12 @@ export default class LocalService {
   async load() {
     const repoObjs = await readLocal(this.settings.srcDir);
     this.repos = await readRepos(repoObjs);
-    return this.repos;
   }
-  async create(remoteRepos) {
-    // this.repos = await cloneRepos(clonePaths, this.settings);
-    return this.repos;
+  async create(repo) {
+    // test
+  }
+  async delete(repo) {
+    // test
   }
   read() {
     return this.repos;

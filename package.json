@@ -47,6 +47,7 @@
     "@octokit/graphql": "^4.3.1",
     "@octokit/rest": "^16.34.1",
     "fast-glob": "^3.1.0",
+    "inquirer": "^7.0.0",
     "lodash": "^4.17.15",
     "nodegit": "^0.26.2",
     "simple-git": "^1.126.0"
