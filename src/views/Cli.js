@@ -18,7 +18,7 @@ export default class CliView {
   constructor() {
     console.log('init app');
   }
-  start() {
+  load() {
     console.log('start app');
   }
 }

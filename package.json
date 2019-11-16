@@ -46,10 +46,9 @@
   "dependencies": {
     "@octokit/graphql": "^4.3.1",
     "@octokit/rest": "^16.34.1",
-    "axios": "^0.19.0",
     "fast-glob": "^3.1.0",
-    "humanize-graphql-response": "^1.0.0",
+    "lodash": "^4.17.15",
     "nodegit": "^0.26.2",
-    "normalize-path": "^3.0.0"
+    "simple-git": "^1.126.0"
   }
 }

@@ -11,5 +11,5 @@ import AppController from './controllers/App';
 
 (async () => {
   const appController = new AppController();
-  await appController.start();
+  await appController.load();
 })();
