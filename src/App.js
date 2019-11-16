@@ -48,6 +48,9 @@ export default class AppController {
     }
     await this.syncRepos();
   }
+  async updateRemotes() {
+    
+  }
   async syncRepos() {
     this.cliView.log('[syncRepos]', 'sync missing repos');
     const localRepos = this.localModel.read();
@@ -80,7 +83,7 @@ export default class AppController {
     );
     await this.updateNames();
   }
-  async updateNames() {
+  async updateRepos() {
     this.cliView.log('[updateNames]', 'update local and github repo names');
     const localRepos = this.localModel.read();
     const githubRepos = this.githubModel.read();
@@ -89,7 +92,7 @@ export default class AppController {
         return intersection(repoA.aliases, repoB.aliases).length;
       }),
       async (repo) => {
-        // test
+        // console.log
       }
     );
     await asyncForEach(
@@ -100,18 +103,6 @@ export default class AppController {
         // test
       }
     );
-    await this.updateRemotes();
-  }
-  async updateRemotes() {
-    this.cliView.log('[updateRemotes]', 'update local repo remote settings');
-    await this.updateFiles();
-  }
-  async updateFiles() {
-    this.cliView.log('[updateFiles]', 'update local package.json and README.md on local repos');
-    await this.updateMeta();
-  }
-  async updateMeta() {
-    this.cliView.log('[updateMeta]', 'update github metadata based on package.json');
     await this.unload();
   }
   async unload() {

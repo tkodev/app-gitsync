@@ -9,10 +9,10 @@ import git from 'simple-git/promise';
 import { uniq, compact } from 'lodash';
 
 // local dependencies
-import { asyncMapP, asyncMap, posixPath } from '../../local_modules/htko';
+import { asyncMapP, asyncMap, posixPath } from './common';
 
 // ****************************************************************************************************
-// Functions
+// Shared Functions
 // ****************************************************************************************************
 
 async function getRepoFile(repoObj, file, isObj) {
@@ -58,36 +58,15 @@ async function readRepos(repoObjs) {
   });
 }
 
-async function cloneRepos(cloneUrls, settings) {
-  return asyncMap(cloneUrls, async (cloneUrl) => {
-    const repoObj = await git(settings.srcDir).clone(cloneUrl);
-    return readRepoObj(repoObj);
-  });
-}
-
 // ****************************************************************************************************
-// Main
+// Export Functions
 // ****************************************************************************************************
 
-export default class LocalService {
-  constructor(settings) {
-    this.settings = settings;
-    this.projects = [];
-  }
-  async load() {
-    const repoObjs = await readLocal(this.settings.srcDir);
-    this.repos = await readRepos(repoObjs);
-  }
-  async create(repo) {
-    // test
-  }
-  async delete(repo) {
-    // test
-  }
-  async updateRemotes(repo){
-    // test
-  }
-  read() {
-    return this.repos;
-  }
-}
+export const load = async function load(srcDir) {
+  const repoObjs = await readLocal(srcDir);
+  return readRepos(repoObjs);
+};
+
+export const del = async function del(token) {
+  // test
+};

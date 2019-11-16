@@ -2,13 +2,10 @@
 // Init
 // ****************************************************************************************************
 
-// flags
-/* eslint-disable no-await-in-loop */
-
 // dependencies
 
 // ****************************************************************************************************
-// Parallel Methods
+// Export Functions - Parallel
 // ****************************************************************************************************
 
 export const asyncMapP = async function asyncMap(array, callback) {
@@ -24,7 +21,7 @@ export const asyncForEachP = async function asyncForEach(array, callback) {
 };
 
 // ****************************************************************************************************
-// Sequential Methods
+// Export Functions - Sequential
 // ****************************************************************************************************
 
 export const asyncMap = async function asyncMapS(array, callback) {
@@ -62,10 +59,15 @@ export const asyncReduceRight = async function asyncReduceRight(array, callback,
   return rslt;
 };
 
+// ****************************************************************************************************
+// Export Functions - Misc
+// ****************************************************************************************************
 
+export const deepClone = function deepClone(obj) {
+  return JSON.parse(JSON.stringify(obj));
+};
 
-
-export const posixPath = function pathPosix(path, stripTrailing){
+export const posixPath = function pathPosix(path, stripTrailing) {
   if (typeof path !== 'string') {
     throw new TypeError('expected path to be a string');
   }
@@ -87,13 +89,9 @@ export const posixPath = function pathPosix(path, stripTrailing){
   return prefix + segs.join('/');
 };
 
-export const getDeepVal = function getDeepVal(obj, objPath) {
-  return objPath.split('.').reduce((res, prop) => res[prop], obj);
-};
-
 export const arrToObj = function arrayToObject(arr, objPath) {
   return [...arr].reduce((accum, item) => {
-    const val = getDeepVal(item, objPath);
+    const val = objPath.split('.').reduce((res, prop) => res[prop], item);
     if (item && val) {
       accum[val] = item;
     }
@@ -112,4 +110,3 @@ export const mergeObj = function mergeObj(...objects) {
     { ...objects[0] }
   );
 };
-

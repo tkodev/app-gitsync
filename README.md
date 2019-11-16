@@ -2,12 +2,11 @@
 CLI application to batch sync local git repos with cloud git providers
 
 # Code Architecture
-- Uses MVC (Model-View-Controller) alike code structure.
-  - Models store all data, along with data specific methods, including API clals.
-  - Views manages all CLI human interactions
-  - Controllers manages all logic and tasks.
+- Uses functional approad to code structure.
+  - modules store and export functions in their scope
+  - schema store and export object templates
 - Example program flow:
-  - Controller stores instances of models and views. 
-  - Controller receives user input on CLI view or lifecycle events and makes calls to model and view objects
-    - Do CRUD operations directly on a model by using a model's CRUD methods.
-    - Pass the model to the view for rendering.
+  - index.js initializes cli module
+  - cli function returns required tasks to run
+  - index.js runs appropriate task function which calculates changes needed, calls functions in github.js and local.js
+  - github.js and local.js functions execute actions on their respective services (local git or github api);
