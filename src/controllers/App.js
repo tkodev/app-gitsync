@@ -24,7 +24,24 @@ export default class AppController {
     this.cliView = new CliView(this.settings);
   }
   async load() {
-    this.cliView.load();
-    await Promise.all([this.githubModel.load(), this.localModel.load()]);
+    await this.cliView.load();
+    this.cliView.log('loading github repos');
+    await this.githubModel.load();
+    this.cliView.log('loading local repos');
+    await this.localModel.load();
+    await this.checkStatus();
+  }
+  async checkStatus() {
+    this.cliView.log('checking repo status');
+    const localRepos = this.localModel.read();
+    const pendingRepos = localRepos.filter((repo) => !!repo.status.files.length);
+    if (pendingRepos.length) {
+      pendingRepos.forEach((repo) => this.cliView.log(repo.path, 'has uncommited file changes'));
+      return;
+    }
+    await this.unload();
+  }
+  async unload() {
+    this.cliView.unload();
   }
 }

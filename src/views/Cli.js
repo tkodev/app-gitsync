@@ -15,10 +15,13 @@
 // ****************************************************************************************************
 
 export default class CliView {
-  constructor() {
-    console.log('init app');
-  }
   load() {
-    console.log('start app');
+    console.log('load app');
+  }
+  unload() {
+    console.log('unload app');
+  }
+  log(...messages) {
+    console.log(...messages);
   }
 }

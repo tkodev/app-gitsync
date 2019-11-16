@@ -11,7 +11,7 @@
 // Main
 // ****************************************************************************************************
 
-export const asyncMap = async function asyncMapMap(array, callback) {
+export const asyncMap = async function asyncMap(array, callback) {
   const rslt = [];
   for (let index = 0; index < array.length; index += 1) {
     rslt[index] = callback(array[index], index, array);
@@ -21,6 +21,17 @@ export const asyncMap = async function asyncMapMap(array, callback) {
 
 export const asyncForEach = async function asyncForEach(array, callback) {
   await asyncMap(array, callback);
+};
+
+export const asyncMapS = async function asyncMapS(array, callback) {
+  const rslt = [];
+  for (let index = 0; index < array.length; index += 1) {
+    rslt[index] = await callback(array[index], index, array);
+  }
+};
+
+export const asyncForEachS = async function asyncForEachS(array, callback) {
+  await asyncMapS(array, callback);
 };
 
 export const asyncReduce = async function asyncReduce(array, callback, initialValue) {

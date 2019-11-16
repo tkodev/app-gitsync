@@ -22,8 +22,7 @@ async function readGithub(octoQL) {
           nodes {
             url
             name
-            # package: object(expression: "master:package.json") { ... on Blob { text } }
-            # readme: object(expression: "master:package.json") { ... on Blob { text } }
+            package: object(expression: "master:package.json") { ... on Blob { text } }
           }
         }
       }
@@ -33,13 +32,11 @@ async function readGithub(octoQL) {
 
 async function readRepoObj(repoObj) {
   const repoPath = repoObj.url;
-  // const packageObj = repoObj.package.text ? JSON.parse(repoObj.package.text) : {};
-  // const readmeStr = repoObj.readme.text || '';
+  const packageObj = repoObj.package.text ? JSON.parse(repoObj.package.text) : {};
   const aliases = uniq(compact([repoObj.name, packageObj.name]));
   return {
     path: repoPath,
-    // package: packageObj,
-    // readme: readmeStr,
+    package: packageObj,
     aliases
   };
 }
@@ -57,7 +54,7 @@ async function readRepos(repoObjs) {
 export default class GithubService {
   constructor(settings) {
     this.settings = settings;
-    this.projects = [];
+    this.repos = [];
     this.octoQL = QL.defaults({
       headers: {
         authorization: settings.token
@@ -69,14 +66,13 @@ export default class GithubService {
   }
   async load() {
     const repoObjs = await readGithub(this.octoQL);
-    const repos = await readRepos(this.settings, repoObjs);
-    this.projects = repos;
-    return this.projects;
+    this.repos = await readRepos(this.settings, repoObjs);
+    return this.repos;
   }
   async create(localRepos) {
     // test
   }
   read() {
-    return this.projects;
+    return this.repos;
   }
 }
