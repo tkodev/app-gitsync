@@ -2,9 +2,9 @@
 CLI application to batch sync local git repos with cloud git providers
 
 # Code Architecture
-- Uses MVCS (Model-View-Controller-Service) code structure.
+- Uses MVC (Model-View-Controller) alike code structure.
   - Models store all data, along with data specific methods, including API clals.
-  - Views manages all CLI human interactions.
+  - Views manages all CLI human interactions
   - Controllers manages all logic and tasks.
 - Example program flow:
   - Controller stores instances of models and views. 
