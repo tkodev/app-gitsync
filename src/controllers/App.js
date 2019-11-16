@@ -3,10 +3,10 @@
 // ****************************************************************************************************
 
 // dependencies
-import { intersection, differenceWith } from 'lodash';
+import { intersection, intersectionWith, differenceWith } from 'lodash';
 
 // local dependencies
-import { asyncForEach } from '../../local_modules/htko';
+import { asyncForEach, asyncMap } from '../../local_modules/htko';
 import settings from '../../.env.json';
 import GithubModel from '../models/Github';
 import LocalModel from '../models/Local';
@@ -52,36 +52,58 @@ export default class AppController {
     this.cliView.log('[syncRepos]', 'sync missing repos');
     const localRepos = this.localModel.read();
     const githubRepos = this.githubModel.read();
-    const localOrphans = differenceWith(localRepos, githubRepos, (repoA, repoB) => {
-      return intersection(repoA.aliases, repoB.aliases).length;
-    });
-    const githubOrphans = differenceWith(githubRepos, localRepos, (repoA, repoB) => {
-      return intersection(repoA.aliases, repoB.aliases).length;
-    });
-    await asyncForEach(localOrphans, async (repo) => {
-      const answer = await this.cliView.ask('[syncRepos]', `${repo.name} repo does not exist on github`, ['create github repo', 'delete local repo']);
-      if (answer === 'c') {
-        this.githubModel.create(repo);
-      } else if (answer === 'd') {
-        this.localModel.delete(repo);
+    await asyncForEach(
+      differenceWith(localRepos, githubRepos, (repoA, repoB) => {
+        return intersection(repoA.aliases, repoB.aliases).length;
+      }),
+      async (repo) => {
+        const answer = await this.cliView.ask('[syncRepos]', `${repo.name} repo does not exist on github`, ['create github repo', 'delete local repo']);
+        if (answer === 'c') {
+          this.githubModel.create(repo);
+        } else if (answer === 'd') {
+          this.localModel.delete(repo);
+        }
       }
-    });
-    await asyncForEach(githubOrphans, async (repo) => {
-      const answer = await this.cliView.ask('[syncRepos]', `${repo.name} repo does not exist locally`, ['create local repo', 'delete github repo']);
-      if (answer === 'c') {
-        this.localModel.create(repo);
-      } else if (answer === 'd') {
-        this.githubModel.delete(repo);
+    );
+    await asyncForEach(
+      differenceWith(githubRepos, localRepos, (repoA, repoB) => {
+        return intersection(repoA.aliases, repoB.aliases).length;
+      }),
+      async (repo) => {
+        const answer = await this.cliView.ask('[syncRepos]', `${repo.name} repo does not exist locally`, ['create local repo', 'delete github repo']);
+        if (answer === 'c') {
+          this.localModel.create(repo);
+        } else if (answer === 'd') {
+          this.githubModel.delete(repo);
+        }
       }
-    });
-    await this.updateRemotes();
-  }
-  async updateRemotes() {
-    this.cliView.log('[updateRemotes]', 'update local repo remote settings');
+    );
     await this.updateNames();
   }
   async updateNames() {
     this.cliView.log('[updateNames]', 'update local and github repo names');
+    const localRepos = this.localModel.read();
+    const githubRepos = this.githubModel.read();
+    await asyncForEach(
+      intersectionWith(localRepos, githubRepos, (repoA, repoB) => {
+        return intersection(repoA.aliases, repoB.aliases).length;
+      }),
+      async (repo) => {
+        // test
+      }
+    );
+    await asyncForEach(
+      intersectionWith(githubRepos, localRepos, (repoA, repoB) => {
+        return intersection(repoA.aliases, repoB.aliases).length;
+      }),
+      async (repo) => {
+        // test
+      }
+    );
+    await this.updateRemotes();
+  }
+  async updateRemotes() {
+    this.cliView.log('[updateRemotes]', 'update local repo remote settings');
     await this.updateFiles();
   }
   async updateFiles() {

@@ -84,6 +84,9 @@ export default class LocalService {
   async delete(repo) {
     // test
   }
+  async updateRemotes(repo){
+    // test
+  }
   read() {
     return this.repos;
   }
