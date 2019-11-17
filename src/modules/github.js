@@ -5,7 +5,7 @@
 // dependencies
 import { graphql as QL } from '@octokit/graphql';
 import Rest from '@octokit/rest';
-import { uniq, compact } from 'lodash';
+import { uniq, compact, keyBy } from 'lodash';
 
 // local dependencies
 import { asyncMap } from './common';
@@ -38,12 +38,21 @@ async function readGithub(token) {
   `).then((repos) => repos.user.repositories.nodes);
 }
 
-async function readRepoObj(repoObj) {
+async function createGithub(token, repo) {
+  // temp
+}
+
+async function removeGithub(token, repo) {
+  // temp
+}
+
+async function formatRepo(repoObj) {
   const repoPath = repoObj.url;
   const repoName = repoObj.name;
   const packageObj = repoObj.package && repoObj.package.text ? JSON.parse(repoObj.package.text) : {};
   const aliases = uniq(compact([repoObj.name, packageObj.name]));
   return {
+    type: 'github',
     name: repoName,
     path: repoPath,
     package: packageObj,
@@ -53,7 +62,7 @@ async function readRepoObj(repoObj) {
 
 async function readRepos(repoObjs) {
   return asyncMap(repoObjs, async (repoObj) => {
-    return readRepoObj(repoObj);
+    return formatRepo(repoObj);
   });
 }
 
@@ -66,6 +75,10 @@ export const load = async function load(token) {
   return readRepos(repoObjs);
 };
 
-export const del = async function del(token) {
+export const create = async function create(token, repo) {
+  // test
+};
+
+export const remove = async function remove(token) {
   // test
 };

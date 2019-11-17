@@ -6,7 +6,7 @@
 import path from 'path';
 import glob from 'fast-glob';
 import git from 'simple-git/promise';
-import { uniq, compact } from 'lodash';
+import { uniq, compact, values } from 'lodash';
 
 // local dependencies
 import { asyncMapP, asyncMap, posixPath } from './common';
@@ -14,13 +14,6 @@ import { asyncMapP, asyncMap, posixPath } from './common';
 // ****************************************************************************************************
 // Shared Functions
 // ****************************************************************************************************
-
-async function getRepoFile(repoObj, file, isObj) {
-  return repoObj
-    .show([`master:${file}`])
-    .then((data) => (isObj ? JSON.parse(data) : data))
-    .catch(() => (isObj ? {} : ''));
-}
 
 async function readLocal(srcDir) {
   return glob('**/.git', {
@@ -31,17 +24,32 @@ async function readLocal(srcDir) {
   }).then((repoPaths) => asyncMapP(repoPaths, (repoPath) => git(path.dirname(repoPath, '.git')).silent(true)));
 }
 
-async function readRepoObj(repoObj) {
+async function createLocal(repo) {
+  // temp
+}
+
+async function removeLocal(repo) {
+  // temp
+}
+
+async function formatRepo(repoObj) {
   // await repoObj.fetch();
   const repoPath = await repoObj.revparse(['--absolute-git-dir']).then((data) => path.dirname(data));
   const repoName = path.basename(repoPath);
-  const packageObj = await getRepoFile(repoObj, 'package.json', true);
-  const readmeStr = await getRepoFile(repoObj, 'README.md');
+  const packageObj = await repoObj
+    .show([`master:package.json`])
+    .then((data) => JSON.parse(data))
+    .catch(() => ({}));
+  const readmeStr = await repoObj
+    .show([`master:README.md`])
+    .then((data) => data.toString())
+    .catch(() => '');
   const status = await repoObj.status();
   const remotes = await repoObj.getRemotes(true);
-  const remoteNames = remotes.map((data) => (data.refs.fetch.includes('github') ? path.basename(data.refs.fetch, '.git') : null));
+  const remoteNames = remotes.map((remote) => (path.basename(remote.refs.fetch, '.git') !== 'repository' ? path.basename(remote.refs.fetch, '.git') : null));
   const aliases = uniq(compact([path.basename(repoPath), packageObj.name, ...remoteNames]));
   return {
+    type: 'local',
     name: repoName,
     path: repoPath,
     package: packageObj,
@@ -54,7 +62,7 @@ async function readRepoObj(repoObj) {
 
 async function readRepos(repoObjs) {
   return asyncMap(repoObjs, (repoObj) => {
-    return readRepoObj(repoObj);
+    return formatRepo(repoObj);
   });
 }
 
@@ -67,6 +75,10 @@ export const load = async function load(srcDir) {
   return readRepos(repoObjs);
 };
 
-export const del = async function del(token) {
+export const create = async function create(token, repo) {
+  // test
+};
+
+export const remove = async function remove(token) {
   // test
 };
