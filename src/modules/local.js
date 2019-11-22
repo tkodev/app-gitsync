@@ -3,6 +3,7 @@
 // ****************************************************************************************************
 
 // dependencies
+import fs from 'fs';
 import path from 'path';
 import glob from 'fast-glob';
 import git from 'simple-git/promise';
@@ -22,14 +23,6 @@ async function readLocal(srcDir) {
     onlyDirectories: true,
     absolute: true
   }).then((repoPaths) => asyncMapP(repoPaths, (repoPath) => git(path.dirname(repoPath, '.git')).silent(true)));
-}
-
-async function createLocal(repo) {
-  // temp
-}
-
-async function removeLocal(repo) {
-  // temp
 }
 
 async function formatRepo(repoObj) {
@@ -60,25 +53,28 @@ async function formatRepo(repoObj) {
   };
 }
 
-async function readRepos(repoObjs) {
-  return asyncMap(repoObjs, (repoObj) => {
-    return formatRepo(repoObj);
-  });
-}
 
 // ****************************************************************************************************
 // Export Functions
 // ****************************************************************************************************
 
-export const load = async function load(srcDir) {
-  const repoObjs = await readLocal(srcDir);
-  return readRepos(repoObjs);
-};
-
+// Create
 export const create = async function create(token, repo) {
   // test
 };
 
+// Read
+export const load = async function load(srcDir) {
+  const repoObjs = await readLocal(srcDir);
+  const rslt = asyncMap(repoObjs, (repoObj) => {
+    return formatRepo(repoObj);
+  });
+  return rslt;
+};
+
+// Update
+
+// Delete
 export const remove = async function remove(token) {
   // test
 };
