@@ -4,7 +4,7 @@
 
 // dependencies
 import dotenv from 'dotenv';
-import { load, checkStatus, updateRemotes, sync } from './modules/app';
+import { load, checkStatus, updateRemotes, sync } from './modules/tasks';
 
 // local dependencies
 

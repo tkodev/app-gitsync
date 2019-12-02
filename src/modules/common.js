@@ -7,58 +7,92 @@
 /* eslint-disable no-await-in-loop */
 
 // ****************************************************************************************************
-// Export Functions - Parallel
+// Export Functions - Arrays
 // ****************************************************************************************************
 
-export const asyncMapP = async function asyncMap(array, callback) {
-  const rslt = [];
-  for (let index = 0; index < array.length; index += 1) {
-    rslt[index] = callback(array[index], index, array);
-  }
-  return Promise.all(rslt);
-};
-
-export const asyncForEachP = async function asyncForEach(array, callback) {
-  await asyncMapP(array, callback);
-};
-
-// ****************************************************************************************************
-// Export Functions - Sequential
-// ****************************************************************************************************
-
-export const asyncMap = async function asyncMapS(array, callback) {
-  const rslt = [];
-  for (let index = 0; index < array.length; index += 1) {
-    rslt[index] = await callback(array[index], index, array);
+export const asyncMap = async function asyncMap(array, callback) {
+  const rslt = [...array];
+  for (let idx = 0; idx < rslt.length; idx += 1) {
+    rslt[idx] = await callback(rslt[idx], idx, rslt);
   }
   return rslt;
 };
 
-export const asyncForEach = async function asyncForEachS(array, callback) {
+export const asyncForEach = async function asyncForEach(array, callback) {
   await asyncMap(array, callback);
 };
 
 export const asyncFilter = async function asyncFilter(array, callback) {
   const rslt = await asyncMap(array, callback);
-  return array.filter((val, index) => {
-    return !!rslt[index];
+  return rslt.filter((val, idx) => {
+    return !!rslt[idx];
   });
 };
 
 export const asyncReduce = async function asyncReduce(array, callback, initialValue) {
-  let rslt = initialValue || array[0];
-  for (let index = 0; index < array.length; index += 1) {
-    rslt = await callback(rslt, array[index], index, array);
+  const collection = [...array];
+  let rslt = initialValue || collection[0];
+  for (let idx = 0; idx < collection.length; idx += 1) {
+    rslt = await callback(rslt, collection[idx], idx, collection);
   }
   return rslt;
 };
 
 export const asyncReduceRight = async function asyncReduceRight(array, callback, initialValue) {
-  let rslt = initialValue || array[array.length - 1];
-  for (let index = 0; index < array.length; index += 1) {
-    rslt = await callback(rslt, array[index], index, array);
+  const collection = [...array];
+  let rslt = initialValue || collection[collection.length - 1];
+  for (let idx = 0; idx < collection.length; idx += 1) {
+    rslt = await callback(rslt, collection[idx], idx, collection);
   }
   return rslt;
+};
+
+export const asyncMapP = async function asyncMapP(array, callback) {
+  const rslt = [...array];
+  for (let idx = 0; idx < rslt.length; idx += 1) {
+    rslt[idx] = callback(rslt[idx], idx, rslt);
+  }
+  return Promise.all(rslt);
+};
+
+export const asyncForEachP = async function asyncForEachP(array, callback) {
+  await asyncMapP(array, callback);
+};
+
+// ****************************************************************************************************
+// Export Functions - Objects
+// ****************************************************************************************************
+
+export const asyncMapObj = async function asyncMapObj(obj, callback) {
+  const rslt = { ...obj };
+  const keys = Object.keys(rslt);
+  for (let idx = 0; idx < keys.length; idx += 1) {
+    const key = keys[idx];
+    rslt[key] = await callback(rslt[key], key, rslt);
+  }
+  return rslt;
+};
+
+export const asyncForEachObj = async function asyncForEachObj(obj, callback) {
+  await asyncMapObj(obj, callback);
+};
+
+export const asyncMapObjP = async function asyncMapObjP(obj, callback) {
+  const rslt = { ...obj };
+  const keys = Object.keys(rslt);
+  for (let idx = 0; idx < keys.length; idx += 1) {
+    const key = keys[idx];
+    rslt[key] = callback(rslt[key], key, rslt);
+  }
+  for (let idx = 0; idx < keys.length; idx += 1) {
+    const key = keys[idx];
+    rslt[key] = await rslt[key];
+  }
+  return rslt;
+};
+
+export const asyncForEachObjP = async function asyncForEachObjP(obj, callback) {
+  await asyncMapObjP(obj, callback);
 };
 
 // ****************************************************************************************************
