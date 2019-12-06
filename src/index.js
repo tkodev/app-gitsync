@@ -4,7 +4,7 @@
 
 // dependencies
 import dotenv from 'dotenv';
-import { load, checkStatus, updateRemotes, sync } from './modules/tasks';
+import { load, checkStatus, updateNames, updateRemotes, syncRepos, updateMeta } from './modules/tasks';
 
 // local dependencies
 
@@ -17,6 +17,8 @@ import { load, checkStatus, updateRemotes, sync } from './modules/tasks';
   let repos = {};
   repos = await load(settings.srcDir, settings.token);
   repos = await checkStatus(repos);
+  repos = await updateNames();
   repos = await updateRemotes(repos, settings.user);
-  repos = await sync(repos);
+  repos = await updateMeta(repos);
+  repos = await syncRepos(repos);
 })();

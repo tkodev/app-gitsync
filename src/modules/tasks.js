@@ -4,13 +4,13 @@
 
 // dependencies
 import process from 'process';
-import { intersection, reduce, mapValues } from 'lodash';
+import { intersection, reduce } from 'lodash';
 
 // local dependencies
 import * as local from './local';
 import * as github from './github';
 import * as cli from './cli';
-import { asyncMapP, asyncReduce } from './common';
+import { asyncMapObj } from './common';
 
 // ****************************************************************************************************
 // Shared Functions
@@ -67,32 +67,29 @@ function getRemoteName(url) {
 // Export Functions
 // ****************************************************************************************************
 
-export const load = async function load(srcDir, token) {
+export async function load(srcDir, token) {
   cli.log('[load]', 'loading local & github repos');
   const [localRepos, githubRepos] = await Promise.all([local.load(srcDir), github.load(token)]);
   return mergeRepos(localRepos, githubRepos);
-};
+}
 
-export const checkStatus = async function checkStatus(repos) {
+export async function checkStatus(repos) {
   cli.log('[checkStatus]', 'checking local repo status');
-  console.log(repos);
-  // const rslt = repos.filter((repo) => {
-  //   if (repo.local && repo.local.status.files.length) {
-  //     cli.log('[checkStatus]', `${repo.name} repo default branch out of sync with remote. Please resolve repo manually.`);
-  //     return true;
-  //   }
-  //   return false;
-  // });
-};
+  // filter through repos and remove ones that have a status
+}
 
-export const updateRemotes = async function updateRemotes(repos, user) {
+export async function updateNames(repos) {
+  cli.log('[updateNames]', 'detecting repo names');
+  // detect name differences and allow user to choose
+}
+
+export async function updateRemotes(repos, user) {
   cli.log('[updateRemotes]', 'update local repo remotes && github repo names');
-  return mapValues(repos, (repo, repoName) => {
+  return asyncMapObj(repos, (repo, repoName) => {
     const rslt = { ...repo };
     if (rslt.local) {
       rslt.local = {
         ...rslt.local,
-        name: repoName,
         remotes: [
           getRemote('origin', `https://${user}@github.com/${user}/${repoName}.git`),
           ...repo.local.remotes
@@ -104,52 +101,19 @@ export const updateRemotes = async function updateRemotes(repos, user) {
             })
         ]
       };
-      // update local remotes here
+      // update local remotes here if different from repoName
     }
     if (rslt.github) {
-      rslt.github = {
-        ...rslt.github,
-        name: repoName
-      };
       // update github name here
     }
     return rslt;
   });
-};
+}
 
-export const sync = async function sync(repos) {
-  // temp
-};
+export async function syncRepos(repos) {
+  cli.log('[syncRepos]', 'download / upload missing repos');
+}
 
-// export const syncRepos = async function syncRepos(localRepos, githubRepos) {
-//   cli.log('[syncRepos]', 'sync missing repos');
-//   const localRslt = await asyncReduce(
-//     getOrphanRepos(localRepos, githubRepos),
-//     async (accum, repo) => {
-//       const answer = await cli.ask('[syncRepos]', `${repo.name} repo does not exist on github`, ['create github repo', 'delete local repo']);
-//       if (answer === 'c') {
-//         github.create(repo);
-//         // add rslt add/remove action here
-//       } else if (answer === 'd') {
-//         local.delete(repo);
-//         // add rslt add/remove action here
-//       }
-//     },
-//     [...localRepos]
-//   );
-//   const githubRslt = await asyncReduce(
-//     getOrphanRepos(githubRepos, localRepos),
-//     async (accum, repo) => {
-//       const answer = await cli.ask('[syncRepos]', `${repo.name} repo does not exist locally`, ['create local repo', 'delete github repo']);
-//       if (answer === 'c') {
-//         local.create(repo);
-//         // add rslt add/remove action here
-//       } else if (answer === 'd') {
-//         github.delete(repo);
-//         // add rslt add/remove action here
-//       }
-//     },
-//     [...githubRepos]
-//   );
-//   return [localRslt, githubRslt];
-// };
+export async function updateMeta() {
+  cli.log('[updateMeta]', 'update package.json and github meta');
+}

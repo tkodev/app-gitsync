@@ -10,60 +10,60 @@
 // Export Functions - Arrays
 // ****************************************************************************************************
 
-export const asyncMap = async function asyncMap(array, callback) {
+export async function asyncMap(array, callback) {
   const rslt = [...array];
   for (let idx = 0; idx < rslt.length; idx += 1) {
     rslt[idx] = await callback(rslt[idx], idx, rslt);
   }
   return rslt;
-};
+}
 
-export const asyncForEach = async function asyncForEach(array, callback) {
+export async function asyncForEach(array, callback) {
   await asyncMap(array, callback);
-};
+}
 
-export const asyncFilter = async function asyncFilter(array, callback) {
+export async function asyncFilter(array, callback) {
   const rslt = await asyncMap(array, callback);
   return rslt.filter((val, idx) => {
     return !!rslt[idx];
   });
-};
+}
 
-export const asyncReduce = async function asyncReduce(array, callback, initialValue) {
+export async function asyncReduce(array, callback, initialValue) {
   const collection = [...array];
   let rslt = initialValue || collection[0];
   for (let idx = 0; idx < collection.length; idx += 1) {
     rslt = await callback(rslt, collection[idx], idx, collection);
   }
   return rslt;
-};
+}
 
-export const asyncReduceRight = async function asyncReduceRight(array, callback, initialValue) {
+export async function asyncReduceRight(array, callback, initialValue) {
   const collection = [...array];
   let rslt = initialValue || collection[collection.length - 1];
   for (let idx = 0; idx < collection.length; idx += 1) {
     rslt = await callback(rslt, collection[idx], idx, collection);
   }
   return rslt;
-};
+}
 
-export const asyncMapP = async function asyncMapP(array, callback) {
+export async function asyncMapP(array, callback) {
   const rslt = [...array];
   for (let idx = 0; idx < rslt.length; idx += 1) {
     rslt[idx] = callback(rslt[idx], idx, rslt);
   }
   return Promise.all(rslt);
-};
+}
 
-export const asyncForEachP = async function asyncForEachP(array, callback) {
+export async function asyncForEachP(array, callback) {
   await asyncMapP(array, callback);
-};
+}
 
 // ****************************************************************************************************
 // Export Functions - Objects
 // ****************************************************************************************************
 
-export const asyncMapObj = async function asyncMapObj(obj, callback) {
+export async function asyncMapObj(obj, callback) {
   const rslt = { ...obj };
   const keys = Object.keys(rslt);
   for (let idx = 0; idx < keys.length; idx += 1) {
@@ -71,13 +71,13 @@ export const asyncMapObj = async function asyncMapObj(obj, callback) {
     rslt[key] = await callback(rslt[key], key, rslt);
   }
   return rslt;
-};
+}
 
-export const asyncForEachObj = async function asyncForEachObj(obj, callback) {
+export async function asyncForEachObj(obj, callback) {
   await asyncMapObj(obj, callback);
-};
+}
 
-export const asyncMapObjP = async function asyncMapObjP(obj, callback) {
+export async function asyncMapObjP(obj, callback) {
   const rslt = { ...obj };
   const keys = Object.keys(rslt);
   for (let idx = 0; idx < keys.length; idx += 1) {
@@ -89,21 +89,21 @@ export const asyncMapObjP = async function asyncMapObjP(obj, callback) {
     rslt[key] = await rslt[key];
   }
   return rslt;
-};
+}
 
-export const asyncForEachObjP = async function asyncForEachObjP(obj, callback) {
+export async function asyncForEachObjP(obj, callback) {
   await asyncMapObjP(obj, callback);
-};
+}
 
 // ****************************************************************************************************
 // Export Functions - Misc
 // ****************************************************************************************************
 
-export const deepClone = function deepClone(obj) {
+export function deepClone(obj) {
   return JSON.parse(JSON.stringify(obj));
-};
+}
 
-export const posixPath = function pathPosix(path, stripTrailing) {
+export function posixPath(path, stripTrailing) {
   if (typeof path !== 'string') {
     throw new TypeError('expected path to be a string');
   }
@@ -123,9 +123,9 @@ export const posixPath = function pathPosix(path, stripTrailing) {
     segs.pop();
   }
   return prefix + segs.join('/');
-};
+}
 
-export const arrToObj = function arrayToObject(arr, objPath) {
+export function arrayToObject(arr, objPath) {
   return [...arr].reduce((accum, item) => {
     const val = objPath.split('.').reduce((res, prop) => res[prop], item);
     if (item && val) {
@@ -133,9 +133,9 @@ export const arrToObj = function arrayToObject(arr, objPath) {
     }
     return accum;
   }, {});
-};
+}
 
-export const mergeObj = function mergeObj(...objects) {
+export function mergeObj(...objects) {
   return objects.reduce(
     (accum, object, idx) => {
       Object.keys(object).forEach((key) => {
@@ -145,4 +145,4 @@ export const mergeObj = function mergeObj(...objects) {
     },
     { ...objects[0] }
   );
-};
+}

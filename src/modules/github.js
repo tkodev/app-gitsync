@@ -58,22 +58,22 @@ async function formatRepo(repoObj) {
 // ****************************************************************************************************
 
 // Create
-export const create = async function create(token, repo) {
+export async function create(token, repo) {
   // test
-};
+}
 
 // Read
-export const load = async function load(token) {
+export async function load(token) {
   const repoObjs = await readGithub(token);
   const rslt = asyncMap(repoObjs, async (repoObj) => {
     return formatRepo(repoObj);
   });
   return rslt;
-};
+}
 
 // Update
 
 // Delete
-export const remove = async function remove(token) {
+export async function remove(token) {
   // test
-};
+}

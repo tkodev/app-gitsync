@@ -9,11 +9,11 @@ import inquirer from 'inquirer';
 // Export Functions
 // ****************************************************************************************************
 
-export const log = function log(...messages) {
+export function log(...messages) {
   console.log(...messages);
-};
+}
 
-export const ask = async function ask(prefix, message, choices) {
+export async function ask(prefix, message, choices) {
   return inquirer
     .prompt({
       type: 'rawlist',
@@ -24,4 +24,4 @@ export const ask = async function ask(prefix, message, choices) {
       default: 's'
     })
     .then((response) => response.answer);
-};
+}

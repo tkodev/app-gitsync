@@ -53,28 +53,27 @@ async function formatRepo(repoObj) {
   };
 }
 
-
 // ****************************************************************************************************
 // Export Functions
 // ****************************************************************************************************
 
 // Create
-export const create = async function create(token, repo) {
+export async function create(token, repo) {
   // test
-};
+}
 
 // Read
-export const load = async function load(srcDir) {
+export async function load(srcDir) {
   const repoObjs = await readLocal(srcDir);
   const rslt = asyncMap(repoObjs, (repoObj) => {
     return formatRepo(repoObj);
   });
   return rslt;
-};
+}
 
 // Update
 
 // Delete
-export const remove = async function remove(token) {
+export async function remove(token) {
   // test
-};
+}
