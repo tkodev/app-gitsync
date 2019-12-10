@@ -3,7 +3,6 @@
 // ****************************************************************************************************
 
 // dependencies
-import fs from 'fs';
 import path from 'path';
 import glob from 'fast-glob';
 import git from 'simple-git/promise';
@@ -25,6 +24,10 @@ async function readLocal(srcDir) {
   }).then((repoPaths) => {
     return mapAsync(repoPaths, (repoPath) => git(path.dirname(repoPath, '.git')).silent(true));
   });
+}
+
+async function updateNameLocal(repo) {
+  //
 }
 
 async function formatRepo(repoObj) {
@@ -72,7 +75,9 @@ export async function load(srcDir) {
 }
 
 // Update
-export async function update(repo) {
+export async function updateName(repo) {
+  // const repoObj = await updateNameLocal(repo);
+  // return formatRepo(repoObj);
   return repo;
 }
 

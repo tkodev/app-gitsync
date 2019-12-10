@@ -36,9 +36,9 @@ async function readGithub(token) {
   ).then((resp) => resp.user.repositories.nodes);
 }
 
-async function updateGithub(token, repo) {
+async function updateNameGithub(token, repo) {
   return QL(
-    `mutation updateGithub ($input: UpdateRepositoryInput!) {
+    `mutation updateNameGithub ($input: UpdateRepositoryInput!) {
       updateRepository(input: $input) {
         repository {
           url
@@ -92,8 +92,8 @@ export async function load(token) {
 }
 
 // Update
-export async function update(token, repo) {
-  const repoObj = await updateGithub(token, repo);
+export async function updateName(token, repo) {
+  const repoObj = await updateNameGithub(token, repo);
   return formatRepo(repoObj);
 }
 
