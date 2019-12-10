@@ -71,7 +71,7 @@ export async function updateNames(token, repos) {
       if (newName !== 'skip') {
         if (rslt.local.name !== newName) {
           rslt.local = { ...rslt.local, name: newName };
-          rslt.local = await local.updateName(token, rslt.local);
+          rslt.local = await local.updateName(rslt.local);
         }
         if (rslt.github.name !== newName) {
           rslt.github = { ...rslt.github, name: newName };
