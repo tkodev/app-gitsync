@@ -41,14 +41,24 @@ export async function load(token, srcDir) {
   return mergeRepos(localRepos, githubRepos);
 }
 
-export async function checkStatus(repos) {
+export async function checkStatus(user, repos) {
   cli.log('[checkStatus]', 'checking local repo status');
   return filter(repos, (repo) => {
-    const rslt = repo.local ? !(repo.local.status.behind + repo.local.status.ahead + repo.local.status.files.length) : true;
-    if (!rslt) {
-      cli.log('[checkStatus]', `excluded from sync due to untracked or upstream changes: ${repo.local.path}`);
+    if (repo.local && repo.local.remotes[0]) {
+      const notInSync = !!(repo.local.status.behind + repo.local.status.ahead + repo.local.status.files.length);
+      if (notInSync) {
+        cli.log('[checkStatus]', `excluded from sync - untracked or upstream changes: ${repo.local.path}`);
+        return false;
+      }
+      const notOwned = !repo.local.remotes.some((remote) => {
+        return remote.refs.fetch.match(new RegExp(`[\:\\\/]${user}[\\\/]`, 'gi'));
+      });
+      if (notOwned) {
+        cli.log('[checkStatus]', `excluded from sync - github remote repo not owned by user: ${repo.local.path}`);
+        return false;
+      }
     }
-    return rslt;
+    return true;
   });
 }
 
@@ -56,25 +66,25 @@ export async function updateNames(token, repos) {
   cli.log('[updateNames]', 'detecting repo names');
   return mapAsync(repos, async (repo) => {
     const rslt = { ...repo };
-    if (rslt.local && rslt.github && rslt.local.name !== rslt.github.name) {
+    if (repo.local && repo.github && repo.local.name !== repo.github.name) {
       const names = [
         {
-          name: `use local name: ${rslt.local.name}`,
-          value: rslt.local.name
+          name: `use local name: ${repo.local.name}`,
+          value: repo.local.name
         },
         {
-          name: `use github name: ${rslt.github.name}`,
-          value: rslt.github.name
+          name: `use github name: ${repo.github.name}`,
+          value: repo.github.name
         }
       ];
-      const newName = await cli.ask('[updateNames]', `repo name conflict in ${rslt.local.path}. choose a new repo name:`, names);
+      const newName = await cli.ask('[updateNames]', `repo name conflict in ${repo.local.path}. choose a new repo name:`, names);
       if (newName !== 'skip') {
-        if (rslt.local.name !== newName) {
-          rslt.local = { ...rslt.local, name: newName };
+        if (repo.local.name !== newName) {
+          rslt.local = { ...repo.local, name: newName };
           rslt.local = await local.updateName(rslt.local);
         }
-        if (rslt.github.name !== newName) {
-          rslt.github = { ...rslt.github, name: newName };
+        if (repo.github.name !== newName) {
+          rslt.github = { ...repo.github, name: newName };
           rslt.github = await github.updateName(token, rslt.github);
         }
       }
@@ -83,11 +93,21 @@ export async function updateNames(token, repos) {
   });
 }
 
-export async function updateRemotes() {
+export async function updateRemotes(repos) {
   cli.log('[updateRemotes]', 'update remotes for local repos');
+  return mapAsync(repos, async (repo) => {
+    const rslt = { ...repo };
+    if (repo.local) {
+      console.log(repo.local.remotes);
+      // const ghRemote = {
+      // }
+      rslt.local = { ...repo.local };
+    }
+    return rslt;
+  });
 }
 
-export async function updateMeta() {
+export async function updateMeta(repos) {
   cli.log('[updateMeta]', 'update package.json and github meta');
 }
 

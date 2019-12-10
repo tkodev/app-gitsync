@@ -16,9 +16,9 @@ import { load, checkStatus, updateNames, updateRemotes, updateMeta, syncRepos } 
   const settings = dotenv.config().parsed;
   let repos = {};
   repos = await load(settings.token, settings.srcDir);
-  repos = await checkStatus(repos);
+  repos = await checkStatus(settings.user, repos);
   repos = await updateNames(settings.token, repos);
-  // repos = await updateRemotes(settings.token, repos);
+  repos = await updateRemotes(repos);
   // repos = await updateMeta(repos);
   // repos = await syncRepos(repos);
 })();
