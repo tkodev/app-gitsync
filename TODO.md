@@ -1,6 +1,5 @@
 # Todo
-- create async object methods
-- create check status task
+- ensure broken package.json content doesn't break sync
 - create sync task
 - create update remote task
 - create rename github api task

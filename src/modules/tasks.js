@@ -67,7 +67,7 @@ function getRemoteName(url) {
 // Export Functions
 // ****************************************************************************************************
 
-export async function load(srcDir, token) {
+export async function load(token, srcDir) {
   cli.log('[load]', 'loading local & github repos');
   const [localRepos, githubRepos] = await Promise.all([local.load(srcDir), github.load(token)]);
   return mergeRepos(localRepos, githubRepos);
@@ -84,18 +84,18 @@ export async function checkStatus(repos) {
   });
 }
 
-export async function updateNames(repos) {
+export async function updateNames(token, repos) {
   cli.log('[updateNames]', 'detecting repo names');
   return mapAsync(repos, async (repo) => {
     const rslt = { ...repo };
     if (rslt.local && rslt.github && rslt.local.name !== rslt.github.name) {
       const names = [
         {
-          name: `local name: ${rslt.local.name}`,
+          name: `use local name: ${rslt.local.name}`,
           value: rslt.local.name
         },
         {
-          name: `github name: ${rslt.github.name}`,
+          name: `use github name: ${rslt.github.name}`,
           value: rslt.github.name
         }
       ];
@@ -103,11 +103,11 @@ export async function updateNames(repos) {
       if (answer !== 'skip') {
         if (rslt.local.name !== answer) {
           rslt.local = { ...repo.local, name: answer };
-          local.updateName(repo);
+          rslt.local = await local.update(token, rslt.local);
         }
         if (rslt.github.name !== answer) {
           rslt.github = { ...repo.github, name: answer };
-          github.updateName(repo);
+          rslt.github = await github.update(token, rslt.github);
         }
       }
     }

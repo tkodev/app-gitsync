@@ -72,8 +72,8 @@ export async function load(srcDir) {
 }
 
 // Update
-export async function updateName(repo) {
-  // test
+export async function update(repo) {
+  return repo;
 }
 
 // Delete

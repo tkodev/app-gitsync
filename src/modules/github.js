@@ -33,7 +33,31 @@ async function readGithub(token) {
         authorization: `token ${token}`
       }
     }
-  ).then((repos) => repos.user.repositories.nodes);
+  ).then((resp) => resp.user.repositories.nodes);
+}
+
+async function updateGithub(token, repo) {
+  return QL(
+    `mutation updateGithub ($input: UpdateRepositoryInput!) {
+      updateRepository(input: $input) {
+        repository {
+          url
+          id
+          name
+          package: object(expression: "master:package.json") { ... on Blob { text } }
+        }
+      }
+    }`,
+    {
+      headers: {
+        authorization: `token ${token}`
+      },
+      input: {
+        repositoryId: repo.id,
+        name: repo.name
+      }
+    }
+  ).then((resp) => resp.updateRepository.repository);
 }
 
 function formatRepo(repoObj) {
@@ -68,8 +92,9 @@ export async function load(token) {
 }
 
 // Update
-export async function updateName(repo) {
-  console.log(repo);
+export async function update(token, repo) {
+  const repoObj = await updateGithub(token, repo);
+  return formatRepo(repoObj);
 }
 
 // Delete
