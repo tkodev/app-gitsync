@@ -20,8 +20,8 @@ export async function ask(prefix, message, choices) {
       name: 'answer',
       message,
       prefix,
-      choices: [...choices.map((choice) => ({ name: choice, value: choice[0] })), new inquirer.Separator(), { name: 'skip', value: 's' }],
-      default: 's'
+      choices: [...choices, new inquirer.Separator(), { name: 'skip', value: 'skip' }],
+      default: 'skip'
     })
     .then((response) => response.answer);
 }

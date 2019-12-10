@@ -7,10 +7,10 @@ import fs from 'fs';
 import path from 'path';
 import glob from 'fast-glob';
 import git from 'simple-git/promise';
-import { uniq, compact, values } from 'lodash';
+import { uniq, compact } from 'lodash';
 
 // local dependencies
-import { asyncMapP, asyncMap, posixPath } from './common';
+import { mapAsync, posixPath } from './common';
 
 // ****************************************************************************************************
 // Shared Functions
@@ -22,12 +22,14 @@ async function readLocal(srcDir) {
     ignore: ['**/{.git,node_modules}/**/*'],
     onlyDirectories: true,
     absolute: true
-  }).then((repoPaths) => asyncMapP(repoPaths, (repoPath) => git(path.dirname(repoPath, '.git')).silent(true)));
+  }).then((repoPaths) => {
+    return mapAsync(repoPaths, (repoPath) => git(path.dirname(repoPath, '.git')).silent(true));
+  });
 }
 
 async function formatRepo(repoObj) {
-  // await repoObj.fetch();
   const repoPath = await repoObj.revparse(['--absolute-git-dir']).then((data) => path.dirname(data));
+  const repoId = '';
   const repoName = path.basename(repoPath);
   const packageObj = await repoObj
     .show([`master:package.json`])
@@ -40,9 +42,10 @@ async function formatRepo(repoObj) {
   const status = await repoObj.status();
   const remotes = await repoObj.getRemotes(true);
   const remoteNames = remotes.map((remote) => (path.basename(remote.refs.fetch, '.git') !== 'repository' ? path.basename(remote.refs.fetch, '.git') : null));
-  const aliases = uniq(compact([path.basename(repoPath), packageObj.name, ...remoteNames]));
+  const aliases = uniq(compact([path.basename(repoPath), packageObj.name, repoId, ...remoteNames]));
   return {
     type: 'local',
+    id: repoId,
     name: repoName,
     path: repoPath,
     package: packageObj,
@@ -58,22 +61,22 @@ async function formatRepo(repoObj) {
 // ****************************************************************************************************
 
 // Create
-export async function create(token, repo) {
+export async function create(repo) {
   // test
 }
 
 // Read
 export async function load(srcDir) {
   const repoObjs = await readLocal(srcDir);
-  const rslt = asyncMap(repoObjs, (repoObj) => {
-    return formatRepo(repoObj);
-  });
-  return rslt;
+  return mapAsync(repoObjs, (repoObj) => formatRepo(repoObj));
 }
 
 // Update
+export async function updateName(repo) {
+  // test
+}
 
 // Delete
-export async function remove(token) {
+export async function remove() {
   // test
 }

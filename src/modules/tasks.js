@@ -4,13 +4,13 @@
 
 // dependencies
 import process from 'process';
-import { intersection, reduce } from 'lodash';
+import { intersection, uniq, compact } from 'lodash';
 
 // local dependencies
 import * as local from './local';
 import * as github from './github';
 import * as cli from './cli';
-import { asyncMapObj } from './common';
+import { map, filter, reduce, mapAsync } from './common';
 
 // ****************************************************************************************************
 // Shared Functions
@@ -75,17 +75,49 @@ export async function load(srcDir, token) {
 
 export async function checkStatus(repos) {
   cli.log('[checkStatus]', 'checking local repo status');
-  // filter through repos and remove ones that have a status
+  return filter(repos, (repo) => {
+    const rslt = repo.local ? !(repo.local.status.behind + repo.local.status.ahead + repo.local.status.files.length) : true;
+    if (!rslt) {
+      cli.log('[checkStatus]', `excluded from sync: ${repo.local.path} has untracked or upstream changes with origin master branch. please reconcile.`);
+    }
+    return rslt;
+  });
 }
 
 export async function updateNames(repos) {
   cli.log('[updateNames]', 'detecting repo names');
-  // detect name differences and allow user to choose
+  return mapAsync(repos, async (repo) => {
+    const rslt = { ...repo };
+    if (rslt.local && rslt.github && rslt.local.name !== rslt.github.name) {
+      const names = [
+        {
+          name: `local name: ${rslt.local.name}`,
+          value: rslt.local.name
+        },
+        {
+          name: `github name: ${rslt.github.name}`,
+          value: rslt.github.name
+        }
+      ];
+      const answer = await cli.ask('[updateNames]', `repo name conflict in ${rslt.local.path}. choose a new repo name:`, names);
+      if (answer !== 'skip') {
+        if (rslt.local.name !== answer) {
+          rslt.local = { ...repo.local, name: answer };
+          local.updateName(repo);
+        }
+        if (rslt.github.name !== answer) {
+          rslt.github = { ...repo.github, name: answer };
+          github.updateName(repo);
+        }
+      }
+    }
+    return rslt;
+  });
 }
 
 export async function updateRemotes(repos, user) {
   cli.log('[updateRemotes]', 'update local repo remotes && github repo names');
-  return asyncMapObj(repos, (repo, repoName) => {
+  return map(repos, (repo, repoName) => {
     const rslt = { ...repo };
     if (rslt.local) {
       rslt.local = {

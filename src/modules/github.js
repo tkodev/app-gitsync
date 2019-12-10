@@ -5,47 +5,46 @@
 // dependencies
 import { graphql as QL } from '@octokit/graphql';
 import Rest from '@octokit/rest';
-import fs from 'fs';
-import { uniq, compact, keyBy } from 'lodash';
+import { uniq, compact } from 'lodash';
 
 // local dependencies
-import { asyncMap } from './common';
+import { map } from './common';
 
 // ****************************************************************************************************
 // Shared Functions
 // ****************************************************************************************************
 
 async function readGithub(token) {
-  const octoRest = new Rest({
-    auth: token
-  });
-  const octoQL = QL.defaults({
-    headers: {
-      authorization: token
-    }
-  });
-  return octoQL(`
-    {
+  return QL(
+    `query readGithub {
       user: viewer {
         repositories(affiliations: [OWNER], first: 100) {
           nodes {
             url
+            id
             name
             package: object(expression: "master:package.json") { ... on Blob { text } }
           }
         }
       }
+    }`,
+    {
+      headers: {
+        authorization: `token ${token}`
+      }
     }
-  `).then((repos) => repos.user.repositories.nodes);
+  ).then((repos) => repos.user.repositories.nodes);
 }
 
-async function formatRepo(repoObj) {
+function formatRepo(repoObj) {
   const repoPath = repoObj.url;
+  const repoId = repoObj.id;
   const repoName = repoObj.name;
   const packageObj = repoObj.package && repoObj.package.text ? JSON.parse(repoObj.package.text) : {};
-  const aliases = uniq(compact([repoObj.name, packageObj.name]));
+  const aliases = uniq(compact([repoObj.name, packageObj.name, repoId]));
   return {
     type: 'github',
+    id: repoId,
     name: repoName,
     path: repoPath,
     package: packageObj,
@@ -65,13 +64,13 @@ export async function create(token, repo) {
 // Read
 export async function load(token) {
   const repoObjs = await readGithub(token);
-  const rslt = asyncMap(repoObjs, async (repoObj) => {
-    return formatRepo(repoObj);
-  });
-  return rslt;
+  return map(repoObjs, (repoObj) => formatRepo(repoObj), true);
 }
 
 // Update
+export async function updateName(repo) {
+  console.log(repo);
+}
 
 // Delete
 export async function remove(token) {

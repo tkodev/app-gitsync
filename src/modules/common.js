@@ -7,92 +7,116 @@
 /* eslint-disable no-await-in-loop */
 
 // ****************************************************************************************************
-// Export Functions - Arrays
+// Shared Functions
 // ****************************************************************************************************
 
-export async function asyncMap(array, callback) {
-  const rslt = [...array];
-  for (let idx = 0; idx < rslt.length; idx += 1) {
-    rslt[idx] = await callback(rslt[idx], idx, rslt);
-  }
-  return rslt;
-}
-
-export async function asyncForEach(array, callback) {
-  await asyncMap(array, callback);
-}
-
-export async function asyncFilter(array, callback) {
-  const rslt = await asyncMap(array, callback);
-  return rslt.filter((val, idx) => {
-    return !!rslt[idx];
+function iteratorSync(obj, callback) {
+  const isArray = Array.isArray(obj);
+  const keys = isArray ? obj : Object.keys(obj);
+  const rslt = isArray ? [] : {};
+  keys.forEach((val, idx) => {
+    const key = isArray ? idx : keys[idx];
+    rslt[key] = callback(obj[key], key, obj);
   });
-}
-
-export async function asyncReduce(array, callback, initialValue) {
-  const collection = [...array];
-  let rslt = initialValue || collection[0];
-  for (let idx = 0; idx < collection.length; idx += 1) {
-    rslt = await callback(rslt, collection[idx], idx, collection);
-  }
   return rslt;
 }
 
-export async function asyncReduceRight(array, callback, initialValue) {
-  const collection = [...array];
-  let rslt = initialValue || collection[collection.length - 1];
-  for (let idx = 0; idx < collection.length; idx += 1) {
-    rslt = await callback(rslt, collection[idx], idx, collection);
+async function iteratorAsync(obj, callback, isParallel = false) {
+  const isArray = Array.isArray(obj);
+  const keys = isArray ? obj : Object.keys(obj);
+  const rslt = isArray ? [] : {};
+  for (let idx = 0; idx < keys.length; idx += 1) {
+    const key = isArray ? idx : keys[idx];
+    rslt[key] = isParallel ? callback(obj[key], key, obj) : await callback(obj[key], key, obj);
+  }
+  for (let idx = 0; idx < keys.length; idx += 1) {
+    const key = isArray ? idx : keys[idx];
+    rslt[key] = isParallel ? await rslt[key] : rslt[key];
   }
   return rslt;
-}
-
-export async function asyncMapP(array, callback) {
-  const rslt = [...array];
-  for (let idx = 0; idx < rslt.length; idx += 1) {
-    rslt[idx] = callback(rslt[idx], idx, rslt);
-  }
-  return Promise.all(rslt);
-}
-
-export async function asyncForEachP(array, callback) {
-  await asyncMapP(array, callback);
 }
 
 // ****************************************************************************************************
-// Export Functions - Objects
+// Export Functions - Syncronous Obj & Array Iterators
 // ****************************************************************************************************
 
-export async function asyncMapObj(obj, callback) {
-  const rslt = { ...obj };
-  const keys = Object.keys(rslt);
-  for (let idx = 0; idx < keys.length; idx += 1) {
-    const key = keys[idx];
-    rslt[key] = await callback(rslt[key], key, rslt);
-  }
+export function map(obj, callback) {
+  return iteratorSync(obj, callback);
+}
+
+export function forEach(obj, callback) {
+  iteratorSync(obj, callback);
+  return undefined;
+}
+
+export function filter(obj, callback) {
+  const isArray = Array.isArray(obj);
+  const rslt = isArray ? [] : {};
+  iteratorSync(obj, (val, key, curObj) => {
+    const isValid = callback(val, key, curObj);
+    if (isValid) rslt[key] = val;
+  });
   return rslt;
 }
 
-export async function asyncForEachObj(obj, callback) {
-  await asyncMapObj(obj, callback);
+export function reduce(obj, callback, initial) {
+  const isArray = Array.isArray(obj);
+  const keys = isArray ? Object.keys(obj) : obj;
+  let rslt = initial || isArray ? obj[0] : obj[keys[0]];
+  iteratorSync(obj, (val, key, curObj) => {
+    rslt = callback(rslt, val, key, curObj);
+  });
+  return rslt;
 }
 
-export async function asyncMapObjP(obj, callback) {
+// ****************************************************************************************************
+// Export Functions - Asyncronous Obj & Array Iterators
+// ****************************************************************************************************
+
+export async function mapAsync(obj, callback, isParallel) {
+  return iteratorAsync(obj, callback, isParallel);
+}
+
+export async function forEachAsync(obj, callback, isParallel) {
+  await iteratorAsync(obj, callback, isParallel);
+  return undefined;
+}
+
+export async function filterAsync(obj, callback) {
+  const isArray = Array.isArray(obj);
+  const rslt = isArray ? [] : {};
+  await iteratorAsync(obj, async (val, key, curObj) => {
+    const isValid = await callback(val, key, curObj);
+    if (isValid) rslt[key] = val;
+  });
+  return rslt;
+}
+
+export async function reduceAsync(obj, callback, initial) {
+  const isArray = Array.isArray(obj);
+  const keys = isArray ? Object.keys(obj) : obj;
+  let rslt = initial || isArray ? obj[0] : obj[keys[0]];
+  await iteratorAsync(obj, async (val, key, curObj) => {
+    rslt = await callback(rslt, val, key, curObj);
+  });
+  return rslt;
+}
+
+// ****************************************************************************************************
+// Export Functions - Async / Await / Promises
+// ****************************************************************************************************
+
+export async function resolvePromises(obj) {
+  if (Array.isArray(obj)) {
+    return Promise.all(obj);
+  }
   const rslt = { ...obj };
   const keys = Object.keys(rslt);
-  for (let idx = 0; idx < keys.length; idx += 1) {
-    const key = keys[idx];
-    rslt[key] = callback(rslt[key], key, rslt);
-  }
   for (let idx = 0; idx < keys.length; idx += 1) {
     const key = keys[idx];
     rslt[key] = await rslt[key];
   }
   return rslt;
-}
-
-export async function asyncForEachObjP(obj, callback) {
-  await asyncMapObjP(obj, callback);
 }
 
 // ****************************************************************************************************
