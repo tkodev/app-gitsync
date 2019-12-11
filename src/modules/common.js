@@ -11,6 +11,9 @@
 // ****************************************************************************************************
 
 function iteratorSync(obj, callback) {
+  if (typeof obj !== 'object') {
+    throw new TypeError('expected an object', obj);
+  }
   const isArray = Array.isArray(obj);
   const keys = isArray ? obj : Object.keys(obj);
   const rslt = isArray ? [] : {};
@@ -22,6 +25,9 @@ function iteratorSync(obj, callback) {
 }
 
 async function iteratorAsync(obj, callback, isParallel = false) {
+  if (typeof obj !== 'object') {
+    throw new TypeError('expected an object', obj);
+  }
   const isArray = Array.isArray(obj);
   const keys = isArray ? obj : Object.keys(obj);
   const rslt = isArray ? [] : {};
@@ -53,8 +59,8 @@ export function filter(obj, callback) {
   const isArray = Array.isArray(obj);
   const rslt = isArray ? [] : {};
   iteratorSync(obj, (val, key, curObj) => {
-    const isValid = callback(val, key, curObj);
-    if (isValid) rslt[key] = val;
+    const filterRslt = callback(val, key, curObj);
+    if (filterRslt) rslt[key] = val;
   });
   return rslt;
 }
@@ -65,6 +71,20 @@ export function reduce(obj, callback, initial) {
   let rslt = initial || isArray ? obj[0] : obj[keys[0]];
   iteratorSync(obj, (val, key, curObj) => {
     rslt = callback(rslt, val, key, curObj);
+  });
+  return rslt;
+}
+
+export function groupByUniqueKey(obj, callback) {
+  const group = {};
+  const rslt = {};
+  iteratorSync(obj, (val, key) => {
+    const groupName = callback(val, key);
+    const idx = group[groupName] ? group[groupName].length : 0;
+    const fullName = idx === 0 ? groupName : `${groupName}-${idx}`;
+    group[groupName] = group[groupName] ? group[groupName] : [];
+    group[groupName].push(val);
+    rslt[fullName] = val;
   });
   return rslt;
 }

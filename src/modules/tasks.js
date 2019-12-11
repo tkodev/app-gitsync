@@ -10,7 +10,7 @@ import { exit } from 'process';
 import * as local from './local';
 import * as github from './github';
 import * as cli from './cli';
-import { filter, forEach, mapAsync } from './common';
+import { filter, mapAsync, groupByUniqueKey } from './common';
 
 // ****************************************************************************************************
 // Shared Functions
@@ -32,8 +32,8 @@ function mergeRepos(localRepos, githubRepos) {
   }, {});
 }
 
-function getAvailableNames(repo) {
-  return [
+async function getNewName(repo) {
+  const newNames = [
     {
       name: `use local name: ${repo.local.name}`,
       value: repo.local.name
@@ -43,48 +43,33 @@ function getAvailableNames(repo) {
       value: repo.github.name
     }
   ];
+  const rslt = cli.ask('[updateNames]', `repo name conflict in ${repo.local.path}. choose a new repo name:`, newNames);
+  return rslt !== 'skip' ? rslt : null;
 }
 
-function filterAuxRemotes(user, name, remotes) {
-  return remotes.filter((remote) => {
-    return !remote.refs.fetch.match(new RegExp(`github.com.*[\:\\\/]${user}[\\\/]${name}`, 'gi'));
-  });
-}
-
-function groupAuxRemotes(remotes) {
-  const typeDict = [
+function getNewRemotes(remotes, user, oldName, newName) {
+  const types = [
+    { name: 'other', regex: new RegExp('.*') },
     { name: 'pantheon', regex: new RegExp('(pantheon|drush.in|codeserver)', 'gi') },
-    { name: 'github', regex: new RegExp('github.com', 'g') },
     { name: 'bitbucket', regex: new RegExp('(bitbucket|atlassian)', 'gi') },
-    { name: 'brandfire', regex: new RegExp('(brandfire|bfmg).ca', 'gi') }
+    { name: 'brandfire', regex: new RegExp('(brandfire|bfmg)', 'gi') },
+    { name: 'github', regex: new RegExp('github.com', 'g') }
   ];
-  return groupBy(remotes, (remote) => {
-    return typeDict.forEach((rslt, test) => {
-      return remote.refs.fetch.match(test.regex) ? test.name : rslt;
-    }, 'other');
-  });
-}
-
-function getAuxRemotes(remotes) {
-  const rslt = [];
-  forEach(remotes, (remoteGroup, type) => {
-    forEach(remoteGroup, (remote, idx) => {
-      rslt.push({
-        ...remote,
-        name: idx === 0 ? type : `${type}-${idx}`
-      });
-    });
-  });
-  return rslt;
-}
-
-function getMainRemote(user, name) {
-  return {
-    name: 'origin',
-    refs: {
-      fetch: `git@github.com:${user}/${name}.git`,
-      push: `git@github.com:${user}/${name}.git`
+  const mainRemotes = {
+    origin: {
+      fetch: `git@github.com:${user}/${newName}.git`,
+      push: `git@github.com:${user}/${newName}.git`
     }
+  };
+  const auxRemotesFilter = filter(remotes, (remote) => {
+    return !remote.fetch.match(new RegExp(`github.com.*[\:\\\/]${user}[\\\/](${oldName}|${newName})`, 'gi'));
+  });
+  const auxRemotes = groupByUniqueKey(auxRemotesFilter, (remote) => {
+    return types.reduce((nameAccum, type) => (remote.fetch.match(type.regex) ? type.name : nameAccum));
+  });
+  return {
+    ...mainRemotes,
+    ...auxRemotes
   };
 }
 
@@ -92,21 +77,21 @@ function getMainRemote(user, name) {
 // Export Functions
 // ****************************************************************************************************
 
-export async function load(token, srcDir) {
+export async function load(srcDir, token) {
   cli.log('[load]', 'loading github repos');
-  const githubRepos = await github.load(token, (repoPath) => {
-    cli.log('[load]', `loading github repo ${repoPath}`);
-  });
+  const localRepos = await local.load((repoPath) => {
+    cli.log('[load]', `local repo ${repoPath}`);
+  }, srcDir);
+  const githubRepos = await github.load((repoPath) => {
+    cli.log('[load]', `github repo ${repoPath}`);
+  }, token);
   cli.log('[load]', 'loading local repos');
-  const localRepos = await local.load(srcDir, (repoPath) => {
-    cli.log('[load]', `loading local repo ${repoPath}`);
-  });
   const rslt = mergeRepos(localRepos, githubRepos);
   cli.log('[load]', 'task complete.');
   return rslt;
 }
 
-export async function checkStatus(user, repos) {
+export async function checkStatus(repos, user) {
   cli.log('[checkStatus]', 'checking local repo status');
   const rslt = filter(repos, (repo) => {
     if (repo.local && repo.local.remotes[0]) {
@@ -130,41 +115,31 @@ export async function checkStatus(user, repos) {
   return rslt;
 }
 
-export async function updateNames(token, user, repos) {
+export async function updateNames(repos, token, user) {
   cli.log('[updateNames]', 'detecting repo names');
   const rslt = mapAsync(repos, async (repo) => {
     const repoRslt = { ...repo };
-    if (repo.local && repo.github && repo.local.name !== repo.github.name) {
-      const availableNames = getAvailableNames(repo);
-      const newName = await cli.ask('[updateNames]', `repo name conflict in ${repo.local.path}. choose a new repo name:`, availableNames);
-      if (newName !== 'skip') {
-        repoRslt.local = repo.local.name !== newName ? await local.updateName({ ...repo.local, name: newName }) : repo.local;
-        repoRslt.github = repo.github.name !== newName ? await github.updateName(token, { ...repo.github, name: newName }) : repo.github;
-      } else {
-        exit();
+    if (repoRslt.local && repoRslt.github) {
+      const newName = repoRslt.local.name !== repoRslt.github.name ? await getNewName(repoRslt) : repoRslt.github.name;
+      const newRemotes = getNewRemotes(repoRslt.local.remotes, user, repoRslt.github.name, newName);
+      if (repoRslt.local.name !== newName) {
+        cli.log('[updateNames]', 'updating local name', repoRslt.local.path);
+        repoRslt.local = { ...repoRslt.local, name: newName };
+        repoRslt.local = await local.updateName(repoRslt.local);
+      }
+      if (repoRslt.github.name !== newName) {
+        cli.log('[updateNames]', 'updating github name', repoRslt.github.path);
+        repoRslt.github = { ...repoRslt.github, name: newName };
+        repoRslt.github = await github.updateName(repoRslt.github, token);
+        cli.log('[updateNames]', 'removing local remotes', repoRslt.local.path, repoRslt.local.remotes);
+        cli.log('[updateNames]', 'adding local remotes', repoRslt.local.path, newRemotes);
+        repoRslt.local = { ...repoRslt.local, remotes: newRemotes };
+        repoRslt.local = await local.updateRemotes(repoRslt.local);
       }
     }
     return repoRslt;
   });
   cli.log('[updateNames]', 'task complete.');
-  return rslt;
-}
-
-export async function updateRemotes(user, repos) {
-  cli.log('[updateRemotes]', 'update remotes for local repos');
-  const rslt = mapAsync(repos, async (repo) => {
-    const repoRslt = { ...repo };
-    if (repo.local) {
-      const auxRemotesFilter = filterAuxRemotes(user, repo.local.name, repo.local.remotes);
-      const auxRemotesGroup = groupAuxRemotes(auxRemotesFilter);
-      const auxRemotes = getAuxRemotes(auxRemotesGroup);
-      const mainRemote = getMainRemote(user, repo.local.name);
-      repoRslt.local = { ...repo.local, remotes: [mainRemote, ...auxRemotes] };
-      repoRslt.local = await local.updateRemote(repoRslt.local);
-    }
-    return repoRslt;
-  });
-  cli.log('[updateRemotes]', 'task complete.');
   return rslt;
 }
 

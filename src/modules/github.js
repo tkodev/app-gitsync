@@ -36,7 +36,7 @@ async function readGithub(token) {
   ).then((resp) => resp.user.repositories.nodes);
 }
 
-async function updateNameGithub(token, repo) {
+async function updateNameGithub(repo, token) {
   return QL(
     `mutation updateNameGithub ($input: UpdateRepositoryInput!) {
       updateRepository(input: $input) {
@@ -66,7 +66,7 @@ function formatRepo(repoObj, cb) {
   const repoId = repoObj.id;
   const repoName = repoObj.name;
   const packageObj = repoObj.package && repoObj.package.text ? JSON.parse(repoObj.package.text) : {};
-  const aliases = uniq(compact([repoObj.name, packageObj.name, repoId]));
+  const aliases = uniq(compact([repoObj.name, repoId]));
   return {
     type: 'github',
     id: repoId,
@@ -82,19 +82,19 @@ function formatRepo(repoObj, cb) {
 // ****************************************************************************************************
 
 // Create
-export async function create(token, repo) {
+export async function create(repo, token) {
   // test
 }
 
 // Read
-export async function load(token, cb) {
+export async function load(cb, token) {
   const repoObjs = await readGithub(token);
   return map(repoObjs, (repoObj) => formatRepo(repoObj, cb), true);
 }
 
 // Update
-export async function updateName(token, repo) {
-  const repoObj = await updateNameGithub(token, repo);
+export async function updateName(repo, token) {
+  const repoObj = await updateNameGithub(repo, token);
   return formatRepo(repoObj);
 }
 

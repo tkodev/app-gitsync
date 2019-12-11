@@ -10,7 +10,7 @@ import git from 'simple-git/promise';
 import { keyBy, uniq, compact } from 'lodash';
 
 // local dependencies
-import { mapAsync, posixPath } from './common';
+import { forEach, map, mapAsync, posixPath } from './common';
 
 // ****************************************************************************************************
 // Shared Functions
@@ -33,10 +33,16 @@ async function updateNameLocal(repo) {
   return git(newPath).silent(true);
 }
 
-async function updateRemoteLocal(repo) {
-  const newPath = join(dirname(repo.path), '/', repo.name);
-  await fs.rename(repo.path, newPath);
-  return git(newPath).silent(true);
+async function updateRemotesLocal(repo) {
+  const repoObj = git(repo.path).silent(true);
+  const remotes = await repoObj.getRemotes();
+  await forEach(remotes, async (remote) => {
+    await repoObj.removeRemote(remote.name);
+  });
+  await forEach(repo.remotes, async (remote, remoteName) => {
+    await repoObj.addRemote(remoteName, remote.fetch);
+  });
+  return repoObj;
 }
 
 async function formatRepo(repoObj, cb) {
@@ -54,8 +60,9 @@ async function formatRepo(repoObj, cb) {
     .catch(() => '');
   const status = await repoObj.status();
   const remotes = await repoObj.getRemotes(true);
+  const remotesObj = map(keyBy(remotes, (remote) => remote.name), (remote) => remote.refs);
   const remoteNames = remotes.map((remote) => (basename(remote.refs.fetch, '.git') !== 'repository' ? basename(remote.refs.fetch, '.git') : null));
-  const aliases = uniq(compact([basename(repoPath), packageObj.name, repoId, ...remoteNames]));
+  const aliases = uniq(compact([basename(repoPath), repoId, ...remoteNames]));
   return {
     type: 'local',
     id: repoId,
@@ -63,7 +70,7 @@ async function formatRepo(repoObj, cb) {
     path: repoPath,
     package: packageObj,
     readme: readmeStr,
-    remotes: remotes,
+    remotes: remotesObj,
     status,
     aliases
   };
@@ -79,7 +86,7 @@ export async function create(repo) {
 }
 
 // Read
-export async function load(srcDir, cb) {
+export async function load(cb, srcDir) {
   const repoObjs = await readLocal(srcDir);
   return mapAsync(repoObjs, (repoObj) => formatRepo(repoObj, cb));
 }
@@ -89,9 +96,9 @@ export async function updateName(repo) {
   const repoObj = await updateNameLocal(repo);
   return formatRepo(repoObj);
 }
-export async function updateRemote(repo) {
-  // const repoObj = await updateRemoteLocal(repo);
-  // return formatRepo(repoObj);
+export async function updateRemotes(repo) {
+  const repoObj = await updateRemotesLocal(repo);
+  return formatRepo(repoObj);
 }
 
 // Delete
