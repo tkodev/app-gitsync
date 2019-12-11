@@ -7,7 +7,7 @@ import { join, dirname, basename } from 'path';
 import fs from 'fs-extra';
 import glob from 'fast-glob';
 import git from 'simple-git/promise';
-import { uniq, compact } from 'lodash';
+import { keyBy, uniq, compact } from 'lodash';
 
 // local dependencies
 import { mapAsync, posixPath } from './common';
@@ -33,8 +33,15 @@ async function updateNameLocal(repo) {
   return git(newPath).silent(true);
 }
 
-async function formatRepo(repoObj) {
+async function updateRemoteLocal(repo) {
+  const newPath = join(dirname(repo.path), '/', repo.name);
+  await fs.rename(repo.path, newPath);
+  return git(newPath).silent(true);
+}
+
+async function formatRepo(repoObj, cb) {
   const repoPath = await repoObj.revparse(['--absolute-git-dir']).then((data) => dirname(data));
+  if (cb) cb(repoPath);
   const repoId = '';
   const repoName = basename(repoPath);
   const packageObj = await repoObj
@@ -56,7 +63,7 @@ async function formatRepo(repoObj) {
     path: repoPath,
     package: packageObj,
     readme: readmeStr,
-    remotes,
+    remotes: remotes,
     status,
     aliases
   };
@@ -72,15 +79,19 @@ export async function create(repo) {
 }
 
 // Read
-export async function load(srcDir) {
+export async function load(srcDir, cb) {
   const repoObjs = await readLocal(srcDir);
-  return mapAsync(repoObjs, (repoObj) => formatRepo(repoObj));
+  return mapAsync(repoObjs, (repoObj) => formatRepo(repoObj, cb));
 }
 
 // Update
 export async function updateName(repo) {
   const repoObj = await updateNameLocal(repo);
   return formatRepo(repoObj);
+}
+export async function updateRemote(repo) {
+  // const repoObj = await updateRemoteLocal(repo);
+  // return formatRepo(repoObj);
 }
 
 // Delete

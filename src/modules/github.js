@@ -60,8 +60,9 @@ async function updateNameGithub(token, repo) {
   ).then((resp) => resp.updateRepository.repository);
 }
 
-function formatRepo(repoObj) {
+function formatRepo(repoObj, cb) {
   const repoPath = repoObj.url;
+  if (cb) cb(repoPath);
   const repoId = repoObj.id;
   const repoName = repoObj.name;
   const packageObj = repoObj.package && repoObj.package.text ? JSON.parse(repoObj.package.text) : {};
@@ -86,9 +87,9 @@ export async function create(token, repo) {
 }
 
 // Read
-export async function load(token) {
+export async function load(token, cb) {
   const repoObjs = await readGithub(token);
-  return map(repoObjs, (repoObj) => formatRepo(repoObj), true);
+  return map(repoObjs, (repoObj) => formatRepo(repoObj, cb), true);
 }
 
 // Update

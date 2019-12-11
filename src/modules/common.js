@@ -103,29 +103,8 @@ export async function reduceAsync(obj, callback, initial) {
 }
 
 // ****************************************************************************************************
-// Export Functions - Async / Await / Promises
-// ****************************************************************************************************
-
-export async function resolvePromises(obj) {
-  if (Array.isArray(obj)) {
-    return Promise.all(obj);
-  }
-  const rslt = { ...obj };
-  const keys = Object.keys(rslt);
-  for (let idx = 0; idx < keys.length; idx += 1) {
-    const key = keys[idx];
-    rslt[key] = await rslt[key];
-  }
-  return rslt;
-}
-
-// ****************************************************************************************************
 // Export Functions - Misc
 // ****************************************************************************************************
-
-export function deepClone(obj) {
-  return JSON.parse(JSON.stringify(obj));
-}
 
 export function posixPath(path, stripTrailing) {
   if (typeof path !== 'string') {
@@ -147,26 +126,4 @@ export function posixPath(path, stripTrailing) {
     segs.pop();
   }
   return prefix + segs.join('/');
-}
-
-export function arrayToObject(arr, objPath) {
-  return [...arr].reduce((accum, item) => {
-    const val = objPath.split('.').reduce((res, prop) => res[prop], item);
-    if (item && val) {
-      accum[val] = item;
-    }
-    return accum;
-  }, {});
-}
-
-export function mergeObj(...objects) {
-  return objects.reduce(
-    (accum, object, idx) => {
-      Object.keys(object).forEach((key) => {
-        accum[key] = object[key] || accum[key];
-      });
-      return accum;
-    },
-    { ...objects[0] }
-  );
 }
