@@ -40,7 +40,7 @@ async function updateRemotesLocal(repo) {
     await repoObj.removeRemote(remote.name);
   });
   await forEach(repo.remotes, async (remote, remoteName) => {
-    await repoObj.addRemote(remoteName, remote.fetch);
+    await repoObj.addRemote(remoteName, remote);
   });
   return repoObj;
 }
@@ -60,7 +60,7 @@ async function formatRepo(repoObj, cb) {
     .catch(() => '');
   const status = await repoObj.status();
   const remotes = await repoObj.getRemotes(true);
-  const remotesObj = map(keyBy(remotes, (remote) => remote.name), (remote) => remote.refs);
+  const remotesObj = map(keyBy(remotes, (remote) => remote.name), (remote) => remote.refs.fetch);
   const remoteNames = remotes.map((remote) => (basename(remote.refs.fetch, '.git') !== 'repository' ? basename(remote.refs.fetch, '.git') : null));
   const aliases = uniq(compact([basename(repoPath), repoId, ...remoteNames]));
   return {

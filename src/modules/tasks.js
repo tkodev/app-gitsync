@@ -56,16 +56,13 @@ function getNewRemotes(remotes, user, oldName, newName) {
     { name: 'github', regex: new RegExp('github.com', 'g') }
   ];
   const mainRemotes = {
-    origin: {
-      fetch: `git@github.com:${user}/${newName}.git`,
-      push: `git@github.com:${user}/${newName}.git`
-    }
+    origin: `git@github.com:${user}/${newName}.git`
   };
   const auxRemotesFilter = filter(remotes, (remote) => {
-    return !remote.fetch.match(new RegExp(`github.com.*[\:\\\/]${user}[\\\/](${oldName}|${newName})`, 'gi'));
+    return !remote.match(new RegExp(`github.com.*[\:\\\/]${user}[\\\/](${oldName}|${newName})`, 'gi'));
   });
   const auxRemotes = groupByUniqueKey(auxRemotesFilter, (remote) => {
-    return types.reduce((nameAccum, type) => (remote.fetch.match(type.regex) ? type.name : nameAccum));
+    return types.reduce((nameAccum, type) => (remote.match(type.regex) ? type.name : nameAccum));
   });
   return {
     ...mainRemotes,
@@ -102,7 +99,7 @@ export async function checkStatus(repos, user) {
         return false;
       }
       const notOwned = !repo.local.remotes.some((remote) => {
-        return remote.refs.fetch.match(new RegExp(`[\:\\\/]${user}[\\\/]`, 'gi'));
+        return remote.match(new RegExp(`[\:\\\/]${user}[\\\/]`, 'gi'));
       });
       if (notOwned) {
         cli.log('[checkStatus]', `excluded from sync - github remote repo not owned by user: ${repo.local.path}`);
@@ -143,10 +140,10 @@ export async function updateNames(repos, token, user) {
   return rslt;
 }
 
-export async function updateMeta(repos) {
-  cli.log('[updateMeta]', 'update package.json and github meta');
-}
-
 export async function syncRepos(repos) {
   cli.log('[syncRepos]', 'download / upload missing repos');
+}
+
+export async function updateMeta(repos) {
+  cli.log('[updateMeta]', 'update package.json and github meta');
 }
