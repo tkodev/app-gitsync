@@ -3,8 +3,7 @@
 // ****************************************************************************************************
 
 // dependencies
-import { intersection, groupBy } from 'lodash';
-import { exit } from 'process';
+import { intersection } from 'lodash';
 
 // local dependencies
 import * as local from './local';
