@@ -3,9 +3,9 @@
 // ****************************************************************************************************
 
 // dependencies
-import { graphql as QL } from '@octokit/graphql';
-import Rest from '@octokit/rest';
-import { uniq, compact } from 'lodash';
+import { graphql as octoQL } from '@octokit/graphql';
+import OctoRest from '@octokit/rest';
+import { uniq as _uniq, compact as _compact } from 'lodash';
 
 // local dependencies
 import { map } from './common';
@@ -14,8 +14,35 @@ import { map } from './common';
 // Shared Functions
 // ****************************************************************************************************
 
-async function readGithub(token) {
-  return QL(
+async function createRepoGithub(repo, token) {
+  return octoQL(
+    `mutation createRepoGithub ($input: CreateRepositoryInput!) {
+      createRepository(input: $input) {
+        repository {
+          url
+          id
+          name
+        }
+      }
+    }`,
+    {
+      headers: {
+        authorization: `token ${token}`
+      },
+      input: {
+        name: repo.name,
+        visibility: 'PRIVATE'
+      }
+    }
+  ).then((resp) => {
+    // eslint-disable-next-line no-param-reassign
+    resp.createRepository.repository.package = repo.package.name ? repo.package : {};
+    return resp.createRepository.repository;
+  });
+}
+
+async function loadReposGithub(token) {
+  return octoQL(
     `query readGithub {
       user: viewer {
         repositories(affiliations: [OWNER], first: 100) {
@@ -37,7 +64,7 @@ async function readGithub(token) {
 }
 
 async function updateNameGithub(repo, token) {
-  return QL(
+  return octoQL(
     `mutation updateNameGithub ($input: UpdateRepositoryInput!) {
       updateRepository(input: $input) {
         repository {
@@ -60,20 +87,32 @@ async function updateNameGithub(repo, token) {
   ).then((resp) => resp.updateRepository.repository);
 }
 
+async function removeRepoGithub(repo, token, user) {
+  const octoRest = new OctoRest({
+    auth: `token ${token}`
+  });
+  await octoRest.repos.delete({
+    owner: user,
+    repo: repo.name
+  });
+}
+
 function formatRepo(repoObj, cb) {
   const repoPath = repoObj.url;
   if (cb) cb(repoPath);
-  const repoId = repoObj.id;
   const repoName = repoObj.name;
-  const packageObj = repoObj.package && repoObj.package.text ? JSON.parse(repoObj.package.text) : {};
-  const aliases = uniq(compact([repoObj.name, repoId]));
+  const repoId = repoObj.id;
+  const repoBranch = 'master';
+  const repoPackage = repoObj.package && repoObj.package.text ? JSON.parse(repoObj.package.text) : {};
+  const repoAliases = _uniq(_compact([repoObj.name, repoId]));
   return {
     type: 'github',
-    id: repoId,
     name: repoName,
     path: repoPath,
-    package: packageObj,
-    aliases
+    id: repoId,
+    branch: repoBranch,
+    package: repoPackage,
+    aliases: repoAliases
   };
 }
 
@@ -82,13 +121,14 @@ function formatRepo(repoObj, cb) {
 // ****************************************************************************************************
 
 // Create
-export async function create(repo, token) {
-  // test
+export async function create(repo, token, user) {
+  const repoObj = await createRepoGithub(repo, token, user);
+  return formatRepo(repoObj);
 }
 
 // Read
 export async function load(cb, token) {
-  const repoObjs = await readGithub(token);
+  const repoObjs = await loadReposGithub(token);
   return map(repoObjs, (repoObj) => formatRepo(repoObj, cb), true);
 }
 
@@ -99,6 +139,6 @@ export async function updateName(repo, token) {
 }
 
 // Delete
-export async function remove(token) {
-  // test
+export async function remove(repo, token, user) {
+  await removeRepoGithub(repo, token, user);
 }

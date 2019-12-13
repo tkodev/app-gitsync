@@ -1,4 +1,4 @@
-import { forEach, map } from './common';
+import { map } from './common';
 
 test('map - no callback', () => {
   expect(map([])).toStrictEqual([]);

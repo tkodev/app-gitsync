@@ -3,7 +3,7 @@
 // ****************************************************************************************************
 
 // dependencies
-import inquirer from 'inquirer';
+import { prompt as iqPrompt, Separator as IqSeparator } from 'inquirer';
 
 // ****************************************************************************************************
 // Export Functions
@@ -14,14 +14,12 @@ export function log(...messages) {
 }
 
 export async function ask(prefix, message, choices) {
-  return inquirer
-    .prompt({
-      type: 'rawlist',
-      name: 'answer',
-      message,
-      prefix,
-      choices: [...choices, new inquirer.Separator(), { name: 'skip', value: 'skip' }],
-      default: 'skip'
-    })
-    .then((response) => response.answer);
+  return iqPrompt({
+    type: 'rawlist',
+    name: 'answer',
+    message,
+    prefix,
+    choices: [...choices, new IqSeparator(), { name: 'skip', value: 'skip' }],
+    default: 'skip'
+  }).then((response) => response.answer);
 }
