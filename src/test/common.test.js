@@ -1,4 +1,4 @@
-import { map } from './common';
+import { map } from '../modules/common';
 
 test('map - no callback', () => {
   expect(map([])).toStrictEqual([]);

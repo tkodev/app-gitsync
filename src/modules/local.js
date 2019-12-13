@@ -16,15 +16,19 @@ import { forEach, map, mapAsync, posixPath } from './common';
 // Shared Functions
 // ****************************************************************************************************
 
-async function createRepoLocal(repo, path, srcDir) {
-  const newPath = pathJoin(srcDir, repo.name);
+async function createRepoLocal(srcDir, repo, cloneUrl) {
+  const repoPath = pathJoin(srcDir, repo.name);
   await git(srcDir)
     .silent(true)
-    .clone(path, newPath);
-  return git(newPath).silent(true);
+    .clone(cloneUrl, repoPath);
+  return git(repoPath).silent(true);
 }
 
-async function loadReposLocal(srcDir) {
+async function readRepoLocal(repo) {
+  //
+}
+
+async function readAllReposLocal(srcDir) {
   return glob('**/.git', {
     cwd: posixPath(srcDir),
     ignore: ['**/{.git,node_modules}/**/*'],
@@ -33,12 +37,6 @@ async function loadReposLocal(srcDir) {
   }).then((repoPaths) => {
     return mapAsync(repoPaths, (repoPath) => git(pathDirname(repoPath, '.git')).silent(true));
   });
-}
-
-async function updatePushLocal(repo) {
-  const repoObj = git(repo.path).silent(true);
-  await repoObj.push('origin', 'master', ['-u']);
-  return repoObj;
 }
 
 async function updateNameLocal(repo) {
@@ -57,6 +55,12 @@ async function updateRemotesLocal(repo) {
     await repoObj.addRemote(remoteName, remote);
   });
   await repoObj.fetch();
+  await repoObj.branch(['-u', 'origin/master', 'master']).catch(() => {});
+  return repoObj;
+}
+
+async function updatePushLocal(repo) {
+  const repoObj = git(repo.path).silent(true);
   await repoObj.push('origin', 'master', ['-u']);
   return repoObj;
 }
@@ -65,9 +69,8 @@ async function removeRepoLocal(repo) {
   await fsRemove(repo.path);
 }
 
-async function formatRepo(repoObj, cb) {
+async function formatRepo(repoObj) {
   const repoPath = await repoObj.revparse(['--absolute-git-dir']).then((data) => pathDirname(data));
-  if (cb) cb(repoPath);
   const repoName = pathBasename(repoPath);
   const repoId = '';
   const repoBranch = await repoObj.revparse(['--abbrev-ref', 'HEAD']);
@@ -102,33 +105,44 @@ async function formatRepo(repoObj, cb) {
 // Export Functions
 // ****************************************************************************************************
 
-// Create
-export async function create(repo, path, srcDir) {
-  const repoObj = await createRepoLocal(repo, path, srcDir);
-  return formatRepo(repoObj);
-}
-
-// Read
-export async function load(cb, srcDir) {
-  const repoObjs = await loadReposLocal(srcDir);
-  return mapAsync(repoObjs, (repoObj) => formatRepo(repoObj, cb));
-}
-
-// Update
-export async function updatePush(repo) {
-  const repoObj = await updatePushLocal(repo);
-  return formatRepo(repoObj);
-}
-export async function updateName(repo) {
-  const repoObj = await updateNameLocal(repo);
-  return formatRepo(repoObj);
-}
-export async function updateRemotes(repo) {
-  const repoObj = await updateRemotesLocal(repo);
-  return formatRepo(repoObj);
-}
-
-// Delete
-export async function remove(repo) {
-  await removeRepoLocal(repo);
+export default class Local {
+  constructor(settings) {
+    this.settings = settings;
+  }
+  async create(repo, cloneUrl) {
+    const repoObj = await createRepoLocal(this.settings.srcDir, repo, cloneUrl);
+    return formatRepo(repoObj);
+  }
+  async read(repo) {
+    const repoObj = await readRepoLocal(repo);
+    return formatRepo(repoObj);
+  }
+  async readAll(cb) {
+    const repoObjs = await readAllReposLocal(this.settings.srcDir);
+    return mapAsync(
+      repoObjs,
+      async (repoObj) => {
+        const repoRslt = await formatRepo(repoObj);
+        if (cb) cb(repoRslt);
+        return repoRslt;
+      },
+      true
+    );
+  }
+  async updateName(repo) {
+    const repoObj = await updateNameLocal(repo);
+    return formatRepo(repoObj);
+  }
+  async updateRemotes(repo) {
+    const repoObj = await updateRemotesLocal(repo);
+    return formatRepo(repoObj);
+  }
+  async updatePush(repo) {
+    const repoObj = await updatePushLocal(repo);
+    return formatRepo(repoObj);
+  }
+  async remove(repo) {
+    const repoObj = await removeRepoLocal(repo);
+    return null;
+  }
 }
