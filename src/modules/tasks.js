@@ -3,7 +3,7 @@
 // ****************************************************************************************************
 
 // dependencies
-import { intersection as _intersection } from 'lodash';
+import { intersection as _intersection, isEqual as _isEqual } from 'lodash';
 
 // local dependencies
 import Local from './local';
@@ -94,21 +94,6 @@ function getNewRemotes(remotes, user, aliases, newName) {
   };
 }
 
-async function getNewName(repo) {
-  const newNames = [
-    {
-      name: `use local name: ${repo.local.name}`,
-      value: repo.local.name
-    },
-    {
-      name: `use github name: ${repo.github.name}`,
-      value: repo.github.name
-    }
-  ];
-  const rslt = cli.ask('[updateNames]', `repo name conflict in ${repo.local.path}. choose a new repo name:`, newNames);
-  return rslt !== 'skip' ? rslt : null;
-}
-
 // ****************************************************************************************************
 // Export Functions
 // ****************************************************************************************************
@@ -120,14 +105,14 @@ export default class Tasks {
     this.local = new Local(settings);
   }
   async load() {
-    cli.log('[load]', 'loading github repos');
-    const localRepos = await this.local.readAll((repo) => {
-      cli.log('[load]', 'loaded local repo', repo.name);
-    });
-    const githubRepos = await this.github.readAll((repo) => {
-      cli.log('[load]', 'loaded github repo', repo.name);
-    });
     cli.log('[load]', 'loading local repos');
+    const localRepos = await this.local.readAll((repo) => {
+      cli.log('[load]', 'load - local repo:', repo.name);
+    });
+    cli.log('[load]', 'loading github repos');
+    const githubRepos = await this.github.readAll((repo) => {
+      cli.log('[load]', 'load - github repo:', repo.name);
+    });
     const rslt = mergeRepos(localRepos, githubRepos);
     cli.log('[load]', 'task complete.');
     return rslt;
@@ -162,45 +147,45 @@ export default class Tasks {
       const repoCopy = { ...repo };
       const status = getRepoSyncStatus(repoCopy);
       if (status === 'noGithub') {
-        const decision = await cli.ask('[syncRepos]', `local repo not in github ${repoCopy.local.path}. choose an action:`, [
+        const decision = await cli.ask('[syncRepos]', `missing - local repo not in github: ${repoCopy.local.name}`, [
           { name: 'upload to github', value: 'upload' },
           { name: 'remove local repo', value: 'remove' }
         ]);
         if (decision === 'upload') {
-          cli.log('[syncRepos]', 'creating new github repo', repoCopy.local.name);
+          cli.log('[syncRepos]', 'create - new github repo', repoCopy.local.name);
           repoCopy.github = await this.github.create(repoCopy.local);
-          cli.log('[syncRepos]', 'updating local remotes', repoCopy.local.name);
+          cli.log('[syncRepos]', 'update - local remotes', repoCopy.local.name);
           repoCopy.local = { ...repoCopy.local, remotes: getNewRemotes(repoCopy.local.remotes, this.settings.user, repoCopy.local.aliases, repoCopy.local.name) };
           repoCopy.local = await this.local.updateRemotes(repoCopy.local);
-          cli.log('[syncRepos]', 'pushing local repo', repoCopy.local.name);
+          cli.log('[syncRepos]', 'push - local repo:', repoCopy.local.name);
           repoCopy.local = await this.local.updatePush(repoCopy.local);
         }
         if (decision === 'remove') {
-          cli.log('[syncRepos]', 'deleting local repo', repoCopy.local.name);
+          cli.log('[syncRepos]', 'delete - local repo:', repoCopy.local.name);
           await this.local.remove(repoCopy.local);
           delete repoCopy.local;
         }
         if (decision === 'skip') {
-          cli.log('[syncRepos]', 'skipping local repo', repoCopy.local.name);
+          cli.log('[syncRepos]', 'skip - local repo:', repoCopy.local.name);
           delete repoCopy.local;
         }
       }
       if (status === 'noLocal') {
-        const decision = await cli.ask('[syncRepos]', `github repo not in local ${repo.local.path}. choose an action:`, [
+        const decision = await cli.ask('[syncRepos]', `missing - github repo not in local: ${repo.local.name}`, [
           { name: 'clone to local', value: 'clone' },
           { name: 'remove local repo', value: 'remove' }
         ]);
         if (decision === 'clone') {
-          cli.log('[syncRepos]', 'cloning to new local repo', repoCopy.github.name);
+          cli.log('[syncRepos]', 'clone - new local repo:', repoCopy.github.name);
           repoCopy.local = await this.local.create(repoCopy.github, `git@github.com:${this.settings.user}/${repoCopy.github.name}.git`);
         }
         if (decision === 'remove') {
-          cli.log('[syncRepos]', 'deleting github repo', repoCopy.local.name);
+          cli.log('[syncRepos]', 'delete - github repo:', repoCopy.local.name);
           await this.github.remove(repoCopy.github);
           delete repoCopy.github;
         }
         if (decision === 'skip') {
-          cli.log('[syncRepos]', 'skipping github repo', repoCopy.local.name);
+          cli.log('[syncRepos]', 'skip - github repo:', repoCopy.local.name);
           delete repoCopy.github;
         }
       }
@@ -215,17 +200,26 @@ export default class Tasks {
     const rslt = await mapAsync(repos, async (repo) => {
       const repoCopy = { ...repo };
       if (repoCopy.local.name !== repoCopy.github.name) {
-        const newName = await getNewName(repoCopy);
-        if (repoCopy.local.name !== newName) {
-          cli.log('[updateNames]', 'updating local name', repoCopy.local.path);
+        const newName = await cli.ask('[updateNames]', `conflict - local name different from github: ${repoCopy.local.name}`, [
+          {
+            name: `use local name: ${repoCopy.local.name}`,
+            value: repoCopy.local.name
+          },
+          {
+            name: `use github name: ${repoCopy.github.name}`,
+            value: repoCopy.github.name
+          }
+        ]);
+        if (newName !== 'skip' && repoCopy.local.name !== newName) {
+          cli.log('[updateNames]', 'update - local name:', repoCopy.local.path);
           repoCopy.local = { ...repoCopy.local, name: newName };
           repoCopy.local = await this.local.updateName(repoCopy.local);
         }
-        if (repoCopy.github.name !== newName) {
-          cli.log('[updateNames]', 'updating github name', repoCopy.github.path);
+        if (newName !== 'skip' && repoCopy.github.name !== newName) {
+          cli.log('[updateNames]', 'update - github name:', repoCopy.github.path);
           repoCopy.github = { ...repoCopy.github, name: newName };
           repoCopy.github = await this.github.updateName(repoCopy.github);
-          cli.log('[syncRepos]', 'updating local remotes', repoCopy.local.name);
+          cli.log('[syncRepos]', 'update - local remotes:', repoCopy.local.name);
           repoCopy.local = { ...repoCopy.local, remotes: getNewRemotes(repoCopy.local.remotes, this.settings.user, repoCopy.github.aliases, newName) };
           repoCopy.local = await this.local.updateRemotes(repoCopy.local);
         }
@@ -237,5 +231,50 @@ export default class Tasks {
   }
   async updateMeta(repos) {
     cli.log('[updateMeta]', 'update package.json and github meta');
+    const rslt = await mapAsync(repos, async (repo) => {
+      const repoCopy = { ...repo };
+      let localHasChanges = false;
+      let githubHasChanges = false;
+      if (repo.local.desc !== repo.github.desc) {
+        const newDesc = await cli.ask('[updateMeta]', `diff - local desc different from github: ${repoCopy.local.name}`, [
+          { name: `use local desc: ${repo.local.desc}`, value: repo.local.desc },
+          { name: `use github desc: ${repo.github.desc}`, value: repo.github.desc }
+        ]);
+        if (newDesc !== 'skip' && repoCopy.local.desc !== newDesc) {
+          repoCopy.local = { ...repoCopy.local, desc: newDesc };
+          localHasChanges = true;
+        }
+        if (newDesc !== 'skip' && repoCopy.github.desc !== newDesc) {
+          repoCopy.github = { ...repoCopy.github, desc: newDesc };
+          githubHasChanges = true;
+        }
+      }
+      if (!_isEqual(repo.local.topics, repo.github.topics)) {
+        const newTopics = await cli.ask('[updateMeta]', `diff - local topics different from github: ${repoCopy.local.name}`, [
+          { name: `use local topics: ${repo.local.topics.join(', ')}`, value: repo.local.topics },
+          { name: `use github topics: ${repo.github.topics.join(', ')}`, value: repo.github.topics }
+        ]);
+        if (newTopics !== 'skip' && !_isEqual(repo.local.topics, newTopics)) {
+          repoCopy.local = { ...repoCopy.local, topics: newTopics };
+          localHasChanges = true;
+        }
+        if (newTopics !== 'skip' && !_isEqual(repo.github.topics, newTopics)) {
+          repoCopy.github = { ...repoCopy.github, topics: newTopics };
+          githubHasChanges = true;
+        }
+      }
+      if (repoCopy.local.name !== repoCopy.local.package.name) {
+        localHasChanges = true;
+      }
+      if (localHasChanges) {
+        repoCopy.local = await this.local.updateMeta(repoCopy.local);
+      }
+      if (githubHasChanges) {
+        repoCopy.github = await this.github.updateMeta(repoCopy.local);
+      }
+      return repoCopy;
+    });
+    cli.log('[updateMeta]', 'task complete.');
+    return rslt;
   }
 }

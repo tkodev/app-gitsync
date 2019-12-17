@@ -24,8 +24,8 @@ async function createRepoLocal(srcDir, repo, cloneUrl) {
   return git(repoPath).silent(true);
 }
 
-async function readRepoLocal(repo) {
-  //
+async function readRepoLocal(repoPath) {
+  return git(repoPath).silent(true);
 }
 
 async function readAllReposLocal(srcDir) {
@@ -65,15 +65,21 @@ async function updatePushLocal(repo) {
   return repoObj;
 }
 
+async function updateMetaLocal(repo) {
+  const newPath = pathJoin(pathDirname(repo.path), repo.name);
+  await fsRename(repo.path, newPath);
+  return git(newPath).silent(true);
+}
+
 async function removeRepoLocal(repo) {
   await fsRemove(repo.path);
 }
 
 async function formatRepo(repoObj) {
   const repoPath = await repoObj.revparse(['--absolute-git-dir']).then((data) => pathDirname(data));
-  const repoName = pathBasename(repoPath);
+  const repoBranch = await repoObj.revparse(['--abbrev-ref', 'HEAD']).catch((err) => '');
   const repoId = '';
-  const repoBranch = await repoObj.revparse(['--abbrev-ref', 'HEAD']);
+  const repoName = pathBasename(repoPath);
   const repoPackage = await repoObj
     .show([`master:package.json`])
     .then((data) => JSON.parse(data))
@@ -82,6 +88,8 @@ async function formatRepo(repoObj) {
     .show([`master:README.md`])
     .then((data) => data.toString())
     .catch(() => '');
+  const repoDesc = repoPackage.description || '';
+  const repoTopics = repoPackage.topics && Array.isArray(repoPackage.topics) ? repoPackage.topics : [];
   const repoStatus = await repoObj.status();
   const repoRemotesArr = await repoObj.getRemotes(true);
   const repoRemoteNames = repoRemotesArr.map((remote) => (pathBasename(remote.refs.fetch, '.git') !== 'repository' ? pathBasename(remote.refs.fetch, '.git') : null));
@@ -90,9 +98,11 @@ async function formatRepo(repoObj) {
   return {
     type: 'local',
     path: repoPath,
-    name: repoName,
-    id: repoId,
     branch: repoBranch,
+    id: repoId,
+    name: repoName,
+    desc: repoDesc,
+    topics: repoTopics,
     package: repoPackage,
     readme: repoReadme,
     remotes: repoRemotes,
@@ -139,6 +149,10 @@ export default class Local {
   }
   async updatePush(repo) {
     const repoObj = await updatePushLocal(repo);
+    return formatRepo(repoObj);
+  }
+  async updateMeta(repo) {
+    const repoObj = await updateMetaLocal(repo);
     return formatRepo(repoObj);
   }
   async remove(repo) {

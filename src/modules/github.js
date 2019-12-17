@@ -18,14 +18,22 @@ async function createRepoGithub(octo, repo) {
   return octo
     .ql(
       `mutation createRepoGithub ($input: CreateRepositoryInput!) {
-      createRepository(input: $input) {
-        repository {
-          url
-          id
-          name
+        createRepository(input: $input) {
+          repository {
+            url
+            id
+            name
+            description
+            repositoryTopics (first: 20) {
+              nodes {
+                topic {
+                  name
+                }
+              }
+            }
+          }
         }
-      }
-    }`,
+      }`,
       {
         input: {
           name: repo.name,
@@ -33,33 +41,57 @@ async function createRepoGithub(octo, repo) {
         }
       }
     )
-    .then((resp) => {
-      // eslint-disable-next-line no-param-reassign
-      resp.createRepository.repository.package = repo.package.name ? repo.package : {};
-      return resp.createRepository.repository;
-    });
+    .then((resp) => resp.createRepository.repository);
 }
 
-async function readRepoGithub(octo, repo) {
-  //
+async function readRepoGithub(octo, repoName, user) {
+  return octo
+    .ql(
+      `query readRepoGithub($user:String!, $repoName:String!) {
+        repository(owner:$user, name:$repoName) {
+          url
+          id
+          name
+          description
+          repositoryTopics (first: 20) {
+            nodes {
+              topic {
+                name
+              }
+            }
+          }
+        }
+      }`,
+      {
+        user,
+        repoName
+      }
+    )
+    .then((resp) => resp.user.repositories.nodes);
 }
 
 async function readAllReposGithub(octo) {
   return octo
     .ql(
-      `query readGithub {
+      `query readAllReposGithub {
       user: viewer {
         repositories(affiliations: [OWNER], first: 100) {
           nodes {
             url
             id
             name
-            package: object(expression: "master:package.json") { ... on Blob { text } }
+            description
+            repositoryTopics (first: 20) {
+              nodes {
+                topic {
+                  name
+                }
+              }
+            }
           }
         }
       }
-    }`,
-      {}
+    }`
     )
     .then((resp) => resp.user.repositories.nodes);
 }
@@ -73,7 +105,44 @@ async function updateNameGithub(octo, repo) {
           url
           id
           name
-          package: object(expression: "master:package.json") { ... on Blob { text } }
+          description
+          repositoryTopics (first: 20) {
+            nodes {
+              topic {
+                name
+              }
+            }
+          }
+        }
+      }
+    }`,
+      {
+        input: {
+          repositoryId: repo.id,
+          name: repo.name
+        }
+      }
+    )
+    .then((resp) => resp.updateRepository.repository);
+}
+
+async function updateMetaGithub(octo, repo) {
+  return octo
+    .ql(
+      `mutation updateNameGithub ($input: UpdateRepositoryInput!) {
+      updateRepository(input: $input) {
+        repository {
+          url
+          id
+          name
+          description
+          repositoryTopics (first: 20) {
+            nodes {
+              topic {
+                name
+              }
+            }
+          }
         }
       }
     }`,
@@ -96,18 +165,20 @@ async function removeRepoGithub(octo, repo, user) {
 
 async function formatRepo(repoObj) {
   const repoPath = repoObj.url;
-  const repoName = repoObj.name;
-  const repoId = repoObj.id;
   const repoBranch = 'master';
-  const repoPackage = repoObj.package && repoObj.package.text ? JSON.parse(repoObj.package.text) : {};
+  const repoId = repoObj.id;
+  const repoName = repoObj.name;
+  const repoDesc = repoObj.description;
+  const repoTopics = repoObj.repositoryTopics.nodes.map((node) => node.topic.name);
   const repoAliases = _uniq(_compact([repoObj.name, repoId]));
   return {
     type: 'github',
-    name: repoName,
     path: repoPath,
-    id: repoId,
     branch: repoBranch,
-    package: repoPackage,
+    id: repoId,
+    name: repoName,
+    desc: repoDesc,
+    topics: repoTopics,
     aliases: repoAliases
   };
 }
@@ -134,8 +205,8 @@ export default class Github {
     const repoObj = await createRepoGithub(this.octo, repo);
     return formatRepo(repoObj);
   }
-  async read(repo) {
-    const repoObj = await readRepoGithub(this.octo, repo);
+  async read(repoName) {
+    const repoObj = await readRepoGithub(this.octo, repoName, this.settings.user);
     return formatRepo(repoObj);
   }
   async readAll(cb) {
@@ -152,6 +223,10 @@ export default class Github {
   }
   async updateName(repo) {
     const repoObj = await updateNameGithub(this.octo, repo);
+    return formatRepo(repoObj);
+  }
+  async updateMeta(repo) {
+    const repoObj = await updateMetaGithub(this.octo, repo);
     return formatRepo(repoObj);
   }
   async remove(repo) {
