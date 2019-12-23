@@ -44,11 +44,15 @@ async function createRepoGithub(octo, repo) {
     .then((resp) => resp.createRepository.repository);
 }
 
-async function readRepoGithub(octo, repoName, user) {
+async function readRepoGithub(octo, repoPath, user) {
+  const urlRegex = new RegExp(/^(.*github.com.)?((.+)\/)?(.+)$/);
+  const urlMatch = repoPath.match(urlRegex);
+  const repoUser = urlMatch && urlMatch[3] ? urlMatch[3] : user;
+  const repoName = urlMatch && urlMatch[4] ? urlMatch[4].replace(/.git$/, '') : '';
   return octo
     .ql(
-      `query readRepoGithub($user:String!, $repoName:String!) {
-        repository(owner:$user, name:$repoName) {
+      `query readRepoGithub($repoUser:String!, $repoName:String!) {
+        repository(owner:$repoUser, name:$repoName) {
           url
           id
           name
@@ -63,7 +67,7 @@ async function readRepoGithub(octo, repoName, user) {
         }
       }`,
       {
-        user,
+        repoUser,
         repoName
       }
     )
@@ -96,7 +100,7 @@ async function readAllReposGithub(octo) {
     .then((resp) => resp.user.repositories.nodes);
 }
 
-async function updateNameGithub(octo, repo) {
+async function updateNameGithub(octo, repo, newName) {
   return octo
     .ql(
       `mutation updateNameGithub ($input: UpdateRepositoryInput!) {
@@ -119,7 +123,7 @@ async function updateNameGithub(octo, repo) {
       {
         input: {
           repositoryId: repo.id,
-          name: repo.name
+          name: newName
         }
       }
     )
@@ -168,7 +172,7 @@ async function formatRepo(repoObj) {
   const repoBranch = 'master';
   const repoId = repoObj.id;
   const repoName = repoObj.name;
-  const repoDesc = repoObj.description;
+  const repoDesc = repoObj.description || '';
   const repoTopics = repoObj.repositoryTopics.nodes.map((node) => node.topic.name);
   const repoAliases = _uniq(_compact([repoObj.name, repoId]));
   return {
@@ -205,24 +209,20 @@ export default class Github {
     const repoObj = await createRepoGithub(this.octo, repo);
     return formatRepo(repoObj);
   }
-  async read(repoName) {
-    const repoObj = await readRepoGithub(this.octo, repoName, this.settings.user);
+  async read(repoPath) {
+    const repoObj = await readRepoGithub(this.octo, repoPath, this.settings.user);
     return formatRepo(repoObj);
   }
   async readAll(cb) {
     const repoObjs = await readAllReposGithub(this.octo);
-    return mapAsync(
-      repoObjs,
-      async (repoObj) => {
-        const repoRslt = await formatRepo(repoObj);
-        if (cb) cb(repoRslt);
-        return repoRslt;
-      },
-      true
-    );
+    return mapAsync(repoObjs, async (repoObj) => {
+      const repoRslt = await formatRepo(repoObj);
+      if (cb) cb(repoRslt);
+      return repoRslt;
+    });
   }
-  async updateName(repo) {
-    const repoObj = await updateNameGithub(this.octo, repo);
+  async updateName(repo, newName) {
+    const repoObj = await updateNameGithub(this.octo, repo, newName);
     return formatRepo(repoObj);
   }
   async updateMeta(repo) {

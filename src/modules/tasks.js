@@ -33,19 +33,6 @@ function mergeRepos(localRepos, githubRepos) {
 
 function getRepoStatus(repo, user) {
   if (repo.local) {
-    // this wont match if we don't have a github remote, which is an acceptable use case because we want to make one
-    // if (Object.keys(repo.local.remotes).length) {
-    //   const isOwned = reduce(
-    //     repo.local.remotes,
-    //     (accum, remote) => {
-    //       return remote.match(new RegExp(`github.com.*[\:\\\/]${user}[\\\/]`, 'gi')) ? true : accum;
-    //     },
-    //     false
-    //   );
-    //   if (!isOwned) {
-    //     return 'notOwned';
-    //   }
-    // }
     if (repo.local.branch !== 'master') {
       return 'notLocalMaster';
     }
@@ -155,10 +142,7 @@ export default class Tasks {
           cli.log('[syncRepos]', 'create - new github repo', repoCopy.local.name);
           repoCopy.github = await this.github.create(repoCopy.local);
           cli.log('[syncRepos]', 'update - local remotes', repoCopy.local.name);
-          repoCopy.local = { ...repoCopy.local, remotes: getNewRemotes(repoCopy.local.remotes, this.settings.user, repoCopy.local.aliases, repoCopy.local.name) };
-          repoCopy.local = await this.local.updateRemotes(repoCopy.local);
-          cli.log('[syncRepos]', 'push - local repo:', repoCopy.local.name);
-          repoCopy.local = await this.local.updatePush(repoCopy.local);
+          repoCopy.local = await this.local.updateRemotes(repoCopy.local, getNewRemotes(repoCopy.local.remotes, this.settings.user, repoCopy.local.aliases, repoCopy.local.name));
         }
         if (decision === 'remove') {
           cli.log('[syncRepos]', 'delete - local repo:', repoCopy.local.name);
@@ -211,17 +195,14 @@ export default class Tasks {
           }
         ]);
         if (newName !== 'skip' && repoCopy.local.name !== newName) {
-          cli.log('[updateNames]', 'update - local name:', repoCopy.local.path);
-          repoCopy.local = { ...repoCopy.local, name: newName };
-          repoCopy.local = await this.local.updateName(repoCopy.local);
+          cli.log('[updateNames]', 'update - local name:', repoCopy.local.name);
+          repoCopy.local = await this.local.updateName(repoCopy.local, newName);
         }
         if (newName !== 'skip' && repoCopy.github.name !== newName) {
-          cli.log('[updateNames]', 'update - github name:', repoCopy.github.path);
-          repoCopy.github = { ...repoCopy.github, name: newName };
-          repoCopy.github = await this.github.updateName(repoCopy.github);
+          cli.log('[updateNames]', 'update - github name:', repoCopy.github.name);
+          repoCopy.github = await this.github.updateName(repoCopy.github, newName);
           cli.log('[syncRepos]', 'update - local remotes:', repoCopy.local.name);
-          repoCopy.local = { ...repoCopy.local, remotes: getNewRemotes(repoCopy.local.remotes, this.settings.user, repoCopy.github.aliases, newName) };
-          repoCopy.local = await this.local.updateRemotes(repoCopy.local);
+          repoCopy.local = await this.local.updateRemotes(repoCopy.local, getNewRemotes(repoCopy.local.remotes, this.settings.user, repoCopy.github.aliases, newName));
         }
       }
       return repoCopy;
@@ -233,20 +214,18 @@ export default class Tasks {
     cli.log('[updateMeta]', 'update package.json and github meta');
     const rslt = await mapAsync(repos, async (repo) => {
       const repoCopy = { ...repo };
-      let localHasChanges = false;
-      let githubHasChanges = false;
+      const localChanges = {};
+      const githubChanges = {};
       if (repo.local.desc !== repo.github.desc) {
         const newDesc = await cli.ask('[updateMeta]', `diff - local desc different from github: ${repoCopy.local.name}`, [
           { name: `use local desc: ${repo.local.desc}`, value: repo.local.desc },
           { name: `use github desc: ${repo.github.desc}`, value: repo.github.desc }
         ]);
         if (newDesc !== 'skip' && repoCopy.local.desc !== newDesc) {
-          repoCopy.local = { ...repoCopy.local, desc: newDesc };
-          localHasChanges = true;
+          localChanges.desc = newDesc;
         }
         if (newDesc !== 'skip' && repoCopy.github.desc !== newDesc) {
-          repoCopy.github = { ...repoCopy.github, desc: newDesc };
-          githubHasChanges = true;
+          githubChanges.desc = newDesc;
         }
       }
       if (!_isEqual(repo.local.topics, repo.github.topics)) {
@@ -255,22 +234,25 @@ export default class Tasks {
           { name: `use github topics: ${repo.github.topics.join(', ')}`, value: repo.github.topics }
         ]);
         if (newTopics !== 'skip' && !_isEqual(repo.local.topics, newTopics)) {
-          repoCopy.local = { ...repoCopy.local, topics: newTopics };
-          localHasChanges = true;
+          localChanges.topics = newTopics;
         }
         if (newTopics !== 'skip' && !_isEqual(repo.github.topics, newTopics)) {
-          repoCopy.github = { ...repoCopy.github, topics: newTopics };
-          githubHasChanges = true;
+          githubChanges.topics = newTopics;
         }
       }
-      if (repoCopy.local.name !== repoCopy.local.package.name) {
-        localHasChanges = true;
+      if (repo.local.name !== repo.local.package.name) {
+        const decision = await cli.ask('[updateMeta]', `diff - local package name different from path: ${repoCopy.local.name}`, [{ name: `update package name`, value: 'update' }]);
+        if (decision === 'update') {
+          localChanges.name = repoCopy.local.name;
+        }
       }
-      if (localHasChanges) {
-        repoCopy.local = await this.local.updateMeta(repoCopy.local);
+      if (Object.keys(localChanges).length) {
+        cli.log('[updateMeta]', 'update - local package.json:', repoCopy.local.name);
+        repoCopy.local = this.local.updateMeta(repoCopy.local, localChanges);
       }
-      if (githubHasChanges) {
-        repoCopy.github = await this.github.updateMeta(repoCopy.local);
+      if (Object.keys(githubChanges).length) {
+        cli.log('[updateMeta]', 'update - local package.json:', repoCopy.github.name);
+        repoCopy.github = this.github.updateMeta(repoCopy.github, githubChanges);
       }
       return repoCopy;
     });
