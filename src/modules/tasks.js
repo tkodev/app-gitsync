@@ -9,7 +9,58 @@ import { intersection as _intersection, isEqual as _isEqual } from 'lodash';
 import Local from './local';
 import Github from './github';
 import * as cli from './cli';
-import { filter, reduce, mapAsync, groupByUniqueKey } from './common';
+import { filter, mapAsync, forEachAsync, groupByUniqueKey } from './common';
+
+// ****************************************************************************************************
+// Status Functions
+// ****************************************************************************************************
+
+function getRepoStatus(repo) {
+  const rslt = [];
+  if (repo.local) {
+    if (repo.local.branch !== 'master') {
+      rslt.push('notLocalMaster');
+    }
+    if (repo.local.status.behind + repo.local.status.ahead + repo.local.status.files.length) {
+      rslt.push('notSynced');
+    }
+  }
+  if (repo.github) {
+    if (repo.github.branch !== 'master') {
+      rslt.push('notGithubMaster');
+    }
+  }
+  return rslt;
+}
+
+function getRepoSyncStatus(repo) {
+  const rslt = [];
+  if (repo.local && !repo.github) {
+    rslt.push('noGithub');
+  }
+  if (repo.github && !repo.local) {
+    rslt.push('noLocal');
+  }
+  return rslt;
+}
+
+function getRepoNameStatus(repo) {
+  return repo.local.name !== repo.github.name ? 'nameMismatch' : 0;
+}
+
+function getRepoMetaStatus(repo) {
+  const rslt = [];
+  if (repo.local.name !== repo.github.name) {
+    rslt.push('nameMismatch');
+  }
+  if (repo.local.desc !== repo.github.desc) {
+    rslt.push('descMismatch');
+  }
+  if (!_isEqual(repo.local.topics, repo.github.topics)) {
+    rslt.push('topicsMismatch');
+  }
+  return rslt;
+}
 
 // ****************************************************************************************************
 // Shared Functions
@@ -29,33 +80,6 @@ function mergeRepos(localRepos, githubRepos) {
     repos[name][repo.type] = repo;
     return repos;
   }, {});
-}
-
-function getRepoStatus(repo, user) {
-  if (repo.local) {
-    if (repo.local.branch !== 'master') {
-      return 'notLocalMaster';
-    }
-    if (repo.local.status.behind + repo.local.status.ahead + repo.local.status.files.length) {
-      return 'notSynced';
-    }
-  }
-  if (repo.github) {
-    if (repo.github.branch !== 'master') {
-      return 'notGithubMaster';
-    }
-  }
-  return 0;
-}
-
-function getRepoSyncStatus(repo) {
-  if (repo.local && !repo.github) {
-    return 'noGithub';
-  }
-  if (repo.github && !repo.local) {
-    return 'noLocal';
-  }
-  return 0;
 }
 
 function getNewRemotes(remotes, user, aliases, newName) {
@@ -107,20 +131,17 @@ export default class Tasks {
   async checkStatus(repos) {
     cli.log('[checkStatus]', 'checking local repo status');
     const rslt = filter(repos, (repo) => {
-      const status = getRepoStatus(repo, this.settings.user);
-      if (status === 'notOwned') {
-        cli.log('[checkStatus]', `excluded from sync - github remote not owned by user: ${repo.local.name}`);
-      }
-      if (status === 'notLocalMaster') {
+      const status = getRepoStatus(repo);
+      if (status.includes('notLocalMaster')) {
         cli.log('[checkStatus]', `excluded from sync - local repo not on master branch: ${repo.local.name}`);
       }
-      if (status === 'notSynced') {
+      if (status.includes('notSynced')) {
         cli.log('[checkStatus]', `excluded from sync - local untracked or upstream changes: ${repo.local.name}`);
       }
-      if (status === 'notGithubMaster') {
+      if (status.includes('notGithubMaster')) {
         cli.log('[checkStatus]', `excluded from sync - github repo not on master branch: ${repo.github.name}`);
       }
-      if (status) {
+      if (status.length) {
         return false;
       }
       return true;
@@ -130,131 +151,148 @@ export default class Tasks {
   }
   async syncRepos(repos) {
     cli.log('[syncRepos]', 'download / upload missing repos');
-    const syncedRepos = await mapAsync(repos, async (repo) => {
-      const repoCopy = { ...repo };
-      const status = getRepoSyncStatus(repoCopy);
-      if (status === 'noGithub') {
-        const decision = await cli.ask('[syncRepos]', `missing - local repo not in github: ${repoCopy.local.name}`, [
-          { name: 'upload to github', value: 'upload' },
-          { name: 'remove local repo', value: 'remove' }
+    const rslt = await mapAsync(repos, async (repoOrig) => {
+      const repo = { ...repoOrig };
+      const status = getRepoSyncStatus(repo);
+      const actions = [];
+      if (status.includes('noGithub')) {
+        const action = await cli.ask('[syncRepos]', `missing - local repo not in github: ${repo.local.name}`, [
+          { name: 'upload to github', value: 'createGithub' },
+          { name: 'remove local repo', value: 'removeLocal' },
+          { name: '-' },
+          { name: 'skip and exclude repo from sync', value: 'skipLocal' }
         ]);
-        if (decision === 'upload') {
-          cli.log('[syncRepos]', 'create - new github repo', repoCopy.local.name);
-          repoCopy.github = await this.github.create(repoCopy.local);
-          cli.log('[syncRepos]', 'update - local remotes', repoCopy.local.name);
-          repoCopy.local = await this.local.updateRemotes(repoCopy.local, getNewRemotes(repoCopy.local.remotes, this.settings.user, repoCopy.local.aliases, repoCopy.local.name));
-        }
-        if (decision === 'remove') {
-          cli.log('[syncRepos]', 'delete - local repo:', repoCopy.local.name);
-          await this.local.remove(repoCopy.local);
-          delete repoCopy.local;
-        }
-        if (decision === 'skip') {
-          cli.log('[syncRepos]', 'skip - local repo:', repoCopy.local.name);
-          delete repoCopy.local;
-        }
+        actions.push(action);
       }
-      if (status === 'noLocal') {
-        const decision = await cli.ask('[syncRepos]', `missing - github repo not in local: ${repo.local.name}`, [
-          { name: 'clone to local', value: 'clone' },
-          { name: 'remove local repo', value: 'remove' }
+      if (status.includes('noLocal')) {
+        const action = await cli.ask('[syncRepos]', `missing - github repo not in local: ${repo.local.name}`, [
+          { name: 'clone to local', value: 'createLocal' },
+          { name: 'remove github repo', value: 'removeGithub' },
+          { name: '-' },
+          { name: 'skip and exclude repo from sync', value: 'skipGithub' }
         ]);
-        if (decision === 'clone') {
-          cli.log('[syncRepos]', 'clone - new local repo:', repoCopy.github.name);
-          repoCopy.local = await this.local.create(repoCopy.github, `git@github.com:${this.settings.user}/${repoCopy.github.name}.git`);
-        }
-        if (decision === 'remove') {
-          cli.log('[syncRepos]', 'delete - github repo:', repoCopy.local.name);
-          await this.github.remove(repoCopy.github);
-          delete repoCopy.github;
-        }
-        if (decision === 'skip') {
-          cli.log('[syncRepos]', 'skip - github repo:', repoCopy.local.name);
-          delete repoCopy.github;
-        }
+        actions.push(action);
       }
-      return repoCopy;
+      await forEachAsync(actions, async (action) => {
+        if (action === 'createGithub') {
+          const newRemotes = getNewRemotes(repo.local.remotes, this.settings.user, repo.local.aliases, repo.local.name);
+          cli.log('[syncRepos]', 'create - new github repo', repo.local.name);
+          repo.github = await this.github.create(repo.local);
+          cli.log('[syncRepos]', 'update - local remotes', repo.local.name);
+          repo.local = await this.local.updateRemotes(repo.local, newRemotes);
+        }
+        if (action === 'removeLocal') {
+          cli.log('[syncRepos]', 'delete - local repo:', repo.local.name);
+          await this.local.remove(repo.local);
+          delete repo.local;
+        }
+        if (action === 'skipLocal') {
+          cli.log('[syncRepos]', 'skip - local repo:', repo.local.name);
+          delete repo.local;
+        }
+        if (action === 'createLocal') {
+          const cloneUrl = `git@github.com:${this.settings.user}/${repo.github.name}.git`;
+          cli.log('[syncRepos]', 'clone - new local repo:', repo.github.name);
+          repo.local = await this.local.create(repo.github, cloneUrl);
+        }
+        if (action === 'removeGithub') {
+          cli.log('[syncRepos]', 'delete - github repo:', repo.local.name);
+          await this.github.remove(repo.github);
+          delete repo.github;
+        }
+        if (action === 'skipGithub') {
+          cli.log('[syncRepos]', 'skip - github repo:', repo.local.name);
+          delete repo.github;
+        }
+      });
+      return repo;
     });
-    const rslt = filter(syncedRepos, (repo) => repo.local && repo.github);
+    const filterRslt = filter(rslt, (repo) => repo.local && repo.github);
     cli.log('[syncRepos]', 'task complete.');
-    return rslt;
+    return filterRslt;
   }
   async updateNames(repos) {
     cli.log('[updateNames]', 'detecting repo names');
-    const rslt = await mapAsync(repos, async (repo) => {
-      const repoCopy = { ...repo };
-      if (repoCopy.local.name !== repoCopy.github.name) {
-        const newName = await cli.ask('[updateNames]', `conflict - local name different from github: ${repoCopy.local.name}`, [
-          {
-            name: `use local name: ${repoCopy.local.name}`,
-            value: repoCopy.local.name
-          },
-          {
-            name: `use github name: ${repoCopy.github.name}`,
-            value: repoCopy.github.name
-          }
+    const rslt = await mapAsync(repos, async (repoOrig) => {
+      const repo = { ...repoOrig };
+      const status = getRepoNameStatus(repo);
+      const actions = [];
+      if (status.includes('nameMismatch')) {
+        const action = await cli.ask('[updateNames]', `conflict - local name different from github: ${repo.local.name}`, [
+          { name: `use local name: ${repo.local.name}`, value: 'useLocalName' },
+          { name: `use github name: ${repo.github.name}`, value: 'useGithubName' },
+          { name: '-' },
+          { name: 'skip and exclude repo from sync', value: 'skipName' }
         ]);
-        if (newName !== 'skip' && repoCopy.local.name !== newName) {
-          cli.log('[updateNames]', 'update - local name:', repoCopy.local.name);
-          repoCopy.local = await this.local.updateName(repoCopy.local, newName);
-        }
-        if (newName !== 'skip' && repoCopy.github.name !== newName) {
-          cli.log('[updateNames]', 'update - github name:', repoCopy.github.name);
-          repoCopy.github = await this.github.updateName(repoCopy.github, newName);
-          cli.log('[syncRepos]', 'update - local remotes:', repoCopy.local.name);
-          repoCopy.local = await this.local.updateRemotes(repoCopy.local, getNewRemotes(repoCopy.local.remotes, this.settings.user, repoCopy.github.aliases, newName));
-        }
+        actions.push(action);
       }
-      return repoCopy;
+      await forEachAsync(actions, async (action) => {
+        if (action === 'useLocalName') {
+          cli.log('[updateNames]', 'update - use local name:', repo.local.name);
+          repo.github = await this.github.updateName(repo.github, repo.local.name);
+          cli.log('[syncRepos]', 'update - local remotes:', repo.local.name);
+          repo.local = await this.local.updateRemotes(repo.local, getNewRemotes(repo.local.remotes, this.settings.user, repo.github.aliases, repo.local.name));
+        }
+        if (action === 'useGithubName') {
+          cli.log('[updateNames]', 'update - use github name:', repo.github.name);
+          repo.local = await this.local.updateName(repo.local, repo.github.name);
+        }
+      });
+      return repo;
     });
     cli.log('[updateNames]', 'task complete.');
     return rslt;
   }
   async updateMeta(repos) {
     cli.log('[updateMeta]', 'update package.json and github meta');
-    const rslt = await mapAsync(repos, async (repo) => {
-      const repoCopy = { ...repo };
-      const localChanges = {};
-      const githubChanges = {};
-      if (repo.local.desc !== repo.github.desc) {
-        const newDesc = await cli.ask('[updateMeta]', `diff - local desc different from github: ${repoCopy.local.name}`, [
-          { name: `use local desc: ${repo.local.desc}`, value: repo.local.desc },
-          { name: `use github desc: ${repo.github.desc}`, value: repo.github.desc }
+    const rslt = await mapAsync(repos, async (repoOrig) => {
+      const repo = { ...repoOrig };
+      const status = getRepoMetaStatus(repo);
+      const actions = [];
+      if (status.includes('nameMismatch')) {
+        const action = await cli.ask('[updateMeta]', `diff - local package name different from local: ${repo.local.name}`, [
+          { name: `update package name`, value: 'updatePackageName' },
+          { name: '-' },
+          { name: 'skip for this repo', value: 'skip' }
         ]);
-        if (newDesc !== 'skip' && repoCopy.local.desc !== newDesc) {
-          localChanges.desc = newDesc;
-        }
-        if (newDesc !== 'skip' && repoCopy.github.desc !== newDesc) {
-          githubChanges.desc = newDesc;
-        }
+        actions.push(action);
       }
-      if (!_isEqual(repo.local.topics, repo.github.topics)) {
-        const newTopics = await cli.ask('[updateMeta]', `diff - local topics different from github: ${repoCopy.local.name}`, [
-          { name: `use local topics: ${repo.local.topics.join(', ')}`, value: repo.local.topics },
-          { name: `use github topics: ${repo.github.topics.join(', ')}`, value: repo.github.topics }
+      if (status.includes('descMismatch')) {
+        const action = await cli.ask('[updateMeta]', `diff - local desc different from github: ${repo.local.name}`, [
+          { name: `use local desc: ${repo.local.desc}`, value: 'useLocalDesc' },
+          { name: `use github desc: ${repo.github.desc}`, value: 'useGithubDesc' },
+          { name: '-' },
+          { name: 'skip for this repo', value: 'skip' }
         ]);
-        if (newTopics !== 'skip' && !_isEqual(repo.local.topics, newTopics)) {
-          localChanges.topics = newTopics;
+        actions.push(action);
+      }
+      if (status.includes('topicsMismatch')) {
+        const action = await cli.ask('[updateMeta]', `diff - local topics different from github: ${repo.local.name}`, [
+          { name: `use local topics: ${repo.local.topics.join(', ')}`, value: 'useLocalTopics' },
+          { name: `use github topics: ${repo.github.topics.join(', ')}`, value: 'useGithubTopics' },
+          { name: '-' },
+          { name: 'skip for this repo', value: 'skip' }
+        ]);
+        actions.push(action);
+      }
+      await forEachAsync(actions, async (action) => {
+        if (action === 'updatePackageName') {
+          //
         }
-        if (newTopics !== 'skip' && !_isEqual(repo.github.topics, newTopics)) {
-          githubChanges.topics = newTopics;
+        if (action === 'useLocalDesc') {
+          //
         }
-      }
-      if (repo.local.name !== repo.local.package.name) {
-        const decision = await cli.ask('[updateMeta]', `diff - local package name different from path: ${repoCopy.local.name}`, [{ name: `update package name`, value: 'update' }]);
-        if (decision === 'update') {
-          localChanges.name = repoCopy.local.name;
+        if (action === 'useGithubDesc') {
+          //
         }
-      }
-      if (Object.keys(localChanges).length) {
-        cli.log('[updateMeta]', 'update - local package.json:', repoCopy.local.name);
-        repoCopy.local = this.local.updateMeta(repoCopy.local, localChanges);
-      }
-      if (Object.keys(githubChanges).length) {
-        cli.log('[updateMeta]', 'update - local package.json:', repoCopy.github.name);
-        repoCopy.github = this.github.updateMeta(repoCopy.github, githubChanges);
-      }
-      return repoCopy;
+        if (action === 'useLocalTopics') {
+          //
+        }
+        if (action === 'useGithubTopics') {
+          //
+        }
+      });
+      return repo;
     });
     cli.log('[updateMeta]', 'task complete.');
     return rslt;

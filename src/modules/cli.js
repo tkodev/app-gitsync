@@ -19,7 +19,7 @@ export async function ask(prefix, message, choices) {
     name: 'answer',
     message,
     prefix,
-    choices: [...choices, new IqSeparator(), { name: 'skip', value: 'skip' }],
+    choices: choices.map((choice) => (choice.name === 'separator' || choice.name === '-' ? new IqSeparator() : choice)),
     default: 'skip'
   }).then((response) => response.answer);
 }
