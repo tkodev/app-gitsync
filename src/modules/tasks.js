@@ -50,14 +50,14 @@ function getRepoNameStatus(repo) {
 
 function getRepoMetaStatus(repo) {
   const rslt = [];
-  if (repo.local.name !== repo.github.name) {
-    rslt.push('nameMismatch');
+  if (repo.local.remotes.origin !== repo.github.path) {
+    rslt.push('remoteMismatch');
   }
   if (repo.local.desc !== repo.github.desc) {
     rslt.push('descMismatch');
   }
-  if (!_isEqual(repo.local.topics, repo.github.topics)) {
-    rslt.push('topicsMismatch');
+  if (repo.local.package.description !== repo.local.desc || repo.local.package.description !== repo.github.desc || !_isEqual(repo.local.package.keywords, repo.github.topics)) {
+    rslt.push('metaMismatch');
   }
   return rslt;
 }
@@ -82,7 +82,7 @@ function mergeRepos(localRepos, githubRepos) {
   }, {});
 }
 
-function getNewRemotes(remotes, user, aliases, newName) {
+function getNewRemotes(remotes, user, newName, aliases) {
   const types = [
     { name: 'other', regex: new RegExp('.*') },
     { name: 'pantheon', regex: new RegExp('(pantheon|drush.in|codeserver)', 'gi') },
@@ -175,10 +175,10 @@ export default class Tasks {
       }
       await forEachAsync(actions, async (action) => {
         if (action === 'createGithub') {
-          const newRemotes = getNewRemotes(repo.local.remotes, this.settings.user, repo.local.aliases, repo.local.name);
           cli.log('[syncRepos]', 'create - new github repo', repo.local.name);
           repo.github = await this.github.create(repo.local);
-          cli.log('[syncRepos]', 'update - local remotes', repo.local.name);
+          cli.log('[syncRepos]', 'update - local remotes:', repo.local.name);
+          const newRemotes = getNewRemotes(repo.local.remotes, this.settings.user, repo.local.name, repo.local.aliases);
           repo.local = await this.local.updateRemotes(repo.local, newRemotes);
         }
         if (action === 'removeLocal') {
@@ -231,7 +231,8 @@ export default class Tasks {
           cli.log('[updateNames]', 'update - use local name:', repo.local.name);
           repo.github = await this.github.updateName(repo.github, repo.local.name);
           cli.log('[syncRepos]', 'update - local remotes:', repo.local.name);
-          repo.local = await this.local.updateRemotes(repo.local, getNewRemotes(repo.local.remotes, this.settings.user, repo.github.aliases, repo.local.name));
+          const newRemotes = getNewRemotes(repo.local.remotes, this.settings.user, repo.local.name, repo.local.aliases);
+          repo.local = await this.local.updateRemotes(repo.local, newRemotes);
         }
         if (action === 'useGithubName') {
           cli.log('[updateNames]', 'update - use github name:', repo.github.name);
@@ -249,50 +250,6 @@ export default class Tasks {
       const repo = { ...repoOrig };
       const status = getRepoMetaStatus(repo);
       const actions = [];
-      if (status.includes('nameMismatch')) {
-        const action = await cli.ask('[updateMeta]', `diff - local package name different from local: ${repo.local.name}`, [
-          { name: `update package name`, value: 'updatePackageName' },
-          { name: '-' },
-          { name: 'skip for this repo', value: 'skip' }
-        ]);
-        actions.push(action);
-      }
-      if (status.includes('descMismatch')) {
-        const action = await cli.ask('[updateMeta]', `diff - local desc different from github: ${repo.local.name}`, [
-          { name: `use local desc: ${repo.local.desc}`, value: 'useLocalDesc' },
-          { name: `use github desc: ${repo.github.desc}`, value: 'useGithubDesc' },
-          { name: '-' },
-          { name: 'skip for this repo', value: 'skip' }
-        ]);
-        actions.push(action);
-      }
-      if (status.includes('topicsMismatch')) {
-        const action = await cli.ask('[updateMeta]', `diff - local topics different from github: ${repo.local.name}`, [
-          { name: `use local topics: ${repo.local.topics.join(', ')}`, value: 'useLocalTopics' },
-          { name: `use github topics: ${repo.github.topics.join(', ')}`, value: 'useGithubTopics' },
-          { name: '-' },
-          { name: 'skip for this repo', value: 'skip' }
-        ]);
-        actions.push(action);
-      }
-      await forEachAsync(actions, async (action) => {
-        if (action === 'updatePackageName') {
-          //
-        }
-        if (action === 'useLocalDesc') {
-          //
-        }
-        if (action === 'useGithubDesc') {
-          //
-        }
-        if (action === 'useLocalTopics') {
-          //
-        }
-        if (action === 'useGithubTopics') {
-          //
-        }
-      });
-      return repo;
     });
     cli.log('[updateMeta]', 'task complete.');
     return rslt;

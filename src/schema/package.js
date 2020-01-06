@@ -3,6 +3,7 @@ export default {
   name: '',
   version: '1.0.0',
   license: 'ISC',
+  private: true,
   // meta fields
   author: '',
   contributors: [],

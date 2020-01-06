@@ -48,6 +48,7 @@
   "dependencies": {
     "@octokit/graphql": "^4.3.1",
     "@octokit/rest": "^16.34.1",
+    "commander": "^4.1.0",
     "dotenv": "^8.2.0",
     "fast-glob": "^3.1.0",
     "fs-extra": "^8.1.0",

@@ -36,7 +36,7 @@ async function readAllReposLocal(srcDir) {
     onlyDirectories: true,
     absolute: true
   }).then((repoPaths) => {
-    return mapAsync(repoPaths, async (repoPath) => git(pathDirname(repoPath, '.git')).silent(true));
+    return mapAsync(repoPaths, async (repoPath) => readRepoLocal(pathDirname(repoPath, '.git')));
   });
 }
 
