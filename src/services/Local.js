@@ -10,7 +10,7 @@ import git from 'simple-git/promise';
 import { keyBy as _keyBy, uniq as _uniq, compact as _compact } from 'lodash';
 
 // local dependencies
-import { forEach, map, mapAsync, posixPath } from './common';
+import { forEach, map, mapAsync, posixPath } from '../modules/common';
 import packageSchema from '../schema/package';
 
 // ****************************************************************************************************
@@ -132,11 +132,11 @@ async function formatRepo(repoObj) {
 // ****************************************************************************************************
 
 export default class Local {
-  constructor(settings) {
-    this.settings = settings;
+  constructor(cfg) {
+    this.cfg = cfg;
   }
   async create(repo, cloneUrl) {
-    const repoObj = await createRepoLocal(this.settings.srcDir, repo, cloneUrl);
+    const repoObj = await createRepoLocal(this.cfg.srcDir, repo, cloneUrl);
     return formatRepo(repoObj);
   }
   async read(repoPath) {
@@ -144,7 +144,7 @@ export default class Local {
     return formatRepo(repoObj);
   }
   async readAll(cb) {
-    const repoObjs = await readAllReposLocal(this.settings.srcDir);
+    const repoObjs = await readAllReposLocal(this.cfg.srcDir);
     return mapAsync(repoObjs, async (repoObj) => {
       const repoRslt = await formatRepo(repoObj);
       if (cb) cb(repoRslt);

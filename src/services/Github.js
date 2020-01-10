@@ -8,7 +8,7 @@ import OctoRest from '@octokit/rest';
 import { uniq as _uniq, compact as _compact } from 'lodash';
 
 // local dependencies
-import { mapAsync } from './common';
+import { mapAsync } from '../modules/common';
 
 // ****************************************************************************************************
 // Shared Functions
@@ -192,15 +192,15 @@ async function formatRepo(repoObj) {
 // ****************************************************************************************************
 
 export default class Github {
-  constructor(settings) {
-    this.settings = settings;
+  constructor(cfg) {
+    this.cfg = cfg;
     this.octo = {
       rest: new OctoRest({
-        auth: `token ${settings.token}`
+        auth: `token ${cfg.token}`
       }),
       ql: octoQL.defaults({
         headers: {
-          authorization: `token ${settings.token}`
+          authorization: `token ${cfg.token}`
         }
       })
     };
@@ -210,7 +210,7 @@ export default class Github {
     return formatRepo(repoObj);
   }
   async read(repoPath) {
-    const repoObj = await readRepoGithub(this.octo, repoPath, this.settings.user);
+    const repoObj = await readRepoGithub(this.octo, repoPath, this.cfg.user);
     return formatRepo(repoObj);
   }
   async readAll(cb) {
@@ -230,7 +230,7 @@ export default class Github {
     return formatRepo(repoObj);
   }
   async remove(repo) {
-    const repoObj = await removeRepoGithub(this.octo, repo, this.settings.user);
+    const repoObj = await removeRepoGithub(this.octo, repo, this.cfg.user);
     return null;
   }
 }
