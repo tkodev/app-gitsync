@@ -5,6 +5,7 @@
 // dependencies
 import dotenv from 'dotenv';
 import commander from 'commander';
+import { keyBy as _keyBy } from 'lodash';
 
 // local dependencies
 import Local from '../services/Local';
@@ -30,6 +31,22 @@ function getArgCfg() {
   );
 }
 
+function mergeRepos(repoSet1, repoSet2, key = 'name') {
+  const repoSet = [...repoSet1, ...repoSet2];
+  const rslt = {};
+  repoSet.forEach((repo) => {
+    const curKey = repo[key];
+    const curType = repo.type;
+    rslt[curKey] = rslt[curKey];
+    rslt[curKey][curType] = {
+      base: {
+        ...repo
+      },
+      changes: {}
+    };
+  });
+}
+
 // ****************************************************************************************************
 // Export Functions
 // ****************************************************************************************************
@@ -47,18 +64,25 @@ export default class Tasks {
   async start() {
     let repos = {};
     repos = await this.loadRepos(repos);
-    // repos = await this.checkStatus(repos);
-    // repos = await this.syncRepos(repos);
-    // repos = await this.updateMeta(repos);
+    repos = await this.syncRepos(repos);
+    repos = await this.updateMeta(repos);
   }
   async loadRepos() {
     this.cli.log('[load]', 'loading local repos');
     const localRepos = await this.local.readAll((repo) => {
-      this.cli.log('[load]', 'load - local repo:', repo.name);
+      this.cli.log('[load]', 'load - local repo:', repo.name, repo.id);
     });
     this.cli.log('[load]', 'loading github repos');
     const githubRepos = await this.github.readAll((repo) => {
-      this.cli.log('[load]', 'load - github repo:', repo.name);
+      this.cli.log('[load]', 'load - github repo:', repo.name, repo.id);
     });
+    return mergedRepos;
+  }
+  async syncRepos(repos) {
+
+    return repos;
+  }
+  async updateMeta(repos) {
+    return repos;
   }
 }

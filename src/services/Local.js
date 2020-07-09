@@ -110,7 +110,7 @@ async function formatRepo(repoObj) {
   const repoRemoteNames = repoRemotesArr.map((remote) => (pathBasename(remote.refs.fetch, '.git') !== 'repository' ? pathBasename(remote.refs.fetch, '.git') : null));
   const repoRemotes = map(_keyBy(repoRemotesArr, (remote) => remote.name), (remote) => remote.refs.fetch);
   const repoAliases = _uniq(_compact([pathBasename(repoPath), repoId, ...repoRemoteNames]));
-  if (repoName === '.') console.log(repoRemotes);
+  if (repoName === '.') throw new Error(`${repoName} is malformed: '.'`);
   return {
     type: 'local',
     path: repoPath,

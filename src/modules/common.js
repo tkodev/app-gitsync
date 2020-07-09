@@ -147,3 +147,12 @@ export function posixPath(path, stripTrailing) {
   }
   return prefix + segs.join('/');
 }
+
+export function getGitUrlMeta(url = '') {
+  const urlRegex = new RegExp(/^(?:(https?|git):\/\/)?([\w\-]+@)?(.+)[:\/]([\w\-]+)\/([\w\-]+)(?:.git)?$/);
+  const urlMatch = url.match(urlRegex);
+  console.log(urlMatch);
+  return {
+    protocol: urlMatch
+  };
+}
